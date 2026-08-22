@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#050505">
+<title>X7</title>
+
+<style>
+*{box-sizing:border-box}
+:root{
+ --bg:#050505;
+ --card:#101010;
+ --card2:#151515;
+ --line:#242424;
+ --text:#f5f5f5;
+ --muted:#777;
+ --accent:#fff;
+ --danger:#ff5c5c;
+ --green:#7dffae;
+}
+body{
+ margin:0;
+ background:
+ radial-gradient(circle at 50% -10%,#1c1c1c 0,#090909 35%,#050505 70%);
+ color:var(--text);
+ font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;
+ min-height:100vh;
+}
+.app{
+ width:min(100%,520px);
+ margin:auto;
+ padding:24px 18px 110px;
+}
+header{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ margin-bottom:28px;
+}
+.brand{
+ font-size:30px;
+ font-weight:900;
+ letter-spacing:-2px;
+}
+.greeting{
+ color:var(--muted);
+ font-size:12px;
+ margin-top:3px;
+}
+.icon{
+ width:42px;
+ height:42px;
+ border:1px solid var(--line);
+ border-radius:14px;
+ background:#0d0d0d;
+ color:white;
+ font-size:18px;
+}
+.hero{
+ background:linear-gradient(145deg,#171717,#0c0c0c);
+ border:1px solid #292929;
+ border-radius:28px;
+ padding:24px;
+ box-shadow:0 20px 60px #000;
+}
+.label{
+ color:#666;
+ font-size:10px;
+ letter-spacing:2px;
+ font-weight:800;
+}
+.balance{
+ font-size:52px;
+ line-height:1;
+ font-weight:900;
+ letter-spacing:-3px;
+ margin:12px 0 5px;
+}
+.balance-sub{
+ color:#777;
+ font-size:13px;
+}
+.progress{
+ height:5px;
+ background:#242424;
+ border-radius:10px;
+ margin:22px 0 12px;
+ overflow:hidden;
+}
+.progress div{
+ height:100%;
+ background:white;
+ width:0;
+ border-radius:10px;
+ transition:.3s;
+}
+.hero-info{
+ display:flex;
+ justify-content:space-between;
+ color:#777;
+ font-size:12px;
+}
+.hero-info b{color:white}
+
+.grid{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:10px;
+ margin-top:14px;
+}
+.card{
+ background:var(--card);
+ border:1px solid var(--line);
+ border-radius:20px;
+ padding:18px;
+}
+.action{
+ text-align:left;
+ color:white;
+ cursor:pointer;
+ transition:.15s;
+}
+.action:active{transform:scale(.97)}
+.action .emoji{
+ font-size:24px;
+ display:block;
+ margin-bottom:10px;
+}
+.action strong{
+ display:block;
+ font-size:14px;
+}
+.action small{
+ color:#666;
+ display:block;
+ margin-top:5px;
+}
+.section{margin-top:28px}
+.section-head{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ margin-bottom:10px;
+}
+.section-head h2{
+ font-size:16px;
+ margin:0;
+}
+.muted{color:#666;font-size:12px}
+.row{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ padding:15px 0;
+ border-bottom:1px solid #1d1d1d;
+}
+.row:last-child{border:0}
+.row-left{
+ display:flex;
+ gap:12px;
+ align-items:center;
+}
+.row-icon{
+ width:36px;
+ height:36px;
+ display:grid;
+ place-items:center;
+ background:#181818;
+ border-radius:12px;
+}
+.row-name{font-size:14px;font-weight:700}
+.row-sub{font-size:11px;color:#666;margin-top:3px}
+.amount{font-weight:800}
+.negative{color:#ff7474}
+.green{color:#7dffae}
+
+.debt{
+ padding:20px;
+ background:linear-gradient(145deg,#161616,#0d0d0d);
+}
+.debt-number{
+ font-size:31px;
+ font-weight:900;
+ margin:5px 0 12px;
+}
+.debtbar{
+ height:7px;
+ background:#252525;
+ border-radius:20px;
+ overflow:hidden;
+}
+.debtbar div{
+ height:100%;
+ background:white;
+ width:0;
+}
+.debt-info{
+ display:flex;
+ justify-content:space-between;
+ color:#666;
+ font-size:11px;
+ margin-top:8px;
+}
+
+.afford{
+ display:flex;
+ gap:8px;
+}
+input{
+ width:100%;
+ background:#0d0d0d;
+ color:white;
+ border:1px solid #292929;
+ border-radius:13px;
+ padding:13px;
+ outline:none;
+ font-size:15px;
+}
+input:focus{border-color:#666}
+.primary{
+ background:white;
+ color:black;
+ border:0;
+ border-radius:13px;
+ padding:0 16px;
+ font-weight:800;
+}
+.result{
+ margin-top:10px;
+ padding:13px;
+ border-radius:13px;
+ background:#161616;
+ font-size:13px;
+ line-height:1.5;
+}
+
+.fab{
+ position:fixed;
+ bottom:24px;
+ left:50%;
+ transform:translateX(-50%);
+ width:64px;
+ height:64px;
+ border-radius:50%;
+ border:1px solid #444;
+ background:white;
+ color:black;
+ font-size:32px;
+ box-shadow:0 10px 40px #000;
+ z-index:10;
+}
+
+.modal{
+ position:fixed;
+ inset:0;
+ background:#000b;
+ display:flex;
+ align-items:end;
+ justify-content:center;
+ z-index:20;
+}
+.modal.hidden{display:none}
+.sheet{
+ width:min(520px,100%);
+ background:#111;
+ border:1px solid #292929;
+ border-radius:28px 28px 0 0;
+ padding:22px 18px 30px;
+ max-height:88vh;
+ overflow:auto;
+}
+.sheet-head{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ margin-bottom:20px;
+}
+.sheet h3{margin:0}
+.close{
+ background:#1b1b1b;
+ border:1px solid #292929;
+ color:white;
+ width:38px;
+ height:38px;
+ border-radius:12px;
+}
+.field{margin-bottom:14px}
+.field label{
+ display:block;
+ color:#777;
+ font-size:11px;
+ margin-bottom:7px;
+}
+.actions{
+ display:flex;
+ gap:8px;
+ margin-top:18px;
+}
+.actions button{
+ flex:1;
+ padding:13px;
+ border-radius:13px;
+ border:1px solid #292929;
+ background:#191919;
+ color:white;
+ font-weight:700;
+}
+.actions .primary{background:white;color:black}
+
+.big-choice{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:8px;
+}
+.big-choice button{
+ padding:15px;
+ background:#171717;
+ color:white;
+ border:1px solid #292929;
+ border-radius:14px;
+ text-align:left;
+}
+
+.empty{
+ padding:18px 0;
+ color:#555;
+ font-size:13px;
+}
+
+@media(max-width:380px){
+ .balance{font-size:44px}
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<header>
+ <div>
+  <div class="brand">X7</div>
+  <div class="greeting" id="greeting">Good evening, Calvin.</div>
+ </div>
+ <button class="icon" onclick="settings()">⚙</button>
+</header>
+
+<section class="hero">
+
+ <div class="label">TODAY'S CONTROL</div>
+
+ <div class="balance" id="balance">₹500</div>
+ <div class="balance-sub">available to use</div>
+
+ <div class="progress">
+  <div id="moneyProgress"></div>
+ </div>
+
+ <div class="hero-info">
+  <span>Received <b id="received">₹500</b></span>
+  <span>Spent <b id="spent">₹0</b></span>
+ </div>
+
+</section>
+
+
+<div class="grid">
+
+ <button class="card action" onclick="expense('food')">
+  <span class="emoji">🍛</span>
+  <strong>Food</strong>
+  <small id="foodLeft">₹150 left</small>
+ </button>
+
+ <button class="card action" onclick="expense('transport')">
+  <span class="emoji">🚇</span>
+  <strong>Transport</strong>
+  <small id="transportLeft">₹40 left</small>
+ </button>
+
+ <button class="card action" onclick="cigarette()">
+  <span class="emoji">🚬</span>
+  <strong>Cigarettes</strong>
+  <small id="cigStatus">0 / 3</small>
+ </button>
+
+ <button class="card action" onclick="otherExpense()">
+  <span class="emoji">＋</span>
+  <strong>Other</strong>
+  <small>Add spending</small>
+ </button>
+
+</div>
+
+
+<section class="section">
+
+ <div class="section-head">
+  <h2>💳 Debt</h2>
+  <button class="muted" onclick="payDebt()">Pay</button>
+ </div>
+
+ <div class="card debt">
+
+  <div class="label">REMAINING</div>
+
+  <div class="debt-number" id="debt">₹30,000</div>
+
+  <div class="debtbar">
+   <div id="debtProgress"></div>
+  </div>
+
+  <div class="debt-info">
+   <span>Paid <b id="debtPaid">₹0</b></span>
+   <span>Original ₹30,000</span>
+  </div>
+
+ </div>
+
+</section>
+
+
+<section class="section">
+
+ <div class="section-head">
+  <h2>🍛 Can I afford it?</h2>
+ </div>
+
+ <div class="card">
+
+  <div class="afford">
+   <input id="foodName" placeholder="Chicken biryani">
+   <input id="foodPrice" type="number" placeholder="₹">
+   <button class="primary" onclick="checkFood()">?</button>
+  </div>
+
+  <div id="foodResult"></div>
+
+ </div>
+
+</section>
+
+
+<section class="section">
+
+ <div class="section-head">
+  <h2>🧠 Life</h2>
+  <span class="muted">today</span>
+ </div>
+
+ <div class="grid">
+
+  <button class="card action" onclick="meal()">
+   <span class="emoji">🍽️</span>
+   <strong>Meals</strong>
+   <small id="mealStatus">0 / 3</small>
+  </button>
+
+  <button class="card action" onclick="sleepTarget()">
+   <span class="emoji">😴</span>
+   <strong>Sleep</strong>
+   <small id="sleepStatus">Target 12:30 AM</small>
+  </button>
+
+ </div>
+
+</section>
+
+
+<section class="section">
+
+ <div class="section-head">
+  <h2>Activity</h2>
+  <span class="muted">today</span>
+ </div>
+
+ <div class="card" id="activity"></div>
+
+</section>
+
+</div>
+
+
+<button class="fab" onclick="quickAdd()">+</button>
+
+
+<div class="modal hidden" id="modal">
+
+ <div class="sheet">
+
+  <div class="sheet-head">
+   <h3 id="modalTitle">X7</h3>
+   <button class="close" onclick="closeModal()">×</button>
+  </div>
+
+  <div id="modalContent"></div>
+
+ </div>
+
+</div>
+
+
+<script>
+
+const KEY="X7_DATA";
+
+const defaults={
+ dailyMoney:500,
+ foodBudget:150,
+ transportBudget:40,
+ cigarettePrice:14,
+ cigaretteLimit:3,
+ debt:30000,
+ originalDebt:30000,
+ expenses:[],
+ debtPayments:[],
+ meals:[],
+ sleepTarget:"00:30"
+};
+
+let data=load();
+
+function load(){
+
+ try{
+  const saved=JSON.parse(localStorage.getItem(KEY));
+  return {...defaults,...saved};
+ }catch{
+  return {...defaults};
+ }
+
+}
+
+function save(){
+ localStorage.setItem(KEY,JSON.stringify(data));
+}
+
+function today(){
+
+ return new Date().toISOString().slice(0,10);
+
+}
+
+function money(n){
+
+ return "₹"+Math.round(n).toLocaleString("en-IN");
+
+}
+
+function expensesToday(){
+
+ return data.expenses.filter(x=>x.date===today());
+
+}
+
+function totalSpent(){
+
+ return expensesToday()
+ .reduce((a,b)=>a+b.amount,0);
+
+}
+
+function categorySpent(cat){
+
+ return expensesToday()
+ .filter(x=>x.category===cat)
+ .reduce((a,b)=>a+b.amount,0);
+
+}
+
+function cigarettesToday(){
+
+ return expensesToday()
+ .filter(x=>x.category==="cigarette")
+ .reduce((a,b)=>a+b.qty,0);
+
+}
+
+function update(){
+
+ const spent=totalSpent();
+
+ const remaining=Math.max(
+  0,
+  data.dailyMoney-spent
+ );
+
+ document.getElementById("balance").textContent=
+  money(remaining);
+
+ document.getElementById("received").textContent=
+  money(data.dailyMoney);
+
+ document.getElementById("spent").textContent=
+  money(spent);
+
+ document.getElementById("moneyProgress").style.width=
+  Math.min(100,spent/data.dailyMoney*100)+"%";
+
+
+ const foodLeft=Math.max(
+  0,
+  data.foodBudget-categorySpent("food")
+ );
+
+ const transportLeft=Math.max(
+  0,
+  data.transportBudget-categorySpent("transport")
+ );
+
+ document.getElementById("foodLeft").textContent=
+  money(foodLeft)+" left";
+
+ document.getElementById("transportLeft").textContent=
+  money(transportLeft)+" left";
+
+
+ const cig=cigarettesToday();
+
+ document.getElementById("cigStatus").textContent=
+  cig+" / "+data.cigaretteLimit;
+
+
+ document.getElementById("debt").textContent=
+  money(data.debt);
+
+ const paid=
+  data.originalDebt-data.debt;
+
+ document.getElementById("debtPaid").textContent=
+  money(paid);
+
+ document.getElementById("debtProgress").style.width=
+  Math.min(
+   100,
+   paid/data.originalDebt*100
+  )+"%";
+
+
+ const meals=
+  data.meals.filter(x=>x.date===today()).length;
+
+ document.getElementById("mealStatus").textContent=
+  meals+" / 3";
+
+
+ document.getElementById("sleepStatus").textContent=
+  "Target "+formatTime(data.sleepTarget);
+
+
+ renderActivity();
+
+}
+
+function formatTime(t){
+
+ let [h,m]=t.split(":");
+ h=Number(h);
+
+ let suffix=h>=12?"PM":"AM";
+
+ h=h%12||12;
+
+ return `${h}:${m} ${suffix}`;
+
+}
+
+
+function expense(category){
+
+ let label={
+  food:"Food",
+  transport:"Transport"
+ }[category];
+
+ let defaultAmount=
+  category==="transport"?20:"";
+
+ openForm(
+  "Add "+label,
+  category,
+  defaultAmount
+ );
+
+}
+
+
+function otherExpense(){
+
+ openForm("Other spending","other","");
+
+}
+
+
+function openForm(title,category,amount){
+
+ document.getElementById("modalTitle").textContent=
+  title;
+
+ document.getElementById("modalContent").innerHTML=`
+
+  <div class="field">
+   <label>AMOUNT</label>
+   <input id="amount" type="number"
+          value="${amount}"
+          placeholder="₹ amount">
+  </div>
+
+  <div class="field">
+   <label>NOTE</label>
+   <input id="note" placeholder="What was it?">
+  </div>
+
+  <div class="actions">
+   <button onclick="closeModal()">Cancel</button>
+   <button class="primary"
+           onclick="saveExpense('${category}')">
+    Save
+   </button>
+  </div>
+ `;
+
+ document.getElementById("modal")
+ .classList.remove("hidden");
+
+}
+
+
+function saveExpense(category){
+
+ const amount=
+  Number(document.getElementById("amount").value);
+
+ if(!amount||amount<=0)return;
+
+ const note=
+  document.getElementById("note").value;
+
+ data.expenses.push({
+
+  date:today(),
+  category,
+  amount,
+  qty:1,
+  note:note||category,
+  time:Date.now()
+
+ });
+
+ save();
+ closeModal();
+ update();
+
+}
+
+
+function cigarette(){
+
+ const count=cigarettesToday();
+
+ if(count>=data.cigaretteLimit){
+
+  if(!confirm(
+   "You've reached today's cigarette target.\n\n"+
+   "Log another cigarette for "+money(data.cigarettePrice)+"?"
+  ))return;
+
+ }
+
+ data.expenses.push({
+
+  date:today(),
+  category:"cigarette",
+  amount:data.cigarettePrice,
+  qty:1,
+  note:"Cigarette",
+  time:Date.now()
+
+ });
+
+ save();
+ update();
+
+}
+
+
+function payDebt(){
+
+ document.getElementById("modalTitle").textContent=
+  "Pay debt";
+
+ document.getElementById("modalContent").innerHTML=`
+
+  <div class="field">
+   <label>PAYMENT</label>
+   <input id="debtAmount"
+          type="number"
+          placeholder="₹ amount">
+  </div>
+
+  <div class="actions">
+   <button onclick="closeModal()">Cancel</button>
+   <button class="primary"
+           onclick="saveDebt()">
+    Pay debt
+   </button>
+  </div>
+ `;
+
+ document.getElementById("modal")
+ .classList.remove("hidden");
+
+}
+
+
+function saveDebt(){
+
+ let amount=
+  Number(document.getElementById("debtAmount").value);
+
+ if(!amount||amount<=0)return;
+
+ amount=Math.min(amount,data.debt);
+
+ data.debt-=amount;
+
+ data.debtPayments.push({
+
+  amount,
+  date:today(),
+  time:Date.now()
+
+ });
+
+ save();
+ closeModal();
+ update();
+
+}
+
+
+function checkFood(){
+
+ const name=
+  document.getElementById("foodName").value||
+  "This";
+
+ const price=
+  Number(document.getElementById("foodPrice").value);
+
+ if(!price)return;
+
+ const remaining=
+  Math.max(
+   0,
+   data.foodBudget-categorySpent("food")
+  );
+
+ let text="";
+
+ if(price<=remaining){
+
+  text=
+   `🟢 <b>${name}</b> is within your food budget.<br>`+
+   `You'll have ${money(remaining-price)} left.`;
+
+ }else{
+
+  text=
+   `🔴 <b>${name}</b> is ₹${price-remaining} over your food budget.`;
+
+ }
+
+ document.getElementById("foodResult").innerHTML=
+  `<div class="result">${text}</div>`;
+
+}
+
+
+function meal(){
+
+ data.meals.push({
+
+  date:today(),
+  time:Date.now()
+
+ });
+
+ save();
+ update();
+
+}
+
+
+function sleepTarget(){
+
+ document.getElementById("modalTitle").textContent=
+  "Sleep target";
+
+ document.getElementById("modalContent").innerHTML=`
+
+  <div class="field">
+   <label>BEDTIME</label>
+   <input id="sleepInput"
+          type="time"
+          value="${data.sleepTarget}">
+  </div>
+
+  <div class="actions">
+   <button onclick="closeModal()">Cancel</button>
+   <button class="primary"
+           onclick="saveSleep()">
+    Save
+   </button>
+  </div>
+ `;
+
+ document.getElementById("modal")
+ .classList.remove("hidden");
+
+}
+
+
+function saveSleep(){
+
+ data.sleepTarget=
+  document.getElementById("sleepInput").value;
+
+ save();
+ closeModal();
+ update();
+
+}
+
+
+function quickAdd(){
+
+ document.getElementById("modalTitle").textContent=
+  "What did you do?";
+
+ document.getElementById("modalContent").innerHTML=`
+
+  <div class="big-choice">
+
+   <button onclick="closeModal();expense('food')">
+    🍛 Food
+   </button>
+
+   <button onclick="closeModal();cigarette()">
+    🚬 Cigarette
+   </button>
+
+   <button onclick="closeModal();expense('transport')">
+    🚇 Metro
+   </button>
+
+   <button onclick="closeModal();payDebt()">
+    💳 Debt payment
+   </button>
+
+   <button onclick="closeModal();otherExpense()">
+    🛍 Other
+   </button>
+
+   <button onclick="receiveMoney()">
+    💰 Money received
+   </button>
+
+  </div>
+ `;
+
+ document.getElementById("modal")
+ .classList.remove("hidden");
+
+}
+
+
+function receiveMoney(){
+
+ document.getElementById("modalTitle").textContent=
+  "Money received";
+
+ document.getElementById("modalContent").innerHTML=`
+
+  <div class="field">
+   <label>AMOUNT FROM MUM</label>
+   <input id="incomeAmount"
+          type="number"
+          value="500">
+  </div>
+
+  <div class="actions">
+   <button onclick="closeModal()">Cancel</button>
+   <button class="primary"
+           onclick="saveIncome()">
+    Add money
+   </button>
+  </div>
+ `;
+
+}
+
+
+function saveIncome(){
+
+ let amount=
+  Number(document.getElementById("incomeAmount").value);
+
+ if(!amount||amount<=0)return;
+
+ data.dailyMoney+=amount;
+
+ save();
+ closeModal();
+ update();
+
+}
+
+
+function settings(){
+
+ document.getElementById("modalTitle").textContent=
+  "X7 Settings";
+
+ document.getElementById("modalContent").innerHTML=`
+
+  <div class="field">
+   <label>DAILY MONEY</label>
+   <input id="sMoney"
+          type="number"
+          value="${data.dailyMoney}">
+  </div>
+
+  <div class="field">
+   <label>FOOD BUDGET</label>
+   <input id="sFood"
+          type="number"
+          value="${data.foodBudget}">
+  </div>
+
+  <div class="field">
+   <label>TRANSPORT BUDGET</label>
+   <input id="sTransport"
+          type="number"
+          value="${data.transportBudget}">
+  </div>
+
+  <div class="field">
+   <label>CIGARETTE PRICE</label>
+   <input id="sCigPrice"
+          type="number"
+          value="${data.cigarettePrice}">
+  </div>
+
+  <div class="field">
+   <label>DAILY CIGARETTE TARGET</label>
+   <input id="sCigLimit"
+          type="number"
+          value="${data.cigaretteLimit}">
+  </div>
+
+  <div class="actions">
+   <button onclick="closeModal()">Cancel</button>
+   <button class="primary"
+           onclick="saveSettings()">
+    Save
+   </button>
+  </div>
+ `;
+
+ document.getElementById("modal")
+ .classList.remove("hidden");
+
+}
+
+
+function saveSettings(){
+
+ data.dailyMoney=
+  Number(document.getElementById("sMoney").value)||500;
+
+ data.foodBudget=
+  Number(document.getElementById("sFood").value)||150;
+
+ data.transportBudget=
+  Number(document.getElementById("sTransport").value)||40;
+
+ data.cigarettePrice=
+  Number(document.getElementById("sCigPrice").value)||14;
+
+ data.cigaretteLimit=
+  Number(document.getElementById("sCigLimit").value)||3;
+
+ save();
+ closeModal();
+ update();
+
+}
+
+
+function renderActivity(){
+
+ const box=
+  document.getElementById("activity");
+
+ const items=
+  expensesToday()
+  .slice()
+  .reverse();
+
+ if(!items.length){
+
+  box.innerHTML=
+   `<div class="empty">Nothing logged yet. Keep control.</div>`;
+
+  return;
+
+ }
+
+ box.innerHTML=
+  items.map(x=>{
+
+   let icon=
+    x.category==="food"?"🍛":
+    x.category==="transport"?"🚇":
+    x.category==="cigarette"?"🚬":"🛍️";
+
+   return `
+
+    <div class="row">
+
+     <div class="row-left">
+
+      <div class="row-icon">${icon}</div>
+
+      <div>
+       <div class="row-name">
+        ${x.note}
+       </div>
+
+       <div class="row-sub">
+        ${new Date(x.time)
+         .toLocaleTimeString([],
+          {hour:"2-digit",minute:"2-digit"})}
+       </div>
+
+      </div>
+
+     </div>
+
+     <div class="amount negative">
+      -${money(x.amount)}
+     </div>
+
+    </div>
+   `;
+
+  }).join("");
+
+}
+
+
+function closeModal(){
+
+ document.getElementById("modal")
+ .classList.add("hidden");
+
+}
+
+
+document.getElementById("modal")
+ .addEventListener("click",e=>{
+
+  if(e.target.id==="modal")
+   closeModal();
+
+ });
+
+
+const hour=new Date().getHours();
+
+document.getElementById("greeting").textContent=
+ hour<12
+  ?"Good morning, Calvin."
+  :hour<18
+   ?"Good afternoon, Calvin."
+   :"Good evening, Calvin.";
+
+update();
+
+</script>
+
+</body>
+</html>
