@@ -18,10 +18,20 @@
       padding: 0;
     }
 
+    :root {
+      --bg: #000;
+      --card: #0d0d0d;
+      --card2: #111;
+      --border: #202020;
+      --muted: #777;
+      --dim: #444;
+      --white: #fff;
+    }
+
     html,
     body {
-      background: #000;
-      color: #fff;
+      background: var(--bg);
+      color: var(--white);
       min-height: 100%;
     }
 
@@ -32,6 +42,7 @@
         "SF Pro Display",
         "Segoe UI",
         sans-serif;
+
       overflow-x: hidden;
     }
 
@@ -45,9 +56,9 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    /* =========================================================
-       SPLASH SCREEN
-    ========================================================= */
+    /* =====================================================
+       X7 STARTUP
+    ===================================================== */
 
     #splash {
       position: fixed;
@@ -61,9 +72,9 @@
       background:
         radial-gradient(
           circle at 50% 38%,
-          #181818 0%,
-          #090909 35%,
-          #000 72%
+          #191919 0%,
+          #080808 38%,
+          #000 75%
         );
 
       transition:
@@ -79,82 +90,88 @@
 
     .splash-inner {
       width: 90%;
-      max-width: 420px;
+      max-width: 430px;
       text-align: center;
-      animation: splashEnter 1.1s ease forwards;
+
+      animation: splashIn 1s ease forwards;
     }
 
     .splash-logo {
-      font-size: 92px;
-      line-height: .85;
+      font-size: 100px;
+      line-height: .8;
       font-weight: 950;
-      letter-spacing: -9px;
+      letter-spacing: -10px;
 
-      background: linear-gradient(
-        135deg,
-        #ffffff 10%,
-        #666666 100%
-      );
+      background:
+        linear-gradient(
+          135deg,
+          #fff,
+          #666
+        );
 
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
 
-      animation: logoBreath 2.4s ease-in-out infinite;
+      animation: x7Pulse 2.5s ease-in-out infinite;
     }
 
-    .splash-title {
-      margin-top: 34px;
+    .morning {
+      margin-top: 35px;
 
-      font-size: 24px;
-      font-weight: 800;
-      letter-spacing: -.5px;
+      font-size: 25px;
+      font-weight: 850;
+      letter-spacing: -.7px;
 
       opacity: 0;
-      animation: fadeUp .8s ease .55s forwards;
+      animation:
+        fadeUp .8s ease .5s forwards;
     }
 
-    .splash-quote {
-      margin-top: 14px;
+    .quote {
+      max-width: 330px;
 
-      color: #858585;
+      margin: 14px auto 0;
+
+      color: #888;
       font-size: 14px;
-      line-height: 1.6;
-
-      max-width: 320px;
-      margin-left: auto;
-      margin-right: auto;
+      line-height: 1.7;
 
       opacity: 0;
-      animation: fadeUp .8s ease .9s forwards;
+      animation:
+        fadeUp .8s ease .9s forwards;
     }
 
-    .splash-line {
+    .loading {
       width: 110px;
       height: 2px;
 
-      margin: 34px auto 0;
+      margin: 35px auto 0;
 
       background: #1d1d1d;
+
       overflow: hidden;
 
       opacity: 0;
-      animation: fadeUp .8s ease 1.1s forwards;
+      animation:
+        fadeUp .8s ease 1.1s forwards;
     }
 
-    .splash-line::after {
+    .loading::after {
       content: "";
+
       display: block;
 
-      width: 40px;
+      width: 42px;
       height: 100%;
 
       background: #fff;
 
-      animation: loading 1.4s ease-in-out infinite;
+      animation:
+        loadingMove 1.3s ease-in-out infinite;
     }
 
-    @keyframes splashEnter {
+    @keyframes splashIn {
       from {
         opacity: 0;
         transform: scale(.94);
@@ -166,23 +183,23 @@
       }
     }
 
-    @keyframes logoBreath {
+    @keyframes x7Pulse {
       0%,
       100% {
+        opacity: .8;
         transform: scale(1);
-        opacity: .82;
       }
 
       50% {
-        transform: scale(1.035);
         opacity: 1;
+        transform: scale(1.04);
       }
     }
 
     @keyframes fadeUp {
       from {
         opacity: 0;
-        transform: translateY(12px);
+        transform: translateY(13px);
       }
 
       to {
@@ -191,7 +208,7 @@
       }
     }
 
-    @keyframes loading {
+    @keyframes loadingMove {
       from {
         transform: translateX(-70px);
       }
@@ -201,46 +218,46 @@
       }
     }
 
-    /* =========================================================
+    /* =====================================================
        APP
-    ========================================================= */
+    ===================================================== */
 
     #app {
       min-height: 100vh;
 
       padding:
         calc(12px + env(safe-area-inset-top))
-        17px
-        calc(35px + env(safe-area-inset-bottom));
+        16px
+        calc(40px + env(safe-area-inset-bottom));
     }
 
     .container {
       width: 100%;
-      max-width: 620px;
-      margin: 0 auto;
+      max-width: 650px;
+      margin: auto;
     }
 
-    /* =========================================================
+    /* =====================================================
        HEADER
-    ========================================================= */
+    ===================================================== */
 
     header {
       display: flex;
       justify-content: space-between;
       align-items: center;
 
-      padding: 10px 2px 24px;
+      padding: 10px 3px 24px;
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 11px;
+      gap: 12px;
     }
 
-    .brand-logo {
-      width: 43px;
-      height: 43px;
+    .logo-box {
+      width: 47px;
+      height: 47px;
 
       display: flex;
       align-items: center;
@@ -249,15 +266,15 @@
       background: #fff;
       color: #000;
 
-      border-radius: 13px;
+      border-radius: 15px;
 
-      font-size: 17px;
+      font-size: 18px;
       font-weight: 950;
       letter-spacing: -1px;
     }
 
-    .brand-name {
-      font-size: 18px;
+    .brand-title {
+      font-size: 19px;
       font-weight: 800;
     }
 
@@ -266,31 +283,31 @@
 
       color: #555;
       font-size: 9px;
-      letter-spacing: 1.4px;
+      letter-spacing: 1.5px;
     }
 
-    .date-display {
+    .date {
       color: #555;
       font-size: 11px;
       text-align: right;
     }
 
-    /* =========================================================
+    /* =====================================================
        BALANCE
-    ========================================================= */
+    ===================================================== */
 
     .balance-card {
       position: relative;
 
-      padding: 28px 25px;
+      padding: 30px 26px;
 
-      border: 1px solid #202020;
-      border-radius: 27px;
+      border-radius: 28px;
+      border: 1px solid #222;
 
       background:
         linear-gradient(
           145deg,
-          #161616,
+          #171717,
           #080808
         );
 
@@ -302,11 +319,11 @@
 
       position: absolute;
 
-      width: 230px;
-      height: 230px;
+      width: 250px;
+      height: 250px;
 
-      right: -120px;
-      top: -120px;
+      right: -130px;
+      top: -130px;
 
       border-radius: 50%;
 
@@ -317,29 +334,29 @@
     .balance-label {
       color: #707070;
       font-size: 11px;
-      letter-spacing: 1.4px;
+      letter-spacing: 1.5px;
     }
 
-    .balance-value {
+    .balance {
       margin-top: 8px;
 
-      font-size: 43px;
+      font-size: 45px;
       line-height: 1;
 
       font-weight: 850;
-      letter-spacing: -2.5px;
+      letter-spacing: -3px;
     }
 
     .currency {
       color: #777;
       font-size: 22px;
+      vertical-align: 7px;
       margin-right: 4px;
-      vertical-align: 6px;
     }
 
-    /* =========================================================
-       STATS
-    ========================================================= */
+    /* =====================================================
+       INCOME / EXPENSE
+    ===================================================== */
 
     .stats {
       display: grid;
@@ -350,88 +367,225 @@
     }
 
     .stat {
-      padding: 19px;
+      padding: 20px;
 
       background: #0c0c0c;
 
-      border: 1px solid #1b1b1b;
-      border-radius: 20px;
+      border: 1px solid #1c1c1c;
+      border-radius: 21px;
     }
 
     .stat-label {
       color: #555;
       font-size: 10px;
-      letter-spacing: 1.2px;
+      letter-spacing: 1.3px;
     }
 
     .stat-value {
-      margin-top: 7px;
+      margin-top: 8px;
 
-      font-size: 20px;
-      font-weight: 750;
+      font-size: 21px;
+      font-weight: 800;
     }
 
-    /* =========================================================
-       CATEGORY SUMMARY
-    ========================================================= */
+    /* =====================================================
+       SECTION HEADER
+    ===================================================== */
 
-    .section-heading {
+    .section-header {
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
 
-      margin-top: 30px;
-      margin-bottom: 12px;
+      margin-top: 31px;
+      margin-bottom: 13px;
     }
 
-    .section-heading h2 {
-      font-size: 17px;
-      font-weight: 750;
+    .section-header h2 {
+      font-size: 18px;
+      font-weight: 800;
     }
 
-    .section-heading span {
-      color: #505050;
+    .section-header span {
+      color: #555;
       font-size: 11px;
     }
+
+    /* =====================================================
+       CATEGORIES
+    ===================================================== */
 
     .categories {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
+      gap: 9px;
     }
 
-    .category-card {
-      padding: 13px 8px;
+    .category {
+      min-height: 112px;
+
+      padding: 15px 7px;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
 
       background: #0b0b0b;
 
-      border: 1px solid #191919;
-      border-radius: 16px;
+      border: 1px solid #1b1b1b;
+      border-radius: 19px;
 
       text-align: center;
     }
 
     .category-icon {
-      font-size: 18px;
+      font-size: 31px;
+      line-height: 1;
     }
 
     .category-name {
-      margin-top: 6px;
+      margin-top: 10px;
 
-      color: #656565;
-      font-size: 9px;
+      color: #777;
+      font-size: 10px;
+      font-weight: 600;
     }
 
     .category-amount {
-      margin-top: 4px;
+      margin-top: 5px;
 
-      font-size: 11px;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    /* =====================================================
+       DEBTS
+    ===================================================== */
+
+    .debt-total-card {
+      padding: 21px;
+
+      background:
+        linear-gradient(
+          145deg,
+          #141414,
+          #090909
+        );
+
+      border: 1px solid #242424;
+      border-radius: 22px;
+    }
+
+    .debt-total-label {
+      color: #666;
+      font-size: 10px;
+      letter-spacing: 1.3px;
+    }
+
+    .debt-total {
+      margin-top: 7px;
+
+      font-size: 29px;
+      font-weight: 850;
+      letter-spacing: -1px;
+    }
+
+    .debt-list {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+
+      margin-top: 10px;
+    }
+
+    .debt-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      padding: 16px;
+
+      background: #0b0b0b;
+
+      border: 1px solid #191919;
+      border-radius: 18px;
+    }
+
+    .debt-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      min-width: 0;
+    }
+
+    .debt-icon {
+      width: 44px;
+      height: 44px;
+
+      flex: 0 0 44px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 14px;
+
+      background: #171717;
+
+      font-size: 22px;
+    }
+
+    .debt-name {
+      font-size: 14px;
       font-weight: 700;
     }
 
-    /* =========================================================
-       BUTTONS
-    ========================================================= */
+    .debt-date {
+      margin-top: 4px;
+
+      color: #555;
+      font-size: 10px;
+    }
+
+    .debt-amount {
+      font-size: 14px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .debt-delete {
+      width: 29px;
+      height: 29px;
+
+      margin-left: 8px;
+
+      border: none;
+      border-radius: 9px;
+
+      background: #171717;
+      color: #555;
+
+      cursor: pointer;
+    }
+
+    .no-debt {
+      padding: 25px;
+
+      border: 1px dashed #1d1d1d;
+      border-radius: 18px;
+
+      color: #444;
+
+      text-align: center;
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    /* =====================================================
+       ACTIONS
+    ===================================================== */
 
     .actions {
       display: grid;
@@ -439,45 +593,43 @@
 
       gap: 10px;
 
-      margin-top: 17px;
+      margin-top: 18px;
     }
 
-    .button {
-      min-height: 51px;
+    .action {
+      min-height: 53px;
 
       border-radius: 17px;
 
       cursor: pointer;
 
       font-size: 13px;
-      font-weight: 800;
+      font-weight: 850;
 
       transition:
         transform .15s ease,
         opacity .15s ease;
     }
 
-    .button:active {
+    .action:active {
       transform: scale(.96);
     }
 
-    .add-button {
-      border: none;
-
+    .add {
       background: #fff;
       color: #000;
+      border: none;
     }
 
-    .reset-button {
-      border: 1px solid #262626;
-
+    .reset {
       background: #121212;
       color: #999;
+      border: 1px solid #252525;
     }
 
-    /* =========================================================
+    /* =====================================================
        TRANSACTIONS
-    ========================================================= */
+    ===================================================== */
 
     .transactions {
       display: flex;
@@ -490,14 +642,15 @@
       align-items: center;
       justify-content: space-between;
 
-      padding: 14px;
+      padding: 15px;
 
       background: #0a0a0a;
 
-      border: 1px solid #171717;
+      border: 1px solid #181818;
       border-radius: 18px;
 
-      animation: transactionIn .3s ease;
+      animation:
+        transactionIn .3s ease;
     }
 
     @keyframes transactionIn {
@@ -515,58 +668,54 @@
     .transaction-left {
       display: flex;
       align-items: center;
-      gap: 11px;
+      gap: 12px;
 
       min-width: 0;
     }
 
     .transaction-icon {
-      width: 41px;
-      height: 41px;
+      width: 44px;
+      height: 44px;
 
-      flex: 0 0 41px;
+      flex: 0 0 44px;
 
       display: flex;
       align-items: center;
       justify-content: center;
 
-      background: #151515;
+      background: #161616;
 
-      border-radius: 13px;
+      border-radius: 14px;
 
-      font-size: 18px;
-    }
-
-    .transaction-info {
-      min-width: 0;
+      font-size: 23px;
     }
 
     .transaction-description {
+      max-width: 190px;
+
       font-size: 13px;
-      font-weight: 650;
+      font-weight: 700;
 
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      max-width: 190px;
     }
 
     .transaction-meta {
       margin-top: 4px;
 
-      color: #505050;
+      color: #555;
       font-size: 10px;
     }
 
     .transaction-right {
       display: flex;
       align-items: center;
-      gap: 9px;
     }
 
     .transaction-amount {
       font-size: 13px;
-      font-weight: 750;
+      font-weight: 800;
       white-space: nowrap;
     }
 
@@ -578,9 +727,11 @@
       color: #888;
     }
 
-    .delete-button {
+    .delete-transaction {
       width: 28px;
       height: 28px;
+
+      margin-left: 7px;
 
       border: none;
       border-radius: 9px;
@@ -589,27 +740,25 @@
       color: #555;
 
       cursor: pointer;
-
-      font-size: 13px;
     }
 
     .empty {
-      padding: 34px 15px;
+      padding: 32px 15px;
 
-      border: 1px dashed #1d1d1d;
+      border: 1px dashed #1c1c1c;
       border-radius: 18px;
 
       color: #444;
 
       text-align: center;
 
-      line-height: 1.7;
       font-size: 12px;
+      line-height: 1.7;
     }
 
-    /* =========================================================
+    /* =====================================================
        MODAL
-    ========================================================= */
+    ===================================================== */
 
     .modal {
       position: fixed;
@@ -641,23 +790,24 @@
       visibility: visible;
     }
 
-    .modal-content {
+    .modal-box {
       width: 100%;
-      max-width: 600px;
+      max-width: 620px;
 
-      padding: 23px;
+      padding: 24px;
 
       background: #101010;
 
-      border: 1px solid #252525;
-      border-radius: 27px;
+      border: 1px solid #272727;
+      border-radius: 28px;
 
       transform: translateY(30px);
 
-      transition: transform .3s ease;
+      transition:
+        transform .3s ease;
     }
 
-    .modal.show .modal-content {
+    .modal.show .modal-box {
       transform: translateY(0);
     }
 
@@ -670,17 +820,18 @@
     }
 
     .modal-header h2 {
-      font-size: 20px;
+      font-size: 21px;
+      font-weight: 800;
     }
 
-    .close-button {
+    .close {
       width: 35px;
       height: 35px;
 
       border: none;
       border-radius: 50%;
 
-      background: #1b1b1b;
+      background: #1c1c1c;
       color: #999;
 
       cursor: pointer;
@@ -688,16 +839,16 @@
       font-size: 18px;
     }
 
-    .form-group {
+    .field {
       margin-bottom: 14px;
     }
 
-    .form-group label {
+    .field label {
       display: block;
 
       margin-bottom: 7px;
 
-      color: #656565;
+      color: #666;
       font-size: 10px;
       letter-spacing: 1px;
     }
@@ -731,7 +882,7 @@
     .type-button {
       padding: 13px;
 
-      border: 1px solid #242424;
+      border: 1px solid #252525;
       border-radius: 13px;
 
       background: #080808;
@@ -746,7 +897,7 @@
       border-color: #fff;
     }
 
-    .save-button {
+    .save {
       width: 100%;
 
       margin-top: 5px;
@@ -758,16 +909,12 @@
       background: #fff;
       color: #000;
 
-      font-weight: 850;
+      font-weight: 900;
 
       cursor: pointer;
     }
 
-    /* =========================================================
-       RESET
-    ========================================================= */
-
-    .reset-message {
+    .warning {
       color: #888;
 
       font-size: 13px;
@@ -776,7 +923,7 @@
       margin-bottom: 20px;
     }
 
-    .danger-button {
+    .danger {
       width: 100%;
 
       padding: 16px;
@@ -787,12 +934,12 @@
       background: #fff;
       color: #000;
 
-      font-weight: 850;
+      font-weight: 900;
 
       cursor: pointer;
     }
 
-    .cancel-button {
+    .cancel {
       width: 100%;
 
       margin-top: 8px;
@@ -809,21 +956,22 @@
       cursor: pointer;
     }
 
-    /* =========================================================
-       MOBILE
-    ========================================================= */
+    /* =====================================================
+       RESPONSIVE
+    ===================================================== */
 
     @media (max-width: 400px) {
-      .balance-value {
-        font-size: 36px;
+
+      .balance {
+        font-size: 37px;
       }
 
-      .categories {
-        grid-template-columns: repeat(4, 1fr);
+      .category {
+        min-height: 103px;
       }
 
-      .category-card {
-        padding: 11px 5px;
+      .category-icon {
+        font-size: 28px;
       }
 
       .transaction-description {
@@ -832,6 +980,7 @@
     }
 
     @media (min-width: 700px) {
+
       #app {
         padding-top: 30px;
       }
@@ -839,1230 +988,1327 @@
       .modal {
         align-items: center;
       }
+
     }
   </style>
 </head>
 
 <body>
 
-  <!-- =======================================================
-       SPLASH
-  ======================================================== -->
+<!-- ========================================================
+     SPLASH
+========================================================= -->
 
-  <div id="splash">
+<div id="splash">
 
-    <div class="splash-inner">
+  <div class="splash-inner">
 
-      <div class="splash-logo">
-        X7
-      </div>
-
-      <div class="splash-title">
-        GOOD MORNING, X7.
-      </div>
-
-      <div
-        class="splash-quote"
-        id="splashQuote">
-      </div>
-
-      <div class="splash-line"></div>
-
+    <div class="splash-logo">
+      X7
     </div>
+
+    <div class="morning">
+      GOOD MORNING, X7.
+    </div>
+
+    <div
+      class="quote"
+      id="splashQuote">
+    </div>
+
+    <div class="loading"></div>
 
   </div>
 
-
-  <!-- =======================================================
-       APP
-  ======================================================== -->
-
-  <main id="app">
-
-    <div class="container">
-
-      <!-- HEADER -->
-
-      <header>
-
-        <div class="brand">
-
-          <div class="brand-logo">
-            X7
-          </div>
-
-          <div>
-
-            <div class="brand-name">
-              Money
-            </div>
-
-            <div class="brand-subtitle">
-              PERSONAL FINANCE
-            </div>
-
-          </div>
-
-        </div>
-
-        <div
-          class="date-display"
-          id="today">
-        </div>
-
-      </header>
+</div>
 
 
-      <!-- BALANCE -->
+<!-- ========================================================
+     APP
+========================================================= -->
 
-      <section class="balance-card">
+<main id="app">
 
-        <div class="balance-label">
-          TOTAL BALANCE
-        </div>
+  <div class="container">
 
-        <div class="balance-value">
+    <!-- HEADER -->
 
-          <span class="currency">
-            ₹
-          </span>
+    <header>
 
-          <span id="balance">
-            0
-          </span>
+      <div class="brand">
 
-        </div>
-
-      </section>
-
-
-      <!-- STATS -->
-
-      <section class="stats">
-
-        <div class="stat">
-
-          <div class="stat-label">
-            INCOME
-          </div>
-
-          <div class="stat-value">
-            ₹<span id="income">0</span>
-          </div>
-
-        </div>
-
-        <div class="stat">
-
-          <div class="stat-label">
-            EXPENSES
-          </div>
-
-          <div class="stat-value">
-            ₹<span id="expenses">0</span>
-          </div>
-
-        </div>
-
-      </section>
-
-
-      <!-- CATEGORY SUMMARY -->
-
-      <div class="section-heading">
-
-        <h2>
-          Spending
-        </h2>
-
-        <span id="transactionCount">
-          0 transactions
-        </span>
-
-      </div>
-
-
-      <section
-        class="categories"
-        id="categories">
-      </section>
-
-
-      <!-- ACTIONS -->
-
-      <section class="actions">
-
-        <button
-          class="button add-button"
-          onclick="openAddModal()">
-
-          + Add Transaction
-
-        </button>
-
-        <button
-          class="button reset-button"
-          onclick="openResetModal()">
-
-          Reset Money
-
-        </button>
-
-      </section>
-
-
-      <!-- TRANSACTIONS -->
-
-      <div class="section-heading">
-
-        <h2>
-          Recent Transactions
-        </h2>
-
-        <span>
+        <div class="logo-box">
           X7
-        </span>
+        </div>
 
-      </div>
+        <div>
 
+          <div class="brand-title">
+            Money
+          </div>
 
-      <section
-        class="transactions"
-        id="transactions">
-      </section>
-
-    </div>
-
-  </main>
-
-
-  <!-- =======================================================
-       ADD TRANSACTION MODAL
-  ======================================================== -->
-
-  <div
-    class="modal"
-    id="addModal">
-
-    <div class="modal-content">
-
-      <div class="modal-header">
-
-        <h2>
-          Add Transaction
-        </h2>
-
-        <button
-          class="close-button"
-          onclick="closeAddModal()">
-
-          ×
-
-        </button>
-
-      </div>
-
-
-      <div class="form-group">
-
-        <label>
-          DESCRIPTION
-        </label>
-
-        <input
-          class="input"
-          id="description"
-          type="text"
-          placeholder="What was this for?"
-        >
-
-      </div>
-
-
-      <div class="form-group">
-
-        <label>
-          AMOUNT
-        </label>
-
-        <input
-          class="input"
-          id="amount"
-          type="number"
-          inputmode="decimal"
-          min="0"
-          step="0.01"
-          placeholder="₹ 0"
-        >
-
-      </div>
-
-
-      <div class="form-group">
-
-        <label>
-          TYPE
-        </label>
-
-        <div class="type-buttons">
-
-          <button
-            class="type-button active"
-            id="expenseType"
-            onclick="setType('expense')">
-
-            Expense
-
-          </button>
-
-          <button
-            class="type-button"
-            id="incomeType"
-            onclick="setType('income')">
-
-            Income
-
-          </button>
+          <div class="brand-subtitle">
+            PERSONAL FINANCE
+          </div>
 
         </div>
 
       </div>
 
-
       <div
-        class="form-group"
-        id="categoryGroup">
+        class="date"
+        id="date">
+      </div>
 
-        <label>
-          CATEGORY
-        </label>
+    </header>
 
-        <select
-          class="select"
-          id="category">
 
-          <option value="Food">
-            🍔 Food
-          </option>
+    <!-- BALANCE -->
 
-          <option value="Cigarettes">
-            🚬 Cigarettes
-          </option>
+    <section class="balance-card">
 
-          <option value="Transport">
-            🚕 Transport
-          </option>
+      <div class="balance-label">
+        TOTAL BALANCE
+      </div>
 
-          <option value="Shopping">
-            🛍️ Shopping
-          </option>
+      <div class="balance">
 
-          <option value="Bills">
-            💳 Bills
-          </option>
+        <span class="currency">
+          ₹
+        </span>
 
-          <option value="Other">
-            📦 Other
-          </option>
-
-        </select>
+        <span id="balance">
+          0
+        </span>
 
       </div>
 
+    </section>
+
+
+    <!-- INCOME / EXPENSE -->
+
+    <section class="stats">
+
+      <div class="stat">
+
+        <div class="stat-label">
+          INCOME
+        </div>
+
+        <div class="stat-value">
+          ₹<span id="income">0</span>
+        </div>
+
+      </div>
+
+      <div class="stat">
+
+        <div class="stat-label">
+          EXPENSES
+        </div>
+
+        <div class="stat-value">
+          ₹<span id="expenses">0</span>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- SPENDING -->
+
+    <div class="section-header">
+
+      <h2>
+        Spending
+      </h2>
+
+      <span id="count">
+        0 transactions
+      </span>
+
+    </div>
+
+
+    <section
+      class="categories"
+      id="categories">
+    </section>
+
+
+    <!-- DEBTS -->
+
+    <div class="section-header">
+
+      <h2>
+        Debts
+      </h2>
+
+      <span>
+        Money owed
+      </span>
+
+    </div>
+
+
+    <section class="debt-total-card">
+
+      <div class="debt-total-label">
+        TOTAL DEBT
+      </div>
+
+      <div class="debt-total">
+        ₹<span id="debtTotal">0</span>
+      </div>
+
+    </section>
+
+
+    <section
+      class="debt-list"
+      id="debts">
+    </section>
+
+
+    <!-- ACTIONS -->
+
+    <section class="actions">
 
       <button
-        class="save-button"
-        onclick="addTransaction()">
+        class="action add"
+        onclick="openTransactionModal()">
 
-        SAVE TRANSACTION
+        + Add Transaction
+
+      </button>
+
+      <button
+        class="action reset"
+        onclick="openResetModal()">
+
+        Reset Money
+
+      </button>
+
+    </section>
+
+
+    <!-- TRANSACTIONS -->
+
+    <div class="section-header">
+
+      <h2>
+        Recent Transactions
+      </h2>
+
+      <span>
+        X7
+      </span>
+
+    </div>
+
+
+    <section
+      class="transactions"
+      id="transactions">
+    </section>
+
+  </div>
+
+</main>
+
+
+<!-- ========================================================
+     TRANSACTION MODAL
+========================================================= -->
+
+<div
+  class="modal"
+  id="transactionModal">
+
+  <div class="modal-box">
+
+    <div class="modal-header">
+
+      <h2>
+        Add Transaction
+      </h2>
+
+      <button
+        class="close"
+        onclick="closeTransactionModal()">
+
+        ×
 
       </button>
 
     </div>
 
-  </div>
+
+    <div class="field">
+
+      <label>
+        DESCRIPTION
+      </label>
+
+      <input
+        class="input"
+        id="description"
+        type="text"
+        placeholder="Food, salary, shopping..."
+      >
+
+    </div>
 
 
-  <!-- =======================================================
-       RESET MODAL
-  ======================================================== -->
+    <div class="field">
 
-  <div
-    class="modal"
-    id="resetModal">
+      <label>
+        AMOUNT
+      </label>
 
-    <div class="modal-content">
+      <input
+        class="input"
+        id="amount"
+        type="number"
+        inputmode="decimal"
+        min="0"
+        step="0.01"
+        placeholder="₹ 0"
+      >
 
-      <div class="modal-header">
+    </div>
 
-        <h2>
-          Reset Money
-        </h2>
+
+    <div class="field">
+
+      <label>
+        TYPE
+      </label>
+
+      <div class="type-buttons">
 
         <button
-          class="close-button"
-          onclick="closeResetModal()">
+          class="type-button active"
+          id="expenseButton"
+          onclick="setTransactionType('expense')">
 
-          ×
+          Expense
+
+        </button>
+
+        <button
+          class="type-button"
+          id="incomeButton"
+          onclick="setTransactionType('income')">
+
+          Income
 
         </button>
 
       </div>
 
+    </div>
 
-      <div class="reset-message">
 
-        This will delete all your X7 transactions
-        and return your balance, income and expenses
-        to ₹0.
+    <div
+      class="field"
+      id="categoryField">
 
-        <br><br>
+      <label>
+        CATEGORY
+      </label>
 
-        <strong>
-          This cannot be undone.
-        </strong>
+      <select
+        class="select"
+        id="category">
 
-      </div>
+        <option value="Food">
+          🍔 Food
+        </option>
 
+        <option value="Cigarettes">
+          🚬 Cigarettes
+        </option>
+
+        <option value="Transport">
+          🚕 Transport
+        </option>
+
+        <option value="Shopping">
+          🛍️ Shopping
+        </option>
+
+        <option value="Bills">
+          💳 Bills
+        </option>
+
+        <option value="Other">
+          📦 Other
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <button
+      class="save"
+      onclick="saveTransaction()">
+
+      SAVE TRANSACTION
+
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- ========================================================
+     DEBT MODAL
+========================================================= -->
+
+<div
+  class="modal"
+  id="debtModal">
+
+  <div class="modal-box">
+
+    <div class="modal-header">
+
+      <h2>
+        Add Debt
+      </h2>
 
       <button
-        class="danger-button"
-        onclick="resetMoney()">
+        class="close"
+        onclick="closeDebtModal()">
 
-        YES, RESET EVERYTHING
+        ×
 
       </button>
 
+    </div>
+
+
+    <div class="field">
+
+      <label>
+        WHO / WHAT
+      </label>
+
+      <input
+        class="input"
+        id="debtName"
+        type="text"
+        placeholder="Person or loan"
+      >
+
+    </div>
+
+
+    <div class="field">
+
+      <label>
+        AMOUNT
+      </label>
+
+      <input
+        class="input"
+        id="debtAmount"
+        type="number"
+        inputmode="decimal"
+        min="0"
+        step="0.01"
+        placeholder="₹ 0"
+      >
+
+    </div>
+
+
+    <button
+      class="save"
+      onclick="saveDebt()">
+
+      SAVE DEBT
+
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- ========================================================
+     RESET MODAL
+========================================================= -->
+
+<div
+  class="modal"
+  id="resetModal">
+
+  <div class="modal-box">
+
+    <div class="modal-header">
+
+      <h2>
+        Reset Money
+      </h2>
 
       <button
-        class="cancel-button"
+        class="close"
         onclick="closeResetModal()">
 
-        CANCEL
+        ×
 
       </button>
 
     </div>
 
+
+    <div class="warning">
+
+      This will remove all transactions and debts
+      saved in X7 and return everything to ₹0.
+
+      <br><br>
+
+      <strong>
+        This cannot be undone.
+      </strong>
+
+    </div>
+
+
+    <button
+      class="danger"
+      onclick="resetEverything()">
+
+      YES, RESET EVERYTHING
+
+    </button>
+
+
+    <button
+      class="cancel"
+      onclick="closeResetModal()">
+
+      CANCEL
+
+    </button>
+
   </div>
 
-
-  <script>
-
-    /* =======================================================
-       X7 QUOTES
-    ======================================================== */
-
-    const quotes = [
-
-      "Small steps. Big results.",
-
-      "Discipline creates freedom.",
-
-      "Your future is built by what you do today.",
-
-      "Stay focused. Keep building.",
-
-      "Consistency beats motivation.",
-
-      "Make your money work for you.",
-
-      "Build quietly. Let the results speak.",
-
-      "Control your money before it controls you.",
-
-      "Every rupee has a purpose.",
-
-      "Think long term. Move today.",
-
-      "One day or day one. You decide.",
-
-      "Your habits decide your future.",
-
-      "Focus on progress, not perfection.",
-
-      "Don't chase money. Build value.",
-
-      "Be patient. Keep moving."
-
-    ];
+</div>
 
 
-    /* =======================================================
-       CATEGORIES
-    ======================================================== */
+<script>
 
-    const categoryData = {
+  /* ========================================================
+     QUOTES
+  ========================================================= */
 
-      Food: {
-        icon: "🍔"
-      },
+  const quotes = [
 
-      Cigarettes: {
-        icon: "🚬"
-      },
+    "Small steps. Big results.",
 
-      Transport: {
-        icon: "🚕"
-      },
+    "Discipline creates freedom.",
 
-      Shopping: {
-        icon: "🛍️"
-      },
+    "Your future is built by what you do today.",
 
-      Bills: {
-        icon: "💳"
-      },
+    "Stay focused. Keep building.",
 
-      Income: {
-        icon: "💰"
-      },
+    "Consistency beats motivation.",
 
-      Other: {
-        icon: "📦"
+    "Make your money work for you.",
+
+    "Build quietly. Let the results speak.",
+
+    "Control your money before it controls you.",
+
+    "Every rupee has a purpose.",
+
+    "Think long term. Move today.",
+
+    "One day or day one. You decide.",
+
+    "Your habits decide your future.",
+
+    "Focus on progress, not perfection.",
+
+    "Don't chase money. Build value.",
+
+    "Keep going. X7."
+
+  ];
+
+
+  document.getElementById(
+    "splashQuote"
+  ).textContent =
+    `"${quotes[
+      Math.floor(
+        Math.random() * quotes.length
+      )
+    ]}"`;
+
+
+  /* ========================================================
+     DATE
+  ========================================================= */
+
+  document.getElementById(
+    "date"
+  ).textContent =
+    new Date().toLocaleDateString(
+      "en-IN",
+      {
+        weekday: "short",
+        day: "numeric",
+        month: "short"
       }
+    );
 
-    };
+
+  /* ========================================================
+     DATA
+  ========================================================= */
+
+  let transactions =
+    JSON.parse(
+      localStorage.getItem(
+        "x7_transactions"
+      ) || "[]"
+    );
 
 
-    /* =======================================================
-       DATA
-    ======================================================== */
+  let debts =
+    JSON.parse(
+      localStorage.getItem(
+        "x7_debts"
+      ) || "[]"
+    );
 
-    let transactions = [];
 
-    try {
+  let transactionType =
+    "expense";
 
-      transactions =
-        JSON.parse(
-          localStorage.getItem(
-            "x7_transactions"
-          )
-        ) || [];
 
-    } catch {
+  /* ========================================================
+     CATEGORY DATA
+  ========================================================= */
 
-      transactions = [];
+  const categoryInfo = {
 
+    Food: {
+      icon: "🍔"
+    },
+
+    Cigarettes: {
+      icon: "🚬"
+    },
+
+    Transport: {
+      icon: "🚕"
+    },
+
+    Shopping: {
+      icon: "🛍️"
+    },
+
+    Bills: {
+      icon: "💳"
+    },
+
+    Income: {
+      icon: "💰"
+    },
+
+    Other: {
+      icon: "📦"
     }
 
-
-    let currentType = "expense";
-
-
-    /* =======================================================
-       QUOTE
-    ======================================================== */
-
-    function loadQuote() {
-
-      const randomIndex =
-        Math.floor(
-          Math.random() * quotes.length
-        );
-
-      document.getElementById(
-        "splashQuote"
-      ).textContent =
-        `"${quotes[randomIndex]}"`;
-
-    }
+  };
 
 
-    loadQuote();
+  /* ========================================================
+     SPLASH
+  ========================================================= */
 
+  window.addEventListener(
+    "load",
+    () => {
 
-    /* =======================================================
-       DATE
-    ======================================================== */
+      setTimeout(
+        () => {
 
-    function loadDate() {
+          document
+            .getElementById("splash")
+            .classList
+            .add("hide");
 
-      const date =
-        new Date().toLocaleDateString(
-          "en-IN",
-          {
-            weekday: "short",
-            day: "numeric",
-            month: "short"
-          }
-        );
-
-      document.getElementById(
-        "today"
-      ).textContent = date;
+        },
+        2800
+      );
 
     }
+  );
 
 
-    loadDate();
+  /* ========================================================
+     FORMAT
+  ========================================================= */
+
+  function money(value) {
+
+    return Number(
+      value || 0
+    ).toLocaleString(
+      "en-IN",
+      {
+        maximumFractionDigits: 2
+      }
+    );
+
+  }
 
 
-    /* =======================================================
-       SPLASH
-    ======================================================== */
+  /* ========================================================
+     SAVE
+  ========================================================= */
 
-    window.addEventListener(
-      "load",
-      () => {
+  function saveData() {
 
-        setTimeout(
-          () => {
+    localStorage.setItem(
+      "x7_transactions",
+      JSON.stringify(
+        transactions
+      )
+    );
 
-            document
-              .getElementById("splash")
-              .classList
-              .add("hide");
 
-          },
-          2800
-        );
+    localStorage.setItem(
+      "x7_debts",
+      JSON.stringify(
+        debts
+      )
+    );
+
+  }
+
+
+  /* ========================================================
+     CALCULATE
+  ========================================================= */
+
+  function calculate() {
+
+    let income = 0;
+    let expenses = 0;
+
+
+    transactions.forEach(
+      transaction => {
+
+        if (
+          transaction.type === "income"
+        ) {
+
+          income += transaction.amount;
+
+        } else {
+
+          expenses += transaction.amount;
+
+        }
 
       }
     );
 
 
-    /* =======================================================
-       MONEY FORMAT
-    ======================================================== */
+    const balance =
+      income - expenses;
 
-    function money(value) {
 
-      return Number(value).toLocaleString(
-        "en-IN",
-        {
-          maximumFractionDigits: 2
-        }
+    document.getElementById(
+      "income"
+    ).textContent =
+      money(income);
+
+
+    document.getElementById(
+      "expenses"
+    ).textContent =
+      money(expenses);
+
+
+    document.getElementById(
+      "balance"
+    ).textContent =
+      money(balance);
+
+
+    let totalDebt = 0;
+
+
+    debts.forEach(
+      debt => {
+
+        totalDebt +=
+          debt.amount;
+
+      }
+    );
+
+
+    document.getElementById(
+      "debtTotal"
+    ).textContent =
+      money(totalDebt);
+
+  }
+
+
+  /* ========================================================
+     CATEGORIES
+  ========================================================= */
+
+  function renderCategories() {
+
+    const container =
+      document.getElementById(
+        "categories"
       );
 
-    }
+
+    container.innerHTML = "";
 
 
-    /* =======================================================
-       SAVE
-    ======================================================== */
+    const categories = [
 
-    function saveData() {
+      "Food",
+      "Cigarettes",
+      "Transport",
+      "Shopping",
+      "Bills",
+      "Income",
+      "Other"
 
-      localStorage.setItem(
-        "x7_transactions",
-        JSON.stringify(transactions)
-      );
-
-    }
-
-
-    /* =======================================================
-       CALCULATIONS
-    ======================================================== */
-
-    function calculate() {
-
-      let income = 0;
-      let expenses = 0;
+    ];
 
 
-      transactions.forEach(
-        transaction => {
+    categories.forEach(
+      category => {
 
-          if (
-            transaction.type === "income"
-          ) {
+        let total = 0;
 
-            income += transaction.amount;
 
-          } else {
+        transactions.forEach(
+          transaction => {
 
-            expenses += transaction.amount;
+            if (
+              transaction.category ===
+              category
+            ) {
+
+              total +=
+                transaction.amount;
+
+            }
 
           }
-
-        }
-      );
-
-
-      const balance =
-        income - expenses;
-
-
-      document.getElementById(
-        "income"
-      ).textContent = money(income);
-
-
-      document.getElementById(
-        "expenses"
-      ).textContent = money(expenses);
-
-
-      document.getElementById(
-        "balance"
-      ).textContent = money(balance);
-
-    }
-
-
-    /* =======================================================
-       CATEGORY SUMMARY
-    ======================================================== */
-
-    function renderCategories() {
-
-      const container =
-        document.getElementById(
-          "categories"
         );
 
 
-      const categories = [
-        "Food",
-        "Cigarettes",
-        "Transport",
-        "Shopping",
-        "Bills",
-        "Income",
-        "Other"
-      ];
-
-
-      container.innerHTML = "";
-
-
-      categories.forEach(
-        category => {
-
-          let total = 0;
-
-
-          transactions.forEach(
-            transaction => {
-
-              if (
-                transaction.category === category
-              ) {
-
-                total += transaction.amount;
-
-              }
-
-            }
+        const card =
+          document.createElement(
+            "div"
           );
 
 
-          const data =
-            categoryData[category];
+        card.className =
+          "category";
 
 
-          const card =
-            document.createElement("div");
+        card.innerHTML = `
+
+          <div class="category-icon">
+            ${categoryInfo[category].icon}
+          </div>
+
+          <div class="category-name">
+            ${category}
+          </div>
+
+          <div class="category-amount">
+            ₹${money(total)}
+          </div>
+
+        `;
 
 
-          card.className =
-            "category-card";
+        container.appendChild(
+          card
+        );
+
+      }
+    );
+
+  }
 
 
-          card.innerHTML = `
+  /* ========================================================
+     TRANSACTIONS
+  ========================================================= */
 
-            <div class="category-icon">
-              ${data.icon}
-            </div>
+  function renderTransactions() {
 
-            <div class="category-name">
-              ${category}
-            </div>
-
-            <div class="category-amount">
-              ₹${money(total)}
-            </div>
-
-          `;
-
-
-          container.appendChild(card);
-
-        }
+    const container =
+      document.getElementById(
+        "transactions"
       );
+
+
+    container.innerHTML = "";
+
+
+    if (
+      transactions.length === 0
+    ) {
+
+      container.innerHTML = `
+
+        <div class="empty">
+
+          No transactions yet.
+
+          <br>
+
+          Start tracking your money with X7.
+
+        </div>
+
+      `;
+
+    } else {
+
+      transactions
+        .slice()
+        .reverse()
+        .forEach(
+          transaction => {
+
+            const info =
+              categoryInfo[
+                transaction.category
+              ] ||
+              categoryInfo.Other;
+
+
+            const item =
+              document.createElement(
+                "div"
+              );
+
+
+            item.className =
+              "transaction";
+
+
+            const sign =
+              transaction.type === "income"
+                ? "+"
+                : "-";
+
+
+            const amountClass =
+              transaction.type === "income"
+                ? "income-text"
+                : "expense-text";
+
+
+            item.innerHTML = `
+
+              <div class="transaction-left">
+
+                <div class="transaction-icon">
+                  ${info.icon}
+                </div>
+
+                <div>
+
+                  <div class="transaction-description">
+                    ${escapeHTML(
+                      transaction.description
+                    )}
+                  </div>
+
+                  <div class="transaction-meta">
+
+                    ${transaction.category}
+                    •
+                    ${transaction.date}
+
+                  </div>
+
+                </div>
+
+              </div>
+
+
+              <div class="transaction-right">
+
+                <div
+                  class="
+                    transaction-amount
+                    ${amountClass}
+                  ">
+
+                  ${sign} ₹${money(
+                    transaction.amount
+                  )}
+
+                </div>
+
+
+                <button
+                  class="delete-transaction"
+                  onclick="deleteTransaction(
+                    '${transaction.id}'
+                  )">
+
+                  ×
+
+                </button>
+
+              </div>
+
+            `;
+
+
+            container.appendChild(
+              item
+            );
+
+          }
+        );
 
     }
 
 
-    /* =======================================================
-       TRANSACTIONS
-    ======================================================== */
-
-    function renderTransactions() {
-
-      const container =
-        document.getElementById(
-          "transactions"
-        );
+    const count =
+      transactions.length;
 
 
-      container.innerHTML = "";
+    document.getElementById(
+      "count"
+    ).textContent =
+      `${count} transaction${
+        count === 1 ? "" : "s"
+      }`;
+
+  }
 
 
-      if (
-        transactions.length === 0
-      ) {
+  /* ========================================================
+     DEBTS
+  ========================================================= */
 
-        container.innerHTML = `
+  function renderDebts() {
 
-          <div class="empty">
+    const container =
+      document.getElementById(
+        "debts"
+      );
 
-            No transactions yet.
 
-            <br>
+    container.innerHTML = "";
 
-            Start tracking your money with X7.
+
+    if (
+      debts.length === 0
+    ) {
+
+      container.innerHTML = `
+
+        <div
+          class="no-debt"
+          onclick="openDebtModal()"
+          style="cursor:pointer">
+
+          No debts recorded.
+
+          <br>
+
+          Tap here to add a debt.
+
+        </div>
+
+      `;
+
+
+      return;
+
+    }
+
+
+    debts.forEach(
+      debt => {
+
+        const item =
+          document.createElement(
+            "div"
+          );
+
+
+        item.className =
+          "debt-item";
+
+
+        item.innerHTML = `
+
+          <div class="debt-left">
+
+            <div class="debt-icon">
+              💸
+            </div>
+
+            <div>
+
+              <div class="debt-name">
+                ${escapeHTML(
+                  debt.name
+                )}
+              </div>
+
+              <div class="debt-date">
+                Added ${debt.date}
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div
+            style="
+              display:flex;
+              align-items:center;
+            ">
+
+            <div class="debt-amount">
+              ₹${money(debt.amount)}
+            </div>
+
+            <button
+              class="debt-delete"
+              onclick="deleteDebt(
+                '${debt.id}'
+              )">
+
+              ×
+
+            </button>
 
           </div>
 
         `;
 
-      } else {
 
-        transactions
-          .slice()
-          .reverse()
-          .forEach(
-            transaction => {
-
-              const item =
-                document.createElement(
-                  "div"
-                );
-
-
-              item.className =
-                "transaction";
-
-
-              const data =
-                categoryData[
-                  transaction.category
-                ] ||
-                categoryData.Other;
-
-
-              const sign =
-                transaction.type === "income"
-                  ? "+"
-                  : "-";
-
-
-              const amountClass =
-                transaction.type === "income"
-                  ? "income-text"
-                  : "expense-text";
-
-
-              item.innerHTML = `
-
-                <div class="transaction-left">
-
-                  <div class="transaction-icon">
-                    ${data.icon}
-                  </div>
-
-                  <div class="transaction-info">
-
-                    <div class="transaction-description">
-                      ${escapeHTML(
-                        transaction.description
-                      )}
-                    </div>
-
-                    <div class="transaction-meta">
-
-                      ${transaction.category}
-                      •
-                      ${transaction.date}
-
-                    </div>
-
-                  </div>
-
-                </div>
-
-
-                <div class="transaction-right">
-
-                  <div
-                    class="
-                      transaction-amount
-                      ${amountClass}
-                    ">
-
-                    ${sign} ₹${money(
-                      transaction.amount
-                    )}
-
-                  </div>
-
-
-                  <button
-                    class="delete-button"
-                    onclick="deleteTransaction(
-                      '${transaction.id}'
-                    )">
-
-                    ×
-
-                  </button>
-
-                </div>
-
-              `;
-
-
-              container.appendChild(item);
-
-            }
-          );
-
-      }
-
-
-      const count =
-        transactions.length;
-
-
-      document.getElementById(
-        "transactionCount"
-      ).textContent =
-        `${count} transaction${
-          count === 1 ? "" : "s"
-        }`;
-
-    }
-
-
-    /* =======================================================
-       HTML ESCAPE
-    ======================================================== */
-
-    function escapeHTML(value) {
-
-      const div =
-        document.createElement(
-          "div"
+        container.appendChild(
+          item
         );
-
-      div.textContent = value;
-
-      return div.innerHTML;
-
-    }
-
-
-    /* =======================================================
-       TYPE
-    ======================================================== */
-
-    function setType(type) {
-
-      currentType = type;
-
-
-      document
-        .getElementById("expenseType")
-        .classList
-        .toggle(
-          "active",
-          type === "expense"
-        );
-
-
-      document
-        .getElementById("incomeType")
-        .classList
-        .toggle(
-          "active",
-          type === "income"
-        );
-
-
-      const categoryGroup =
-        document.getElementById(
-          "categoryGroup"
-        );
-
-
-      if (type === "income") {
-
-        categoryGroup.style.display =
-          "none";
-
-      } else {
-
-        categoryGroup.style.display =
-          "block";
-
-      }
-
-    }
-
-
-    /* =======================================================
-       ADD TRANSACTION
-    ======================================================== */
-
-    function addTransaction() {
-
-      const description =
-        document.getElementById(
-          "description"
-        ).value.trim();
-
-
-      const amount =
-        parseFloat(
-          document.getElementById(
-            "amount"
-          ).value
-        );
-
-
-      const category =
-        document.getElementById(
-          "category"
-        ).value;
-
-
-      if (!description) {
-
-        alert(
-          "Enter a description."
-        );
-
-        return;
-
-      }
-
-
-      if (
-        !amount ||
-        amount <= 0
-      ) {
-
-        alert(
-          "Enter a valid amount."
-        );
-
-        return;
-
-      }
-
-
-      const transaction = {
-
-        id:
-          Date.now().toString(),
-
-        description,
-
-        amount,
-
-        type:
-          currentType,
-
-        category:
-          currentType === "income"
-            ? "Income"
-            : category,
-
-        date:
-          new Date().toLocaleDateString(
-            "en-IN",
-            {
-              day: "numeric",
-              month: "short",
-              year: "numeric"
-            }
-          )
-
-      };
-
-
-      transactions.push(
-        transaction
-      );
-
-
-      saveData();
-
-      calculate();
-
-      renderCategories();
-
-      renderTransactions();
-
-      closeAddModal();
-
-
-      document.getElementById(
-        "description"
-      ).value = "";
-
-
-      document.getElementById(
-        "amount"
-      ).value = "";
-
-
-      setType("expense");
-
-    }
-
-
-    /* =======================================================
-       DELETE
-    ======================================================== */
-
-    function deleteTransaction(id) {
-
-      const confirmed =
-        confirm(
-          "Delete this transaction?"
-        );
-
-
-      if (!confirmed) {
-        return;
-      }
-
-
-      transactions =
-        transactions.filter(
-          transaction =>
-            transaction.id !== id
-        );
-
-
-      saveData();
-
-      calculate();
-
-      renderCategories();
-
-      renderTransactions();
-
-    }
-
-
-    /* =======================================================
-       RESET MONEY
-    ======================================================== */
-
-    function resetMoney() {
-
-      transactions = [];
-
-
-      localStorage.removeItem(
-        "x7_transactions"
-      );
-
-
-      calculate();
-
-      renderCategories();
-
-      renderTransactions();
-
-      closeResetModal();
-
-    }
-
-
-    /* =======================================================
-       ADD MODAL
-    ======================================================== */
-
-    function openAddModal() {
-
-      document
-        .getElementById("addModal")
-        .classList
-        .add("show");
-
-    }
-
-
-    function closeAddModal() {
-
-      document
-        .getElementById("addModal")
-        .classList
-        .remove("show");
-
-    }
-
-
-    /* =======================================================
-       RESET MODAL
-    ======================================================== */
-
-    function openResetModal() {
-
-      document
-        .getElementById("resetModal")
-        .classList
-        .add("show");
-
-    }
-
-
-    function closeResetModal() {
-
-      document
-        .getElementById("resetModal")
-        .classList
-        .remove("show");
-
-    }
-
-
-    /* =======================================================
-       OUTSIDE CLICK
-    ======================================================== */
-
-    window.addEventListener(
-      "click",
-      event => {
-
-        if (
-          event.target ===
-          document.getElementById(
-            "addModal"
-          )
-        ) {
-
-          closeAddModal();
-
-        }
-
-
-        if (
-          event.target ===
-          document.getElementById(
-            "resetModal"
-          )
-        ) {
-
-          closeResetModal();
-
-        }
 
       }
     );
 
 
-    /* =======================================================
-       INITIALIZE
-    ======================================================== */
+    const addButton =
+      document.createElement(
+        "button"
+      );
 
-    setType("expense");
+
+    addButton.textContent =
+      "+ Add Debt";
+
+
+    addButton.style.cssText = `
+
+      width:100%;
+      padding:14px;
+      margin-top:8px;
+      border:1px solid #222;
+      border-radius:15px;
+      background:#111;
+      color:#777;
+      cursor:pointer;
+      font-weight:700;
+
+    `;
+
+
+    addButton.onclick =
+      openDebtModal;
+
+
+    container.appendChild(
+      addButton
+    );
+
+  }
+
+
+  /* ========================================================
+     ESCAPE
+  ========================================================= */
+
+  function escapeHTML(value) {
+
+    const div =
+      document.createElement(
+        "div"
+      );
+
+    div.textContent =
+      value;
+
+    return div.innerHTML;
+
+  }
+
+
+  /* ========================================================
+     TRANSACTION TYPE
+  ========================================================= */
+
+  function setTransactionType(
+    type
+  ) {
+
+    transactionType =
+      type;
+
+
+    document
+      .getElementById(
+        "expenseButton"
+      )
+      .classList
+      .toggle(
+        "active",
+        type === "expense"
+      );
+
+
+    document
+      .getElementById(
+        "incomeButton"
+      )
+      .classList
+      .toggle(
+        "active",
+        type === "income"
+      );
+
+
+    document.getElementById(
+      "categoryField"
+    ).style.display =
+      type === "income"
+        ? "none"
+        : "block";
+
+  }
+
+
+  /* ========================================================
+     SAVE TRANSACTION
+  ========================================================= */
+
+  function saveTransaction() {
+
+    const description =
+      document.getElementById(
+        "description"
+      ).value.trim();
+
+
+    const amount =
+      parseFloat(
+        document.getElementById(
+          "amount"
+        ).value
+      );
+
+
+    const category =
+      document.getElementById(
+        "category"
+      ).value;
+
+
+    if (
+      !description
+    ) {
+
+      alert(
+        "Please enter a description."
+      );
+
+      return;
+
+    }
+
+
+    if (
+      !amount ||
+      amount <= 0
+    ) {
+
+      alert(
+        "Please enter a valid amount."
+      );
+
+      return;
+
+    }
+
+
+    transactions.push({
+
+      id:
+        Date.now().toString(),
+
+      description,
+
+      amount,
+
+      type:
+        transactionType,
+
+      category:
+        transactionType === "income"
+          ? "Income"
+          : category,
+
+      date:
+        new Date().toLocaleDateString(
+          "en-IN",
+          {
+            day: "numeric",
+            month: "short",
+            year: "numeric"
+          }
+        )
+
+    });
+
+
+    saveData();
 
     calculate();
 
@@ -2070,7 +2316,361 @@
 
     renderTransactions();
 
-  </script>
+
+    document.getElementById(
+      "description"
+    ).value = "";
+
+
+    document.getElementById(
+      "amount"
+    ).value = "";
+
+
+    setTransactionType(
+      "expense"
+    );
+
+
+    closeTransactionModal();
+
+  }
+
+
+  /* ========================================================
+     DELETE TRANSACTION
+  ========================================================= */
+
+  function deleteTransaction(
+    id
+  ) {
+
+    if (
+      !confirm(
+        "Delete this transaction?"
+      )
+    ) {
+
+      return;
+
+    }
+
+
+    transactions =
+      transactions.filter(
+        transaction =>
+          transaction.id !== id
+      );
+
+
+    saveData();
+
+    calculate();
+
+    renderCategories();
+
+    renderTransactions();
+
+  }
+
+
+  /* ========================================================
+     DEBT
+  ========================================================= */
+
+  function saveDebt() {
+
+    const name =
+      document.getElementById(
+        "debtName"
+      ).value.trim();
+
+
+    const amount =
+      parseFloat(
+        document.getElementById(
+          "debtAmount"
+        ).value
+      );
+
+
+    if (!name) {
+
+      alert(
+        "Enter who or what the debt is for."
+      );
+
+      return;
+
+    }
+
+
+    if (
+      !amount ||
+      amount <= 0
+    ) {
+
+      alert(
+        "Enter a valid debt amount."
+      );
+
+      return;
+
+    }
+
+
+    debts.push({
+
+      id:
+        Date.now().toString(),
+
+      name,
+
+      amount,
+
+      date:
+        new Date().toLocaleDateString(
+          "en-IN",
+          {
+            day: "numeric",
+            month: "short"
+          }
+        )
+
+    });
+
+
+    saveData();
+
+    calculate();
+
+    renderDebts();
+
+
+    document.getElementById(
+      "debtName"
+    ).value = "";
+
+
+    document.getElementById(
+      "debtAmount"
+    ).value = "";
+
+
+    closeDebtModal();
+
+  }
+
+
+  /* ========================================================
+     DELETE DEBT
+  ========================================================= */
+
+  function deleteDebt(
+    id
+  ) {
+
+    if (
+      !confirm(
+        "Remove this debt?"
+      )
+    ) {
+
+      return;
+
+    }
+
+
+    debts =
+      debts.filter(
+        debt =>
+          debt.id !== id
+      );
+
+
+    saveData();
+
+    calculate();
+
+    renderDebts();
+
+  }
+
+
+  /* ========================================================
+     MODALS
+  ========================================================= */
+
+  function openTransactionModal() {
+
+    document
+      .getElementById(
+        "transactionModal"
+      )
+      .classList
+      .add("show");
+
+  }
+
+
+  function closeTransactionModal() {
+
+    document
+      .getElementById(
+        "transactionModal"
+      )
+      .classList
+      .remove("show");
+
+  }
+
+
+  function openDebtModal() {
+
+    document
+      .getElementById(
+        "debtModal"
+      )
+      .classList
+      .add("show");
+
+  }
+
+
+  function closeDebtModal() {
+
+    document
+      .getElementById(
+        "debtModal"
+      )
+      .classList
+      .remove("show");
+
+  }
+
+
+  function openResetModal() {
+
+    document
+      .getElementById(
+        "resetModal"
+      )
+      .classList
+      .add("show");
+
+  }
+
+
+  function closeResetModal() {
+
+    document
+      .getElementById(
+        "resetModal"
+      )
+      .classList
+      .remove("show");
+
+  }
+
+
+  /* ========================================================
+     RESET EVERYTHING
+  ========================================================= */
+
+  function resetEverything() {
+
+    transactions = [];
+
+    debts = [];
+
+
+    localStorage.removeItem(
+      "x7_transactions"
+    );
+
+    localStorage.removeItem(
+      "x7_debts"
+    );
+
+
+    calculate();
+
+    renderCategories();
+
+    renderTransactions();
+
+    renderDebts();
+
+
+    closeResetModal();
+
+  }
+
+
+  /* ========================================================
+     CLOSE ON BACKGROUND
+  ========================================================= */
+
+  window.addEventListener(
+    "click",
+    event => {
+
+      if (
+        event.target ===
+        document.getElementById(
+          "transactionModal"
+        )
+      ) {
+
+        closeTransactionModal();
+
+      }
+
+
+      if (
+        event.target ===
+        document.getElementById(
+          "debtModal"
+        )
+      ) {
+
+        closeDebtModal();
+
+      }
+
+
+      if (
+        event.target ===
+        document.getElementById(
+          "resetModal"
+        )
+      ) {
+
+        closeResetModal();
+
+      }
+
+    }
+  );
+
+
+  /* ========================================================
+     INITIALIZE
+  ========================================================= */
+
+  setTransactionType(
+    "expense"
+  );
+
+  calculate();
+
+  renderCategories();
+
+  renderTransactions();
+
+  renderDebts();
+
+</script>
 
 </body>
 </html>
