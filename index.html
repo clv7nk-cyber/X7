@@ -1,1193 +1,1501 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#050505">
-<title>X7</title>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
-<style>
-*{box-sizing:border-box}
-:root{
- --bg:#050505;
- --card:#101010;
- --card2:#151515;
- --line:#242424;
- --text:#f5f5f5;
- --muted:#777;
- --accent:#fff;
- --danger:#ff5c5c;
- --green:#7dffae;
-}
-body{
- margin:0;
- background:
- radial-gradient(circle at 50% -10%,#1c1c1c 0,#090909 35%,#050505 70%);
- color:var(--text);
- font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;
- min-height:100vh;
-}
-.app{
- width:min(100%,520px);
- margin:auto;
- padding:24px 18px 110px;
-}
-header{
- display:flex;
- justify-content:space-between;
- align-items:center;
- margin-bottom:28px;
-}
-.brand{
- font-size:30px;
- font-weight:900;
- letter-spacing:-2px;
-}
-.greeting{
- color:var(--muted);
- font-size:12px;
- margin-top:3px;
-}
-.icon{
- width:42px;
- height:42px;
- border:1px solid var(--line);
- border-radius:14px;
- background:#0d0d0d;
- color:white;
- font-size:18px;
-}
-.hero{
- background:linear-gradient(145deg,#171717,#0c0c0c);
- border:1px solid #292929;
- border-radius:28px;
- padding:24px;
- box-shadow:0 20px 60px #000;
-}
-.label{
- color:#666;
- font-size:10px;
- letter-spacing:2px;
- font-weight:800;
-}
-.balance{
- font-size:52px;
- line-height:1;
- font-weight:900;
- letter-spacing:-3px;
- margin:12px 0 5px;
-}
-.balance-sub{
- color:#777;
- font-size:13px;
-}
-.progress{
- height:5px;
- background:#242424;
- border-radius:10px;
- margin:22px 0 12px;
- overflow:hidden;
-}
-.progress div{
- height:100%;
- background:white;
- width:0;
- border-radius:10px;
- transition:.3s;
-}
-.hero-info{
- display:flex;
- justify-content:space-between;
- color:#777;
- font-size:12px;
-}
-.hero-info b{color:white}
+    <meta name="theme-color" content="#000000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="X7 Money">
 
-.grid{
- display:grid;
- grid-template-columns:1fr 1fr;
- gap:10px;
- margin-top:14px;
-}
-.card{
- background:var(--card);
- border:1px solid var(--line);
- border-radius:20px;
- padding:18px;
-}
-.action{
- text-align:left;
- color:white;
- cursor:pointer;
- transition:.15s;
-}
-.action:active{transform:scale(.97)}
-.action .emoji{
- font-size:24px;
- display:block;
- margin-bottom:10px;
-}
-.action strong{
- display:block;
- font-size:14px;
-}
-.action small{
- color:#666;
- display:block;
- margin-top:5px;
-}
-.section{margin-top:28px}
-.section-head{
- display:flex;
- justify-content:space-between;
- align-items:center;
- margin-bottom:10px;
-}
-.section-head h2{
- font-size:16px;
- margin:0;
-}
-.muted{color:#666;font-size:12px}
-.row{
- display:flex;
- justify-content:space-between;
- align-items:center;
- padding:15px 0;
- border-bottom:1px solid #1d1d1d;
-}
-.row:last-child{border:0}
-.row-left{
- display:flex;
- gap:12px;
- align-items:center;
-}
-.row-icon{
- width:36px;
- height:36px;
- display:grid;
- place-items:center;
- background:#181818;
- border-radius:12px;
-}
-.row-name{font-size:14px;font-weight:700}
-.row-sub{font-size:11px;color:#666;margin-top:3px}
-.amount{font-weight:800}
-.negative{color:#ff7474}
-.green{color:#7dffae}
+    <title>X7 Money</title>
 
-.debt{
- padding:20px;
- background:linear-gradient(145deg,#161616,#0d0d0d);
-}
-.debt-number{
- font-size:31px;
- font-weight:900;
- margin:5px 0 12px;
-}
-.debtbar{
- height:7px;
- background:#252525;
- border-radius:20px;
- overflow:hidden;
-}
-.debtbar div{
- height:100%;
- background:white;
- width:0;
-}
-.debt-info{
- display:flex;
- justify-content:space-between;
- color:#666;
- font-size:11px;
- margin-top:8px;
-}
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-.afford{
- display:flex;
- gap:8px;
-}
-input{
- width:100%;
- background:#0d0d0d;
- color:white;
- border:1px solid #292929;
- border-radius:13px;
- padding:13px;
- outline:none;
- font-size:15px;
-}
-input:focus{border-color:#666}
-.primary{
- background:white;
- color:black;
- border:0;
- border-radius:13px;
- padding:0 16px;
- font-weight:800;
-}
-.result{
- margin-top:10px;
- padding:13px;
- border-radius:13px;
- background:#161616;
- font-size:13px;
- line-height:1.5;
-}
+        html {
+            background: #000;
+        }
 
-.fab{
- position:fixed;
- bottom:24px;
- left:50%;
- transform:translateX(-50%);
- width:64px;
- height:64px;
- border-radius:50%;
- border:1px solid #444;
- background:white;
- color:black;
- font-size:32px;
- box-shadow:0 10px 40px #000;
- z-index:10;
-}
+        body {
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "SF Pro Display",
+                "Segoe UI",
+                sans-serif;
 
-.modal{
- position:fixed;
- inset:0;
- background:#000b;
- display:flex;
- align-items:end;
- justify-content:center;
- z-index:20;
-}
-.modal.hidden{display:none}
-.sheet{
- width:min(520px,100%);
- background:#111;
- border:1px solid #292929;
- border-radius:28px 28px 0 0;
- padding:22px 18px 30px;
- max-height:88vh;
- overflow:auto;
-}
-.sheet-head{
- display:flex;
- justify-content:space-between;
- align-items:center;
- margin-bottom:20px;
-}
-.sheet h3{margin:0}
-.close{
- background:#1b1b1b;
- border:1px solid #292929;
- color:white;
- width:38px;
- height:38px;
- border-radius:12px;
-}
-.field{margin-bottom:14px}
-.field label{
- display:block;
- color:#777;
- font-size:11px;
- margin-bottom:7px;
-}
-.actions{
- display:flex;
- gap:8px;
- margin-top:18px;
-}
-.actions button{
- flex:1;
- padding:13px;
- border-radius:13px;
- border:1px solid #292929;
- background:#191919;
- color:white;
- font-weight:700;
-}
-.actions .primary{background:white;color:black}
+            background: #000;
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
 
-.big-choice{
- display:grid;
- grid-template-columns:1fr 1fr;
- gap:8px;
-}
-.big-choice button{
- padding:15px;
- background:#171717;
- color:white;
- border:1px solid #292929;
- border-radius:14px;
- text-align:left;
-}
+        button,
+        input,
+        select {
+            font: inherit;
+        }
 
-.empty{
- padding:18px 0;
- color:#555;
- font-size:13px;
-}
+        /* =========================
+           STARTUP SCREEN
+        ========================= */
 
-@media(max-width:380px){
- .balance{font-size:44px}
-}
-</style>
+        #splash {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+
+            background:
+                radial-gradient(
+                    circle at 50% 40%,
+                    #181818 0%,
+                    #080808 35%,
+                    #000 70%
+                );
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            transition:
+                opacity 0.8s ease,
+                visibility 0.8s ease;
+        }
+
+        #splash.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .splash-content {
+            width: 90%;
+            max-width: 420px;
+            text-align: center;
+            animation: splashIn 1.2s ease forwards;
+        }
+
+        .x7-logo {
+            font-size: 86px;
+            font-weight: 900;
+            letter-spacing: -8px;
+            line-height: 1;
+
+            background: linear-gradient(
+                135deg,
+                #fff,
+                #777
+            );
+
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+
+            text-shadow:
+                0 0 35px rgba(255,255,255,0.12);
+
+            animation: logoPulse 2.5s ease-in-out infinite;
+        }
+
+        .good-morning {
+            margin-top: 30px;
+
+            font-size: 25px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+
+            opacity: 0;
+            animation: fadeUp 1s ease 0.6s forwards;
+        }
+
+        .quote {
+            margin-top: 14px;
+
+            color: #8c8c8c;
+            font-size: 15px;
+            line-height: 1.6;
+
+            opacity: 0;
+            animation: fadeUp 1s ease 1s forwards;
+        }
+
+        .loading-line {
+            width: 100px;
+            height: 2px;
+
+            margin: 35px auto 0;
+
+            background: #222;
+            overflow: hidden;
+
+            opacity: 0;
+            animation:
+                fadeUp 1s ease 1.2s forwards;
+        }
+
+        .loading-line::after {
+            content: "";
+
+            display: block;
+            width: 40px;
+            height: 100%;
+
+            background: #fff;
+
+            animation: loading 1.4s ease-in-out infinite;
+        }
+
+        @keyframes splashIn {
+            from {
+                opacity: 0;
+                transform: scale(0.92);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes logoPulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.85;
+            }
+
+            50% {
+                transform: scale(1.035);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes loading {
+            0% {
+                transform: translateX(-60px);
+            }
+
+            100% {
+                transform: translateX(160px);
+            }
+        }
+
+        /* =========================
+           APP
+        ========================= */
+
+        #app {
+            min-height: 100vh;
+            padding:
+                env(safe-area-inset-top)
+                18px
+                calc(30px + env(safe-area-inset-bottom));
+        }
+
+        .container {
+            width: 100%;
+            max-width: 620px;
+            margin: auto;
+        }
+
+        /* HEADER */
+
+        header {
+            padding-top: 18px;
+            padding-bottom: 25px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand-mark {
+            width: 42px;
+            height: 42px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 13px;
+
+            background: #fff;
+            color: #000;
+
+            font-weight: 900;
+            font-size: 18px;
+        }
+
+        .brand-name {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .brand-sub {
+            color: #666;
+            font-size: 11px;
+            margin-top: 2px;
+        }
+
+        /* BALANCE */
+
+        .balance-card {
+            position: relative;
+
+            padding: 28px;
+
+            border-radius: 28px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #171717,
+                    #090909
+                );
+
+            border: 1px solid #222;
+
+            overflow: hidden;
+        }
+
+        .balance-card::before {
+            content: "";
+
+            position: absolute;
+
+            width: 180px;
+            height: 180px;
+
+            top: -100px;
+            right: -80px;
+
+            background: #fff;
+            opacity: 0.035;
+
+            border-radius: 50%;
+        }
+
+        .balance-label {
+            color: #777;
+            font-size: 13px;
+        }
+
+        .balance {
+            margin-top: 8px;
+
+            font-size: 42px;
+            font-weight: 800;
+
+            letter-spacing: -2px;
+        }
+
+        .currency {
+            font-size: 22px;
+            color: #777;
+            margin-right: 4px;
+        }
+
+        /* STATS */
+
+        .stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+
+            gap: 12px;
+
+            margin-top: 12px;
+        }
+
+        .stat-card {
+            padding: 20px;
+
+            background: #0d0d0d;
+
+            border: 1px solid #1d1d1d;
+            border-radius: 20px;
+        }
+
+        .stat-title {
+            color: #666;
+            font-size: 12px;
+        }
+
+        .stat-value {
+            margin-top: 8px;
+
+            font-size: 21px;
+            font-weight: 700;
+        }
+
+        .income {
+            color: #e8e8e8;
+        }
+
+        .expense {
+            color: #999;
+        }
+
+        /* ACTIONS */
+
+        .actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+
+            gap: 12px;
+
+            margin-top: 18px;
+        }
+
+        .action-btn {
+            border: none;
+            border-radius: 18px;
+
+            padding: 17px;
+
+            cursor: pointer;
+
+            font-weight: 700;
+
+            transition:
+                transform 0.2s ease,
+                opacity 0.2s ease;
+        }
+
+        .action-btn:active {
+            transform: scale(0.96);
+        }
+
+        .add-btn {
+            background: #fff;
+            color: #000;
+        }
+
+        .reset-btn {
+            background: #151515;
+            color: #aaa;
+            border: 1px solid #252525;
+        }
+
+        /* TRANSACTIONS */
+
+        .section-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            margin-top: 32px;
+            margin-bottom: 12px;
+        }
+
+        .section-title h2 {
+            font-size: 17px;
+        }
+
+        .count {
+            color: #555;
+            font-size: 12px;
+        }
+
+        .transactions {
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+        }
+
+        .transaction {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 16px;
+
+            background: #0b0b0b;
+
+            border: 1px solid #181818;
+            border-radius: 17px;
+
+            animation: transactionIn 0.35s ease;
+        }
+
+        @keyframes transactionIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .transaction-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .transaction-icon {
+            width: 40px;
+            height: 40px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 13px;
+
+            background: #151515;
+
+            font-size: 17px;
+        }
+
+        .transaction-name {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .transaction-date {
+            color: #555;
+            font-size: 11px;
+            margin-top: 4px;
+        }
+
+        .transaction-amount {
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .transaction-amount.expense {
+            color: #999;
+        }
+
+        .transaction-amount.income {
+            color: #fff;
+        }
+
+        .empty {
+            text-align: center;
+
+            padding: 35px 15px;
+
+            color: #444;
+
+            border: 1px dashed #1d1d1d;
+            border-radius: 18px;
+        }
+
+        /* =========================
+           MODAL
+        ========================= */
+
+        .modal {
+            position: fixed;
+            inset: 0;
+
+            z-index: 5000;
+
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+
+            padding: 15px;
+
+            background: rgba(0,0,0,0.75);
+
+            backdrop-filter: blur(10px);
+
+            opacity: 0;
+            visibility: hidden;
+
+            transition:
+                opacity 0.25s ease,
+                visibility 0.25s ease;
+        }
+
+        .modal.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            width: 100%;
+            max-width: 600px;
+
+            background: #101010;
+
+            border: 1px solid #252525;
+            border-radius: 28px;
+
+            padding: 24px;
+
+            transform: translateY(30px);
+
+            transition:
+                transform 0.3s ease;
+        }
+
+        .modal.show .modal-content {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            margin-bottom: 22px;
+        }
+
+        .modal-header h2 {
+            font-size: 21px;
+        }
+
+        .close {
+            width: 34px;
+            height: 34px;
+
+            border: none;
+            border-radius: 50%;
+
+            background: #1c1c1c;
+            color: #aaa;
+
+            cursor: pointer;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+
+            color: #777;
+            font-size: 12px;
+
+            margin-bottom: 7px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+
+            padding: 15px;
+
+            border-radius: 14px;
+
+            border: 1px solid #252525;
+
+            background: #080808;
+            color: #fff;
+
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #555;
+        }
+
+        .save-btn {
+            width: 100%;
+
+            padding: 16px;
+
+            margin-top: 5px;
+
+            border: none;
+            border-radius: 15px;
+
+            background: #fff;
+            color: #000;
+
+            font-weight: 800;
+
+            cursor: pointer;
+        }
+
+        /* RESET */
+
+        .danger-text {
+            color: #888;
+            font-size: 13px;
+            line-height: 1.6;
+
+            margin-bottom: 20px;
+        }
+
+        .confirm-reset {
+            width: 100%;
+
+            padding: 15px;
+
+            border: none;
+            border-radius: 14px;
+
+            background: #fff;
+            color: #000;
+
+            font-weight: 800;
+
+            cursor: pointer;
+        }
+
+        .cancel-reset {
+            width: 100%;
+
+            padding: 15px;
+
+            margin-top: 9px;
+
+            border: 1px solid #252525;
+            border-radius: 14px;
+
+            background: #151515;
+            color: #aaa;
+
+            font-weight: 700;
+
+            cursor: pointer;
+        }
+
+        @media (min-width: 700px) {
+            #app {
+                padding-top: 30px;
+            }
+
+            .modal {
+                align-items: center;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<div class="app">
+<!-- =========================
+     STARTUP
+========================= -->
 
-<header>
- <div>
-  <div class="brand">X7</div>
-  <div class="greeting" id="greeting">Good evening, Calvin.</div>
- </div>
- <button class="icon" onclick="settings()">⚙</button>
-</header>
+<div id="splash">
+    <div class="splash-content">
 
-<section class="hero">
+        <div class="x7-logo">X7</div>
 
- <div class="label">TODAY'S CONTROL</div>
+        <div class="good-morning">
+            GOOD MORNING, X7.
+        </div>
 
- <div class="balance" id="balance">₹500</div>
- <div class="balance-sub">available to use</div>
+        <div class="quote" id="quote">
+            Stay focused. Keep building.
+        </div>
 
- <div class="progress">
-  <div id="moneyProgress"></div>
- </div>
+        <div class="loading-line"></div>
 
- <div class="hero-info">
-  <span>Received <b id="received">₹500</b></span>
-  <span>Spent <b id="spent">₹0</b></span>
- </div>
-
-</section>
+    </div>
+</div>
 
 
-<div class="grid">
+<!-- =========================
+     APP
+========================= -->
 
- <button class="card action" onclick="expense('food')">
-  <span class="emoji">🍛</span>
-  <strong>Food</strong>
-  <small id="foodLeft">₹150 left</small>
- </button>
+<div id="app">
 
- <button class="card action" onclick="expense('transport')">
-  <span class="emoji">🚇</span>
-  <strong>Transport</strong>
-  <small id="transportLeft">₹40 left</small>
- </button>
+    <div class="container">
 
- <button class="card action" onclick="cigarette()">
-  <span class="emoji">🚬</span>
-  <strong>Cigarettes</strong>
-  <small id="cigStatus">0 / 3</small>
- </button>
+        <header>
 
- <button class="card action" onclick="otherExpense()">
-  <span class="emoji">＋</span>
-  <strong>Other</strong>
-  <small>Add spending</small>
- </button>
+            <div class="brand">
+
+                <div class="brand-mark">
+                    X7
+                </div>
+
+                <div>
+                    <div class="brand-name">
+                        Money
+                    </div>
+
+                    <div class="brand-sub">
+                        PERSONAL FINANCE
+                    </div>
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- BALANCE -->
+
+        <div class="balance-card">
+
+            <div class="balance-label">
+                TOTAL BALANCE
+            </div>
+
+            <div class="balance">
+                <span class="currency">₹</span><span id="balance">0</span>
+            </div>
+
+        </div>
+
+
+        <!-- STATS -->
+
+        <div class="stats">
+
+            <div class="stat-card">
+
+                <div class="stat-title">
+                    INCOME
+                </div>
+
+                <div class="stat-value income">
+                    ₹<span id="income">0</span>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-title">
+                    EXPENSES
+                </div>
+
+                <div class="stat-value expense">
+                    ₹<span id="expenses">0</span>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ACTIONS -->
+
+        <div class="actions">
+
+            <button
+                class="action-btn add-btn"
+                onclick="openAddModal()">
+
+                + Add Money
+
+            </button>
+
+            <button
+                class="action-btn reset-btn"
+                onclick="openResetModal()">
+
+                Reset Money
+
+            </button>
+
+        </div>
+
+
+        <!-- TRANSACTIONS -->
+
+        <div class="section-title">
+
+            <h2>
+                Transactions
+            </h2>
+
+            <div
+                class="count"
+                id="transactionCount">
+
+                0 transactions
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="transactions"
+            id="transactions">
+
+        </div>
+
+    </div>
 
 </div>
 
 
-<section class="section">
+<!-- =========================
+     ADD MONEY MODAL
+========================= -->
 
- <div class="section-head">
-  <h2>💳 Debt</h2>
-  <button class="muted" onclick="payDebt()">Pay</button>
- </div>
+<div
+    class="modal"
+    id="addModal">
 
- <div class="card debt">
+    <div class="modal-content">
 
-  <div class="label">REMAINING</div>
+        <div class="modal-header">
 
-  <div class="debt-number" id="debt">₹30,000</div>
+            <h2>
+                Add Transaction
+            </h2>
 
-  <div class="debtbar">
-   <div id="debtProgress"></div>
-  </div>
+            <button
+                class="close"
+                onclick="closeAddModal()">
 
-  <div class="debt-info">
-   <span>Paid <b id="debtPaid">₹0</b></span>
-   <span>Original ₹30,000</span>
-  </div>
+                ×
 
- </div>
+            </button>
 
-</section>
-
-
-<section class="section">
-
- <div class="section-head">
-  <h2>🍛 Can I afford it?</h2>
- </div>
-
- <div class="card">
-
-  <div class="afford">
-   <input id="foodName" placeholder="Chicken biryani">
-   <input id="foodPrice" type="number" placeholder="₹">
-   <button class="primary" onclick="checkFood()">?</button>
-  </div>
-
-  <div id="foodResult"></div>
-
- </div>
-
-</section>
+        </div>
 
 
-<section class="section">
+        <div class="form-group">
 
- <div class="section-head">
-  <h2>🧠 Life</h2>
-  <span class="muted">today</span>
- </div>
+            <label>
+                DESCRIPTION
+            </label>
 
- <div class="grid">
+            <input
+                id="description"
+                type="text"
+                placeholder="Salary, food, shopping..."
+            >
 
-  <button class="card action" onclick="meal()">
-   <span class="emoji">🍽️</span>
-   <strong>Meals</strong>
-   <small id="mealStatus">0 / 3</small>
-  </button>
-
-  <button class="card action" onclick="sleepTarget()">
-   <span class="emoji">😴</span>
-   <strong>Sleep</strong>
-   <small id="sleepStatus">Target 12:30 AM</small>
-  </button>
-
- </div>
-
-</section>
+        </div>
 
 
-<section class="section">
+        <div class="form-group">
 
- <div class="section-head">
-  <h2>Activity</h2>
-  <span class="muted">today</span>
- </div>
+            <label>
+                AMOUNT
+            </label>
 
- <div class="card" id="activity"></div>
+            <input
+                id="amount"
+                type="number"
+                inputmode="decimal"
+                placeholder="0"
+            >
 
-</section>
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                TYPE
+            </label>
+
+            <select id="type">
+
+                <option value="income">
+                    Income
+                </option>
+
+                <option value="expense">
+                    Expense
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <button
+            class="save-btn"
+            onclick="addTransaction()">
+
+            SAVE TRANSACTION
+
+        </button>
+
+    </div>
 
 </div>
 
 
-<button class="fab" onclick="quickAdd()">+</button>
+<!-- =========================
+     RESET MODAL
+========================= -->
+
+<div
+    class="modal"
+    id="resetModal">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h2>
+                Reset Money
+            </h2>
+
+            <button
+                class="close"
+                onclick="closeResetModal()">
+
+                ×
+
+            </button>
+
+        </div>
 
 
-<div class="modal hidden" id="modal">
+        <div class="danger-text">
 
- <div class="sheet">
+            This will permanently remove all your
+            transactions and reset your balance to
+            ₹0.
 
-  <div class="sheet-head">
-   <h3 id="modalTitle">X7</h3>
-   <button class="close" onclick="closeModal()">×</button>
-  </div>
+            <br><br>
 
-  <div id="modalContent"></div>
+            This action cannot be undone.
 
- </div>
+        </div>
+
+
+        <button
+            class="confirm-reset"
+            onclick="resetMoney()">
+
+            YES, RESET EVERYTHING
+
+        </button>
+
+
+        <button
+            class="cancel-reset"
+            onclick="closeResetModal()">
+
+            CANCEL
+
+        </button>
+
+    </div>
 
 </div>
 
 
 <script>
 
-const KEY="X7_DATA";
+    /* =========================
+       MOTIVATIONAL QUOTES
+    ========================= */
 
-const defaults={
- dailyMoney:500,
- foodBudget:150,
- transportBudget:40,
- cigarettePrice:14,
- cigaretteLimit:3,
- debt:30000,
- originalDebt:30000,
- expenses:[],
- debtPayments:[],
- meals:[],
- sleepTarget:"00:30"
-};
+    const quotes = [
 
-let data=load();
+        "Small steps. Big results.",
 
-function load(){
+        "Discipline creates freedom.",
 
- try{
-  const saved=JSON.parse(localStorage.getItem(KEY));
-  return {...defaults,...saved};
- }catch{
-  return {...defaults};
- }
+        "Your future is built by what you do today.",
 
-}
+        "Don't chase money. Build value.",
 
-function save(){
- localStorage.setItem(KEY,JSON.stringify(data));
-}
+        "Stay focused. Keep building.",
 
-function today(){
+        "Your habits decide your future.",
 
- return new Date().toISOString().slice(0,10);
+        "Make your money work for you.",
 
-}
+        "Consistency beats motivation.",
 
-function money(n){
+        "Think long term. Move today.",
 
- return "₹"+Math.round(n).toLocaleString("en-IN");
+        "One day or day one. You decide.",
 
-}
+        "Build quietly. Let the results speak.",
 
-function expensesToday(){
+        "Control your money before it controls you.",
 
- return data.expenses.filter(x=>x.date===today());
+        "Every rupee has a purpose.",
 
-}
+        "You don't need more money. You need more control.",
 
-function totalSpent(){
+        "Focus on progress, not perfection."
 
- return expensesToday()
- .reduce((a,b)=>a+b.amount,0);
+    ];
 
-}
 
-function categorySpent(cat){
+    /* =========================
+       DATA
+    ========================= */
 
- return expensesToday()
- .filter(x=>x.category===cat)
- .reduce((a,b)=>a+b.amount,0);
+    let transactions =
+        JSON.parse(
+            localStorage.getItem("x7_transactions")
+        ) || [];
 
-}
 
-function cigarettesToday(){
+    /* =========================
+       STARTUP
+    ========================= */
 
- return expensesToday()
- .filter(x=>x.category==="cigarette")
- .reduce((a,b)=>a+b.qty,0);
+    function showRandomQuote() {
 
-}
+        const quote =
+            quotes[
+                Math.floor(
+                    Math.random() * quotes.length
+                )
+            ];
 
-function update(){
+        document.getElementById("quote").textContent =
+            `"${quote}"`;
 
- const spent=totalSpent();
+    }
 
- const remaining=Math.max(
-  0,
-  data.dailyMoney-spent
- );
 
- document.getElementById("balance").textContent=
-  money(remaining);
+    showRandomQuote();
 
- document.getElementById("received").textContent=
-  money(data.dailyMoney);
 
- document.getElementById("spent").textContent=
-  money(spent);
+    window.addEventListener(
+        "load",
+        () => {
 
- document.getElementById("moneyProgress").style.width=
-  Math.min(100,spent/data.dailyMoney*100)+"%";
+            setTimeout(
+                () => {
 
+                    document
+                        .getElementById("splash")
+                        .classList
+                        .add("hidden");
 
- const foodLeft=Math.max(
-  0,
-  data.foodBudget-categorySpent("food")
- );
+                },
+                2800
+            );
 
- const transportLeft=Math.max(
-  0,
-  data.transportBudget-categorySpent("transport")
- );
+        }
+    );
 
- document.getElementById("foodLeft").textContent=
-  money(foodLeft)+" left";
 
- document.getElementById("transportLeft").textContent=
-  money(transportLeft)+" left";
+    /* =========================
+       FORMAT MONEY
+    ========================= */
 
+    function formatMoney(amount) {
 
- const cig=cigarettesToday();
+        return Number(amount).toLocaleString(
+            "en-IN",
+            {
+                maximumFractionDigits: 2
+            }
+        );
 
- document.getElementById("cigStatus").textContent=
-  cig+" / "+data.cigaretteLimit;
+    }
 
 
- document.getElementById("debt").textContent=
-  money(data.debt);
+    /* =========================
+       SAVE
+    ========================= */
 
- const paid=
-  data.originalDebt-data.debt;
+    function saveData() {
 
- document.getElementById("debtPaid").textContent=
-  money(paid);
+        localStorage.setItem(
+            "x7_transactions",
+            JSON.stringify(transactions)
+        );
 
- document.getElementById("debtProgress").style.width=
-  Math.min(
-   100,
-   paid/data.originalDebt*100
-  )+"%";
+    }
 
 
- const meals=
-  data.meals.filter(x=>x.date===today()).length;
+    /* =========================
+       CALCULATE
+    ========================= */
 
- document.getElementById("mealStatus").textContent=
-  meals+" / 3";
+    function calculate() {
 
+        let income = 0;
+        let expenses = 0;
 
- document.getElementById("sleepStatus").textContent=
-  "Target "+formatTime(data.sleepTarget);
+        transactions.forEach(
+            transaction => {
 
+                if (transaction.type === "income") {
 
- renderActivity();
+                    income += transaction.amount;
 
-}
+                } else {
 
-function formatTime(t){
+                    expenses += transaction.amount;
 
- let [h,m]=t.split(":");
- h=Number(h);
+                }
 
- let suffix=h>=12?"PM":"AM";
+            }
+        );
 
- h=h%12||12;
+        const balance =
+            income - expenses;
 
- return `${h}:${m} ${suffix}`;
 
-}
+        document.getElementById("income")
+            .textContent =
+            formatMoney(income);
 
+        document.getElementById("expenses")
+            .textContent =
+            formatMoney(expenses);
 
-function expense(category){
+        document.getElementById("balance")
+            .textContent =
+            formatMoney(balance);
 
- let label={
-  food:"Food",
-  transport:"Transport"
- }[category];
+    }
 
- let defaultAmount=
-  category==="transport"?20:"";
 
- openForm(
-  "Add "+label,
-  category,
-  defaultAmount
- );
+    /* =========================
+       RENDER TRANSACTIONS
+    ========================= */
 
-}
+    function renderTransactions() {
 
+        const container =
+            document.getElementById(
+                "transactions"
+            );
 
-function otherExpense(){
+        container.innerHTML = "";
 
- openForm("Other spending","other","");
 
-}
+        if (transactions.length === 0) {
 
+            container.innerHTML = `
+                <div class="empty">
+                    No transactions yet.<br>
+                    Start building your money history.
+                </div>
+            `;
 
-function openForm(title,category,amount){
+        } else {
 
- document.getElementById("modalTitle").textContent=
-  title;
+            transactions
+                .slice()
+                .reverse()
+                .forEach(
+                    transaction => {
 
- document.getElementById("modalContent").innerHTML=`
+                        const div =
+                            document.createElement(
+                                "div"
+                            );
 
-  <div class="field">
-   <label>AMOUNT</label>
-   <input id="amount" type="number"
-          value="${amount}"
-          placeholder="₹ amount">
-  </div>
+                        div.className =
+                            "transaction";
 
-  <div class="field">
-   <label>NOTE</label>
-   <input id="note" placeholder="What was it?">
-  </div>
 
-  <div class="actions">
-   <button onclick="closeModal()">Cancel</button>
-   <button class="primary"
-           onclick="saveExpense('${category}')">
-    Save
-   </button>
-  </div>
- `;
+                        const sign =
+                            transaction.type === "income"
+                                ? "+"
+                                : "-";
 
- document.getElementById("modal")
- .classList.remove("hidden");
 
-}
+                        const icon =
+                            transaction.type === "income"
+                                ? "↗"
+                                : "↘";
 
 
-function saveExpense(category){
+                        div.innerHTML = `
 
- const amount=
-  Number(document.getElementById("amount").value);
+                            <div class="transaction-left">
 
- if(!amount||amount<=0)return;
+                                <div class="transaction-icon">
+                                    ${icon}
+                                </div>
 
- const note=
-  document.getElementById("note").value;
+                                <div>
 
- data.expenses.push({
+                                    <div class="transaction-name">
+                                        ${escapeHTML(transaction.description)}
+                                    </div>
 
-  date:today(),
-  category,
-  amount,
-  qty:1,
-  note:note||category,
-  time:Date.now()
+                                    <div class="transaction-date">
+                                        ${transaction.date}
+                                    </div>
 
- });
+                                </div>
 
- save();
- closeModal();
- update();
+                            </div>
 
-}
 
+                            <div class="
+                                transaction-amount
+                                ${transaction.type}
+                            ">
 
-function cigarette(){
+                                ${sign} ₹${formatMoney(transaction.amount)}
 
- const count=cigarettesToday();
+                            </div>
 
- if(count>=data.cigaretteLimit){
+                        `;
 
-  if(!confirm(
-   "You've reached today's cigarette target.\n\n"+
-   "Log another cigarette for "+money(data.cigarettePrice)+"?"
-  ))return;
 
- }
+                        container.appendChild(div);
 
- data.expenses.push({
+                    }
+                );
 
-  date:today(),
-  category:"cigarette",
-  amount:data.cigarettePrice,
-  qty:1,
-  note:"Cigarette",
-  time:Date.now()
+        }
 
- });
 
- save();
- update();
+        const count =
+            transactions.length;
 
-}
+        document.getElementById(
+            "transactionCount"
+        ).textContent =
+            `${count} transaction${count === 1 ? "" : "s"}`;
 
+    }
 
-function payDebt(){
 
- document.getElementById("modalTitle").textContent=
-  "Pay debt";
+    /* =========================
+       SECURITY
+    ========================= */
 
- document.getElementById("modalContent").innerHTML=`
+    function escapeHTML(text) {
 
-  <div class="field">
-   <label>PAYMENT</label>
-   <input id="debtAmount"
-          type="number"
-          placeholder="₹ amount">
-  </div>
+        const div =
+            document.createElement("div");
 
-  <div class="actions">
-   <button onclick="closeModal()">Cancel</button>
-   <button class="primary"
-           onclick="saveDebt()">
-    Pay debt
-   </button>
-  </div>
- `;
+        div.textContent = text;
 
- document.getElementById("modal")
- .classList.remove("hidden");
+        return div.innerHTML;
 
-}
+    }
 
 
-function saveDebt(){
+    /* =========================
+       ADD TRANSACTION
+    ========================= */
 
- let amount=
-  Number(document.getElementById("debtAmount").value);
+    function addTransaction() {
 
- if(!amount||amount<=0)return;
+        const description =
+            document
+                .getElementById("description")
+                .value
+                .trim();
 
- amount=Math.min(amount,data.debt);
 
- data.debt-=amount;
+        const amount =
+            parseFloat(
+                document
+                    .getElementById("amount")
+                    .value
+            );
 
- data.debtPayments.push({
 
-  amount,
-  date:today(),
-  time:Date.now()
+        const type =
+            document
+                .getElementById("type")
+                .value;
 
- });
 
- save();
- closeModal();
- update();
+        if (!description) {
 
-}
+            alert(
+                "Please enter a description."
+            );
 
+            return;
 
-function checkFood(){
+        }
 
- const name=
-  document.getElementById("foodName").value||
-  "This";
 
- const price=
-  Number(document.getElementById("foodPrice").value);
+        if (!amount || amount <= 0) {
 
- if(!price)return;
+            alert(
+                "Please enter a valid amount."
+            );
 
- const remaining=
-  Math.max(
-   0,
-   data.foodBudget-categorySpent("food")
-  );
+            return;
 
- let text="";
+        }
 
- if(price<=remaining){
 
-  text=
-   `🟢 <b>${name}</b> is within your food budget.<br>`+
-   `You'll have ${money(remaining-price)} left.`;
+        transactions.push({
 
- }else{
+            id: Date.now(),
 
-  text=
-   `🔴 <b>${name}</b> is ₹${price-remaining} over your food budget.`;
+            description,
 
- }
+            amount,
 
- document.getElementById("foodResult").innerHTML=
-  `<div class="result">${text}</div>`;
+            type,
 
-}
+            date:
+                new Date()
+                    .toLocaleDateString(
+                        "en-IN",
+                        {
+                            day: "numeric",
+                            month: "short",
+                            year: "numeric"
+                        }
+                    )
 
+        });
 
-function meal(){
 
- data.meals.push({
+        saveData();
 
-  date:today(),
-  time:Date.now()
+        renderTransactions();
 
- });
+        calculate();
 
- save();
- update();
+        closeAddModal();
 
-}
 
+        document.getElementById(
+            "description"
+        ).value = "";
 
-function sleepTarget(){
 
- document.getElementById("modalTitle").textContent=
-  "Sleep target";
+        document.getElementById(
+            "amount"
+        ).value = "";
 
- document.getElementById("modalContent").innerHTML=`
+    }
 
-  <div class="field">
-   <label>BEDTIME</label>
-   <input id="sleepInput"
-          type="time"
-          value="${data.sleepTarget}">
-  </div>
 
-  <div class="actions">
-   <button onclick="closeModal()">Cancel</button>
-   <button class="primary"
-           onclick="saveSleep()">
-    Save
-   </button>
-  </div>
- `;
+    /* =========================
+       RESET MONEY
+    ========================= */
 
- document.getElementById("modal")
- .classList.remove("hidden");
+    function resetMoney() {
 
-}
+        transactions = [];
 
+        localStorage.removeItem(
+            "x7_transactions"
+        );
 
-function saveSleep(){
+        renderTransactions();
 
- data.sleepTarget=
-  document.getElementById("sleepInput").value;
+        calculate();
 
- save();
- closeModal();
- update();
+        closeResetModal();
 
-}
+    }
 
 
-function quickAdd(){
+    /* =========================
+       ADD MODAL
+    ========================= */
 
- document.getElementById("modalTitle").textContent=
-  "What did you do?";
+    function openAddModal() {
 
- document.getElementById("modalContent").innerHTML=`
+        document
+            .getElementById("addModal")
+            .classList
+            .add("show");
 
-  <div class="big-choice">
+    }
 
-   <button onclick="closeModal();expense('food')">
-    🍛 Food
-   </button>
 
-   <button onclick="closeModal();cigarette()">
-    🚬 Cigarette
-   </button>
+    function closeAddModal() {
 
-   <button onclick="closeModal();expense('transport')">
-    🚇 Metro
-   </button>
+        document
+            .getElementById("addModal")
+            .classList
+            .remove("show");
 
-   <button onclick="closeModal();payDebt()">
-    💳 Debt payment
-   </button>
+    }
 
-   <button onclick="closeModal();otherExpense()">
-    🛍 Other
-   </button>
 
-   <button onclick="receiveMoney()">
-    💰 Money received
-   </button>
+    /* =========================
+       RESET MODAL
+    ========================= */
 
-  </div>
- `;
+    function openResetModal() {
 
- document.getElementById("modal")
- .classList.remove("hidden");
+        document
+            .getElementById("resetModal")
+            .classList
+            .add("show");
 
-}
+    }
 
 
-function receiveMoney(){
+    function closeResetModal() {
 
- document.getElementById("modalTitle").textContent=
-  "Money received";
+        document
+            .getElementById("resetModal")
+            .classList
+            .remove("show");
 
- document.getElementById("modalContent").innerHTML=`
+    }
 
-  <div class="field">
-   <label>AMOUNT FROM MUM</label>
-   <input id="incomeAmount"
-          type="number"
-          value="500">
-  </div>
 
-  <div class="actions">
-   <button onclick="closeModal()">Cancel</button>
-   <button class="primary"
-           onclick="saveIncome()">
-    Add money
-   </button>
-  </div>
- `;
+    /* =========================
+       CLOSE MODALS
+    ========================= */
 
-}
+    window.addEventListener(
+        "click",
+        event => {
 
+            if (
+                event.target ===
+                document.getElementById("addModal")
+            ) {
 
-function saveIncome(){
+                closeAddModal();
 
- let amount=
-  Number(document.getElementById("incomeAmount").value);
+            }
 
- if(!amount||amount<=0)return;
 
- data.dailyMoney+=amount;
+            if (
+                event.target ===
+                document.getElementById("resetModal")
+            ) {
 
- save();
- closeModal();
- update();
+                closeResetModal();
 
-}
+            }
 
+        }
+    );
 
-function settings(){
 
- document.getElementById("modalTitle").textContent=
-  "X7 Settings";
+    /* =========================
+       INITIALIZE
+    ========================= */
 
- document.getElementById("modalContent").innerHTML=`
+    renderTransactions();
 
-  <div class="field">
-   <label>DAILY MONEY</label>
-   <input id="sMoney"
-          type="number"
-          value="${data.dailyMoney}">
-  </div>
-
-  <div class="field">
-   <label>FOOD BUDGET</label>
-   <input id="sFood"
-          type="number"
-          value="${data.foodBudget}">
-  </div>
-
-  <div class="field">
-   <label>TRANSPORT BUDGET</label>
-   <input id="sTransport"
-          type="number"
-          value="${data.transportBudget}">
-  </div>
-
-  <div class="field">
-   <label>CIGARETTE PRICE</label>
-   <input id="sCigPrice"
-          type="number"
-          value="${data.cigarettePrice}">
-  </div>
-
-  <div class="field">
-   <label>DAILY CIGARETTE TARGET</label>
-   <input id="sCigLimit"
-          type="number"
-          value="${data.cigaretteLimit}">
-  </div>
-
-  <div class="actions">
-   <button onclick="closeModal()">Cancel</button>
-   <button class="primary"
-           onclick="saveSettings()">
-    Save
-   </button>
-  </div>
- `;
-
- document.getElementById("modal")
- .classList.remove("hidden");
-
-}
-
-
-function saveSettings(){
-
- data.dailyMoney=
-  Number(document.getElementById("sMoney").value)||500;
-
- data.foodBudget=
-  Number(document.getElementById("sFood").value)||150;
-
- data.transportBudget=
-  Number(document.getElementById("sTransport").value)||40;
-
- data.cigarettePrice=
-  Number(document.getElementById("sCigPrice").value)||14;
-
- data.cigaretteLimit=
-  Number(document.getElementById("sCigLimit").value)||3;
-
- save();
- closeModal();
- update();
-
-}
-
-
-function renderActivity(){
-
- const box=
-  document.getElementById("activity");
-
- const items=
-  expensesToday()
-  .slice()
-  .reverse();
-
- if(!items.length){
-
-  box.innerHTML=
-   `<div class="empty">Nothing logged yet. Keep control.</div>`;
-
-  return;
-
- }
-
- box.innerHTML=
-  items.map(x=>{
-
-   let icon=
-    x.category==="food"?"🍛":
-    x.category==="transport"?"🚇":
-    x.category==="cigarette"?"🚬":"🛍️";
-
-   return `
-
-    <div class="row">
-
-     <div class="row-left">
-
-      <div class="row-icon">${icon}</div>
-
-      <div>
-       <div class="row-name">
-        ${x.note}
-       </div>
-
-       <div class="row-sub">
-        ${new Date(x.time)
-         .toLocaleTimeString([],
-          {hour:"2-digit",minute:"2-digit"})}
-       </div>
-
-      </div>
-
-     </div>
-
-     <div class="amount negative">
-      -${money(x.amount)}
-     </div>
-
-    </div>
-   `;
-
-  }).join("");
-
-}
-
-
-function closeModal(){
-
- document.getElementById("modal")
- .classList.add("hidden");
-
-}
-
-
-document.getElementById("modal")
- .addEventListener("click",e=>{
-
-  if(e.target.id==="modal")
-   closeModal();
-
- });
-
-
-const hour=new Date().getHours();
-
-document.getElementById("greeting").textContent=
- hour<12
-  ?"Good morning, Calvin."
-  :hour<18
-   ?"Good afternoon, Calvin."
-   :"Good evening, Calvin.";
-
-update();
+    calculate();
 
 </script>
 
