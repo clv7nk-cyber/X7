@@ -2,758 +2,486 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
 <meta name="theme-color" content="#050505">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="X7">
-<title>X7 • Seven — Make It Happen</title>
+
+<title>X7 — Money & Growth</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
 
 :root{
-  --bg:#050505;
-  --card:#0d0d0d;
-  --card2:#111;
-  --line:#242424;
-  --muted:#777;
-  --text:#f5f5f5;
-  --soft:#bdbdbd;
-  --white:#fff;
+    --bg:#050505;
+    --panel:#101010;
+    --panel2:#151515;
+    --border:#272727;
+    --text:#f5f5f5;
+    --muted:#888;
+    --green:#65f3a2;
+    --red:#ff6868;
+    --yellow:#ffd86b;
+    --radius:22px;
+}
+
+*{
+    box-sizing:border-box;
 }
 
 body{
-  background:var(--bg);
-  color:var(--text);
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
-  min-height:100vh;
+    margin:0;
+    background:
+        radial-gradient(
+            circle at 50% -20%,
+            #252525 0%,
+            #0b0b0b 35%,
+            #050505 70%
+        );
+    color:var(--text);
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
 }
 
-button,input,select{font:inherit}
+button,
+input,
+select{
+    font:inherit;
+}
 
-button{cursor:pointer}
+button{
+    cursor:pointer;
+}
 
 .app{
-  width:100%;
-  max-width:1050px;
-  margin:auto;
-  padding-bottom:100px;
+    max-width:1100px;
+    margin:auto;
+    padding:20px;
+    padding-bottom:100px;
 }
 
 /* HEADER */
 
 .header{
-  padding:28px 22px 18px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:18px;
 }
 
 .logo{
-  font-size:24px;
-  font-weight:950;
-  letter-spacing:-1.5px;
+    font-size:36px;
+    font-weight:950;
+    letter-spacing:-3px;
 }
 
-.logo small{
-  display:block;
-  font-size:8px;
-  letter-spacing:3px;
-  color:#666;
-  margin-top:3px;
-}
-
-.date{
-  color:#555;
-  font-size:10px;
-  text-align:right;
+.logo-sub{
+    color:var(--muted);
+    font-size:10px;
+    letter-spacing:3px;
 }
 
 /* NAV */
 
 .nav{
-  display:flex;
-  gap:8px;
-  padding:0 18px 20px;
-  overflow-x:auto;
+    display:flex;
+    gap:7px;
+    overflow-x:auto;
+    margin-bottom:20px;
+    padding-bottom:4px;
 }
 
 .nav button{
-  border:1px solid var(--line);
-  background:#0b0b0b;
-  color:#777;
-  border-radius:13px;
-  padding:11px 15px;
-  font-size:11px;
-  font-weight:800;
-  white-space:nowrap;
+    border:1px solid var(--border);
+    background:#0c0c0c;
+    color:#999;
+    padding:10px 14px;
+    border-radius:14px;
+    white-space:nowrap;
 }
 
 .nav button.active{
-  background:#fff;
-  color:#000;
-  border-color:#fff;
+    background:#fff;
+    color:#000;
 }
 
-/* PAGES */
+/* VIEWS */
 
-.page{
-  display:none;
-  padding:0 18px;
+.view{
+    display:none;
 }
 
-.page.active{
-  display:block;
-}
-
-/* MORNING */
-
-.morning{
-  min-height:220px;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  padding:30px 5px;
-  animation:fadeUp .8s ease;
-}
-
-.morning-label{
-  color:#555;
-  font-size:10px;
-  letter-spacing:3px;
-  font-weight:800;
-}
-
-.morning h1{
-  font-size:clamp(40px,8vw,78px);
-  line-height:.95;
-  letter-spacing:-5px;
-  margin:12px 0;
-}
-
-.morning p{
-  color:#777;
-  max-width:600px;
-  line-height:1.6;
-  font-size:13px;
-}
-
-.quote{
-  margin-top:18px;
-  color:#aaa;
-  font-size:12px;
-  border-left:2px solid #fff;
-  padding-left:12px;
+.view.active{
+    display:block;
 }
 
 /* CARDS */
 
 .card{
-  background:linear-gradient(145deg,#101010,#090909);
-  border:1px solid var(--line);
-  border-radius:22px;
-  padding:22px;
-  margin-bottom:14px;
-}
-
-.card-title{
-  color:#555;
-  font-size:9px;
-  font-weight:900;
-  letter-spacing:2px;
-  margin-bottom:9px;
-}
-
-.big{
-  font-size:42px;
-  font-weight:950;
-  letter-spacing:-2px;
-}
-
-.sub{
-  color:#666;
-  font-size:11px;
-  margin-top:6px;
+    background:
+        linear-gradient(
+            145deg,
+            #151515,
+            #0b0b0b
+        );
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:20px;
+    box-shadow:0 15px 40px #0006;
 }
 
 .grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:12px;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
 }
 
-.stat{
-  background:#0b0b0b;
-  border:1px solid #1d1d1d;
-  border-radius:17px;
-  padding:17px;
+.grid2{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:14px;
 }
 
-.stat-label{
-  font-size:8px;
-  color:#555;
-  font-weight:900;
-  letter-spacing:1.5px;
+.section{
+    margin-top:15px;
 }
 
-.stat-value{
-  margin-top:8px;
-  font-size:23px;
-  font-weight:900;
+h2{
+    font-size:19px;
+    margin:0 0 13px;
 }
 
-/* SECTIONS */
-
-.section-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin:28px 2px 12px;
+h3{
+    margin:0 0 10px;
 }
 
-.section-head h2{
-  font-size:18px;
-  letter-spacing:-.5px;
+.label{
+    color:var(--muted);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:1.2px;
 }
 
-.section-head span{
-  color:#555;
-  font-size:9px;
+.big{
+    font-size:30px;
+    font-weight:900;
+    margin-top:7px;
 }
 
-/* BUTTON */
-
-.primary{
-  width:100%;
-  border:0;
-  background:#fff;
-  color:#000;
-  border-radius:14px;
-  padding:14px;
-  font-size:11px;
-  font-weight:950;
+.muted{
+    color:var(--muted);
 }
 
-.secondary{
-  width:100%;
-  border:1px solid #292929;
-  background:#111;
-  color:#aaa;
-  border-radius:14px;
-  padding:13px;
-  font-size:11px;
-  font-weight:850;
+.good{
+    color:var(--green);
 }
 
-.danger{
-  background:#160909;
-  color:#ff8a8a;
-  border:1px solid #3a1616;
+.bad{
+    color:var(--red);
 }
 
-/* HOME GOAL */
-
-.goal-name{
-  font-size:21px;
-  font-weight:950;
+.yellow{
+    color:var(--yellow);
 }
 
-.goal-amount{
-  font-size:34px;
-  font-weight:950;
-  margin-top:14px;
+/* HERO */
+
+.hero{
+    min-height:210px;
+    position:relative;
+    overflow:hidden;
+    display:flex;
+    justify-content:center;
+    flex-direction:column;
+    animation:heroIn .8s ease;
 }
 
-.goal-amount span{
-  color:#555;
-  font-size:15px;
+.hero::after{
+    content:"X7";
+    position:absolute;
+    right:-15px;
+    bottom:-65px;
+    font-size:190px;
+    font-weight:950;
+    color:#ffffff04;
+    letter-spacing:-15px;
 }
+
+.hero>*{
+    position:relative;
+    z-index:2;
+}
+
+.greeting{
+    font-size:13px;
+    letter-spacing:2px;
+    color:#aaa;
+}
+
+.quote{
+    max-width:700px;
+    font-size:28px;
+    line-height:1.12;
+    font-weight:900;
+    margin-top:10px;
+}
+
+.date{
+    color:#777;
+    font-size:12px;
+    margin-top:14px;
+}
+
+@keyframes heroIn{
+    from{
+        opacity:0;
+        transform:translateY(15px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* BUTTONS */
+
+.actions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+}
+
+.btn{
+    border:1px solid #333;
+    background:#171717;
+    color:#eee;
+    border-radius:14px;
+    padding:10px 14px;
+}
+
+.btn:hover{
+    background:#222;
+}
+
+.btn.primary{
+    background:#fff;
+    color:#000;
+    border-color:#fff;
+    font-weight:800;
+}
+
+.btn.danger{
+    background:#211010;
+    border-color:#481c1c;
+    color:#ff8c8c;
+}
+
+/* FORM */
+
+.form{
+    display:grid;
+    gap:10px;
+}
+
+input,
+select{
+    width:100%;
+    background:#090909;
+    color:#fff;
+    border:1px solid #303030;
+    border-radius:13px;
+    padding:12px;
+    outline:none;
+}
+
+input:focus,
+select:focus{
+    border-color:#777;
+}
+
+/* PROGRESS */
 
 .progress{
-  width:100%;
-  height:8px;
-  background:#1d1d1d;
-  border-radius:20px;
-  overflow:hidden;
-  margin:16px 0 9px;
+    width:100%;
+    height:9px;
+    background:#282828;
+    border-radius:99px;
+    overflow:hidden;
+    margin:12px 0;
 }
 
-.progress div{
-  height:100%;
-  background:#fff;
-  border-radius:20px;
-  transition:.4s;
+.progress span{
+    display:block;
+    height:100%;
+    background:#fff;
+    border-radius:99px;
 }
 
-.goal-meta{
-  display:flex;
-  justify-content:space-between;
-  color:#666;
-  font-size:9px;
+/* ROW */
+
+.row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
 }
 
-.plan{
-  background:#101010;
-  border:1px solid #202020;
-  border-radius:14px;
-  padding:14px;
-  margin-top:14px;
-  color:#777;
-  font-size:10px;
-  line-height:1.8;
+.small{
+    font-size:12px;
+    color:var(--muted);
 }
 
-.plan strong{
-  color:#fff;
+/* TABLE */
+
+.table-wrap{
+    overflow-x:auto;
 }
 
-/* GOALS */
-
-.goal-card{
-  background:#0d0d0d;
-  border:1px solid #202020;
-  border-radius:20px;
-  padding:19px;
-  margin-bottom:12px;
+table{
+    width:100%;
+    border-collapse:collapse;
 }
 
-.goal-top{
-  display:flex;
-  justify-content:space-between;
-  gap:15px;
+th,
+td{
+    padding:10px 6px;
+    border-bottom:1px solid #222;
+    text-align:left;
+    font-size:13px;
 }
 
-.goal-top-right{
-  text-align:right;
+th{
+    color:#777;
 }
 
-.goal-top-right strong{
-  font-size:17px;
+/* CIG BUTTONS */
+
+.cig-btn{
+    min-width:90px;
+    text-align:center;
 }
 
-.badge{
-  display:inline-block;
-  margin-top:7px;
-  background:#fff;
-  color:#000;
-  border-radius:7px;
-  padding:5px 7px;
-  font-size:7px;
-  font-weight:950;
-  letter-spacing:1px;
+/* MARKET */
+
+.market-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
 }
 
-.goal-buttons{
-  display:grid;
-  grid-template-columns:1fr 1fr 42px;
-  gap:7px;
-  margin-top:13px;
+.market-card{
+    background:#0d0d0d;
+    border:1px solid #242424;
+    border-radius:17px;
+    padding:15px;
 }
 
-.small-btn{
-  border:1px solid #272727;
-  background:#111;
-  color:#888;
-  border-radius:11px;
-  padding:11px 5px;
-  font-size:9px;
-  font-weight:900;
-}
-
-.small-btn.primary-small{
-  background:#fff;
-  color:#000;
-  border-color:#fff;
-}
-
-/* INPUT */
-
-.field{
-  margin-bottom:14px;
-}
-
-.field label{
-  display:block;
-  color:#555;
-  font-size:8px;
-  font-weight:950;
-  letter-spacing:1.5px;
-  margin-bottom:7px;
-}
-
-.input{
-  width:100%;
-  background:#0a0a0a;
-  border:1px solid #252525;
-  color:#fff;
-  border-radius:13px;
-  padding:14px;
-  outline:none;
-}
-
-.input:focus{
-  border-color:#666;
-}
-
-/* TOGGLE */
-
-.toggle{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:7px;
-}
-
-.toggle button{
-  padding:12px;
-  background:#101010;
-  color:#666;
-  border:1px solid #292929;
-  border-radius:11px;
-  font-size:9px;
-  font-weight:900;
-}
-
-.toggle button.active{
-  background:#fff;
-  color:#000;
-  border-color:#fff;
-}
-
-/* MONEY */
-
-.money-category{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:9px;
-}
-
-.category{
-  background:#0c0c0c;
-  border:1px solid #202020;
-  border-radius:16px;
-  padding:15px;
-  color:#aaa;
-}
-
-.category-icon{
-  font-size:22px;
-}
-
-.category-name{
-  font-size:10px;
-  font-weight:900;
-  margin-top:8px;
-}
-
-.category-total{
-  font-size:15px;
-  margin-top:4px;
-  color:#fff;
-}
-
-/* TRANSACTIONS */
-
-.transaction{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:14px 0;
-  border-bottom:1px solid #191919;
-}
-
-.transaction:last-child{
-  border-bottom:0;
-}
-
-.transaction-title{
-  font-size:11px;
-  font-weight:800;
-}
-
-.transaction-meta{
-  color:#555;
-  font-size:8px;
-  margin-top:4px;
-}
-
-.transaction-amount{
-  font-size:13px;
-  font-weight:900;
-}
-
-.income{
-  color:#fff;
-}
-
-.expense{
-  color:#aaa;
-}
-
-/* DEBT */
-
-.debt{
-  background:#0d0d0d;
-  border:1px solid #202020;
-  border-radius:18px;
-  padding:17px;
-  margin-bottom:10px;
-}
-
-.debt-top{
-  display:flex;
-  justify-content:space-between;
-}
-
-.debt-name{
-  font-size:13px;
-  font-weight:900;
-}
-
-.debt-remaining{
-  font-size:20px;
-  font-weight:950;
-}
-
-.debt-info{
-  color:#555;
-  font-size:9px;
-  margin-top:4px;
-}
-
-.debt-bar{
-  height:6px;
-  background:#1e1e1e;
-  border-radius:20px;
-  margin:13px 0;
-  overflow:hidden;
-}
-
-.debt-bar div{
-  height:100%;
-  background:#fff;
-}
-
-/* INVESTMENT */
-
-.invest-total{
-  font-size:38px;
-  font-weight:950;
-}
-
-.invest-note{
-  color:#666;
-  font-size:10px;
-  line-height:1.6;
-  margin-top:7px;
-}
-
-.invest-row{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:13px 0;
-  border-bottom:1px solid #191919;
-}
-
-.invest-row:last-child{
-  border:0;
-}
-
-.invest-date{
-  color:#555;
-  font-size:8px;
-  margin-top:4px;
-}
-
-/* LEARNING */
-
-.lesson{
-  border:1px solid #242424;
-  background:#0d0d0d;
-  border-radius:20px;
-  padding:21px;
-}
-
-.lesson-number{
-  color:#555;
-  font-size:9px;
-  font-weight:900;
-  letter-spacing:2px;
-}
-
-.lesson h3{
-  margin:10px 0;
-  font-size:22px;
-}
-
-.lesson p{
-  color:#777;
-  font-size:12px;
-  line-height:1.7;
-}
-
-.lesson-tip{
-  margin-top:14px;
-  background:#111;
-  padding:14px;
-  border-radius:13px;
-  color:#aaa;
-  font-size:10px;
-  line-height:1.7;
-}
-
-/* MODAL */
-
-.modal{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.82);
-  backdrop-filter:blur(10px);
-  display:none;
-  align-items:flex-end;
-  justify-content:center;
-  z-index:50;
-}
-
-.modal.show{
-  display:flex;
-}
-
-.modal-box{
-  width:min(600px,100%);
-  background:#0d0d0d;
-  border:1px solid #292929;
-  border-radius:25px 25px 0 0;
-  padding:24px;
-  max-height:90vh;
-  overflow:auto;
-  animation:slideUp .3s ease;
-}
-
-.modal-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:20px;
-}
-
-.modal-head h2{
-  font-size:20px;
-}
-
-.close{
-  width:34px;
-  height:34px;
-  border-radius:50%;
-  border:1px solid #292929;
-  background:#111;
-  color:#aaa;
-  font-size:20px;
+.market-value{
+    font-size:22px;
+    font-weight:850;
+    margin-top:6px;
 }
 
 /* EMPTY */
 
 .empty{
-  text-align:center;
-  padding:30px 15px;
-  color:#555;
-  border:1px dashed #242424;
-  border-radius:16px;
-  font-size:10px;
-  line-height:1.7;
+    text-align:center;
+    color:#666;
+    padding:30px 10px;
 }
 
-/* FOOTER NAV */
+/* MODAL */
 
-.bottom{
-  position:fixed;
-  left:50%;
-  bottom:13px;
-  transform:translateX(-50%);
-  width:min(700px,calc(100% - 24px));
-  background:rgba(12,12,12,.94);
-  backdrop-filter:blur(20px);
-  border:1px solid #292929;
-  border-radius:20px;
-  padding:7px;
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  z-index:30;
+.modal{
+    position:fixed;
+    inset:0;
+    background:#000b;
+    display:none;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+    z-index:50;
 }
 
-.bottom button{
-  border:0;
-  background:transparent;
-  color:#555;
-  padding:10px 4px;
-  border-radius:14px;
-  font-size:9px;
-  font-weight:900;
+.modal.show{
+    display:flex;
 }
 
-.bottom button.active{
-  background:#fff;
-  color:#000;
+.modal-box{
+    width:min(500px,100%);
+    background:#111;
+    border:1px solid #333;
+    border-radius:24px;
+    padding:20px;
 }
 
 /* TOAST */
 
 .toast{
-  position:fixed;
-  top:20px;
-  left:50%;
-  transform:translateX(-50%) translateY(-20px);
-  background:#fff;
-  color:#000;
-  padding:12px 17px;
-  border-radius:13px;
-  font-size:10px;
-  font-weight:900;
-  opacity:0;
-  pointer-events:none;
-  z-index:100;
-  transition:.3s;
+    position:fixed;
+    left:50%;
+    bottom:20px;
+    transform:translate(-50%,20px);
+    background:white;
+    color:black;
+    padding:12px 18px;
+    border-radius:14px;
+    font-weight:800;
+    opacity:0;
+    pointer-events:none;
+    transition:.25s;
+    z-index:100;
 }
 
 .toast.show{
-  opacity:1;
-  transform:translateX(-50%) translateY(0);
+    opacity:1;
+    transform:translate(-50%,0);
 }
 
-/* ANIMATIONS */
+/* MOBILE */
 
-@keyframes fadeUp{
-  from{opacity:0;transform:translateY(20px)}
-  to{opacity:1;transform:translateY(0)}
+@media(max-width:800px){
+
+    .app{
+        padding:13px;
+    }
+
+    .grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .grid2{
+        grid-template-columns:1fr;
+    }
+
+    .market-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .quote{
+        font-size:23px;
+    }
+
 }
 
-@keyframes slideUp{
-  from{transform:translateY(100%)}
-  to{transform:translateY(0)}
+@media(max-width:500px){
+
+    .big{
+        font-size:25px;
+    }
+
+    .market-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
 }
 
-@media(min-width:700px){
-  .grid{
-    grid-template-columns:repeat(4,1fr);
-  }
-
-  .money-category{
-    grid-template-columns:repeat(4,1fr);
-  }
-
-  .morning{
-    min-height:300px;
-  }
-
-  .modal{
-    align-items:center;
-  }
-
-  .modal-box{
-    border-radius:24px;
-  }
-}
 </style>
 </head>
 
@@ -761,2633 +489,2873 @@ button{cursor:pointer}
 
 <div class="app">
 
-<header class="header">
-  <div class="logo">
-    X7 • SEVEN
-    <small>MAKE IT HAPPEN</small>
-  </div>
-  <div class="date" id="date"></div>
-</header>
+<!-- HEADER -->
 
-<nav class="nav">
-  <button class="active" onclick="showPage('home',this)">HOME</button>
-  <button onclick="showPage('money',this)">MONEY</button>
-  <button onclick="showPage('goals',this)">GOALS</button>
-  <button onclick="showPage('invest',this)">INVEST</button>
-  <button onclick="showPage('learn',this)">LEARN</button>
-</nav>
+<div class="header">
 
-<!-- HOME -->
-
-<section class="page active" id="home">
-
-  <div class="morning">
-    <div class="morning-label">GOOD MORNING</div>
-    <h1>X7.</h1>
-    <p id="morningMessage">
-      Make today count. Small decisions become big results.
-    </p>
-    <div class="quote" id="quote"></div>
-  </div>
-
-  <div class="card">
-    <div class="card-title">TOTAL BALANCE</div>
-    <div class="big">₹<span id="balance">0</span></div>
-    <div class="sub">Income minus everyday expenses</div>
-  </div>
-
-  <div class="grid">
-    <div class="stat">
-      <div class="stat-label">INCOME</div>
-      <div class="stat-value">₹<span id="homeIncome">0</span></div>
+    <div>
+        <div class="logo">X7</div>
+        <div class="logo-sub">
+            MONEY • DISCIPLINE • GROWTH
+        </div>
     </div>
 
-    <div class="stat">
-      <div class="stat-label">EXPENSES</div>
-      <div class="stat-value">₹<span id="homeExpenses">0</span></div>
-    </div>
+    <button class="btn danger" onclick="resetX7()">
+        Reset
+    </button>
 
-    <div class="stat">
-      <div class="stat-label">INVESTED</div>
-      <div class="stat-value">₹<span id="homeInvested">0</span></div>
-    </div>
+</div>
 
-    <div class="stat">
-      <div class="stat-label">AVAILABLE</div>
-      <div class="stat-value">₹<span id="homeAvailable">0</span></div>
-    </div>
-  </div>
 
-  <div class="section-head">
-    <h2>🎯 Home Goal</h2>
-    <span id="homeGoalStatus">NOT SELECTED</span>
-  </div>
+<!-- NAVIGATION -->
 
-  <div id="homeGoal"></div>
+<div class="nav">
 
-  <div class="section-head">
-    <h2>💡 X7 Insight</h2>
-    <span>TODAY</span>
-  </div>
+<button class="active" onclick="showView('home',this)">
+    🏠 Home
+</button>
 
-  <div class="card">
-    <div class="card-title">MONEY CHECK</div>
-    <div id="moneyInsight" class="sub"></div>
-  </div>
+<button onclick="showView('money',this)">
+    💰 Money
+</button>
+
+<button onclick="showView('goals',this)">
+    🎯 Goals
+</button>
+
+<button onclick="showView('debts',this)">
+    💳 Debts
+</button>
+
+<button onclick="showView('invest',this)">
+    📈 Invest
+</button>
+
+<button onclick="showView('grow',this)">
+    🧠 Grow
+</button>
+
+<button onclick="showView('history',this)">
+    📚 History
+</button>
+
+</div>
+
+
+<!-- ================= HOME ================= -->
+
+<section id="home" class="view active">
+
+<div class="card hero">
+
+<div class="greeting" id="greeting">
+GOOD MORNING, X7
+</div>
+
+<div class="quote" id="quote"></div>
+
+<div class="date" id="currentDate"></div>
+
+</div>
+
+
+<!-- SUMMARY -->
+
+<div class="grid section">
+
+<div class="card">
+
+<div class="label">
+Balance
+</div>
+
+<div class="big" id="homeBalance">
+₹0
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="label">
+Income
+</div>
+
+<div class="big good" id="homeIncome">
+₹0
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="label">
+Expenses
+</div>
+
+<div class="big bad" id="homeExpenses">
+₹0
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="label">
+Invested
+</div>
+
+<div class="big" id="homeInvested">
+₹0
+</div>
+
+</div>
+
+</div>
+
+
+<!-- MAIN GOAL + TODAY -->
+
+<div class="grid2 section">
+
+<div class="card">
+
+<div class="row">
+
+<h2>
+🎯 Main Goal
+</h2>
+
+<span class="small">
+Live
+</span>
+
+</div>
+
+<div id="homeGoal"></div>
+
+</div>
+
+
+<div class="card">
+
+<h2>
+📅 Today
+</h2>
+
+<div class="big" id="todayExpense">
+₹0
+</div>
+
+<div class="small">
+Daily budget:
+<span id="dailyBudgetText">
+₹500
+</span>
+</div>
+
+<div class="small">
+Remaining:
+<span id="todayRemaining">
+₹500
+</span>
+</div>
+
+</div>
+
+</div>
+
+
+<!-- CIGARETTES -->
+
+<div class="card section">
+
+<div class="row">
+
+<h2>
+🚬 Cigarettes
+</h2>
+
+<span class="small">
+Tap = 1 cigarette
+</span>
+
+</div>
+
+<div class="actions">
+
+<button class="btn cig-btn"
+onclick="logCigarette('Marlboro')">
+Marlboro
+</button>
+
+<button class="btn cig-btn"
+onclick="logCigarette('Other')">
+Other
+</button>
+
+</div>
+
+<div class="small section" id="cigaretteToday">
+Today: 0
+</div>
+
+</div>
+
+
+<!-- KNOWLEDGE -->
+
+<div class="grid2 section">
+
+<div class="card">
+
+<h2>
+🧠 Daily Knowledge
+</h2>
+
+<div id="dailyKnowledge"></div>
+
+</div>
+
+
+<div class="card">
+
+<h2>
+💭 Daily Wisdom
+</h2>
+
+<div id="dailyWisdom"></div>
+
+</div>
+
+</div>
 
 </section>
 
 
-<!-- MONEY -->
 
-<section class="page" id="money">
+<!-- ================= MONEY ================= -->
 
-  <div class="section-head">
-    <h2>💰 Money</h2>
-    <span>EVERY RUPEE</span>
-  </div>
+<section id="money" class="view">
 
-  <div class="card">
-    <div class="card-title">CURRENT BALANCE</div>
-    <div class="big">₹<span id="moneyBalance">0</span></div>
-    <div class="sub">Track where your money goes.</div>
-  </div>
+<div class="card">
 
-  <button class="primary" onclick="openModal('transactionModal')">
-    + ADD MONEY / EXPENSE
-  </button>
+<h2>
+Add Money
+</h2>
 
-  <div class="section-head">
-    <h2>Categories</h2>
-    <span>SPENDING</span>
-  </div>
+<div class="form">
 
-  <div class="money-category">
+<select id="transactionType">
 
-    <div class="category">
-      <div class="category-icon">🍔</div>
-      <div class="category-name">FOOD</div>
-      <div class="category-total">₹<span id="catFood">0</span></div>
-    </div>
+<option value="income">
+Income
+</option>
 
-    <div class="category">
-      <div class="category-icon">🚬</div>
-      <div class="category-name">CIGARETTES</div>
-      <div class="category-total">₹<span id="catCigarettes">0</span></div>
-    </div>
+<option value="expense">
+Expense
+</option>
 
-    <div class="category">
-      <div class="category-icon">🚕</div>
-      <div class="category-name">TRANSPORT</div>
-      <div class="category-total">₹<span id="catTransport">0</span></div>
-    </div>
+</select>
 
-    <div class="category">
-      <div class="category-icon">🛍️</div>
-      <div class="category-name">SHOPPING</div>
-      <div class="category-total">₹<span id="catShopping">0</span></div>
-    </div>
 
-    <div class="category">
-      <div class="category-icon">📱</div>
-      <div class="category-name">BILLS</div>
-      <div class="category-total">₹<span id="catBills">0</span></div>
-    </div>
+<input
+id="transactionAmount"
+type="number"
+placeholder="Amount ₹"
+/>
 
-    <div class="category">
-      <div class="category-icon">📦</div>
-      <div class="category-name">OTHER</div>
-      <div class="category-total">₹<span id="catOther">0</span></div>
-    </div>
 
-  </div>
+<input
+id="transactionNote"
+placeholder="What was this?"
+/>
 
-  <div class="section-head">
-    <h2>Transactions</h2>
-    <span id="transactionCount">0</span>
-  </div>
 
-  <div class="card" id="transactions"></div>
+<select id="transactionCategory">
 
-  <div class="section-head">
-    <h2>💳 Debts</h2>
-    <span>PAY THEM DOWN</span>
-  </div>
+<option>
+Food
+</option>
 
-  <button class="secondary" onclick="openModal('debtModal')">
-    + ADD DEBT
-  </button>
+<option>
+Transport
+</option>
 
-  <div style="margin-top:12px" id="debts"></div>
+<option>
+Cigarettes
+</option>
 
-  <div class="section-head">
-    <h2>🧹 Reset Money</h2>
-    <span>CAREFUL</span>
-  </div>
+<option>
+Shopping
+</option>
 
-  <button class="secondary danger" onclick="resetMoney()">
-    RESET ALL MONEY DATA
-  </button>
+<option>
+Bills
+</option>
+
+<option>
+Education
+</option>
+
+<option>
+Other
+</option>
+
+</select>
+
+
+<button class="btn primary"
+onclick="addTransaction()">
+
+Add Transaction
+
+</button>
+
+</div>
+
+</div>
+
+
+<div class="card section">
+
+<div class="row">
+
+<h2>
+This Month
+</h2>
+
+<span
+class="small"
+id="moneyCurrentMonth">
+</span>
+
+</div>
+
+<div id="moneyTransactions"></div>
+
+</div>
 
 </section>
 
 
-<!-- GOALS -->
 
-<section class="page" id="goals">
+<!-- ================= GOALS ================= -->
 
-  <div class="section-head">
-    <h2>🎯 Money Goals</h2>
-    <span>PLAN YOUR WANTS</span>
-  </div>
+<section id="goals" class="view">
 
-  <div class="card">
-    <div class="card-title">HOW X7 GOALS WORK</div>
-    <div class="sub">
-      Create something you want to buy. Tell X7 the target, what you've
-      already saved and how much you want to save each day.
-      X7 will continuously calculate the remaining amount and expected finish date.
-    </div>
-  </div>
+<div class="card">
 
-  <button class="primary" onclick="openModal('goalModal')">
-    + ADD MONEY GOAL
-  </button>
+<h2>
+🎯 Add Money Goal
+</h2>
 
-  <div style="margin-top:14px" id="goals"></div>
+<div class="form">
 
-  <div class="section-head">
-    <h2>🎮 PS5 Calculator</h2>
-    <span>REALISTIC PLAN</span>
-  </div>
+<input
+id="goalName"
+placeholder="Goal name e.g. PS5"
+/>
 
-  <div class="card">
 
-    <div class="field">
-      <label>WHAT DO YOU WANT?</label>
-      <input class="input" id="calcName" placeholder="PS5">
-    </div>
+<input
+id="goalTarget"
+type="number"
+placeholder="Target amount ₹"
+/>
 
-    <div class="field">
-      <label>TARGET PRICE</label>
-      <input class="input" id="calcTarget" type="number" placeholder="65000">
-    </div>
 
-    <div class="field">
-      <label>HOW MUCH CAN YOU SAVE EACH DAY?</label>
-      <input class="input" id="calcDaily" type="number" placeholder="150">
-    </div>
+<input
+id="goalDeadline"
+type="date"
+/>
 
-    <div class="field">
-      <label>ALREADY SAVED</label>
-      <input class="input" id="calcSaved" type="number" placeholder="100">
-    </div>
 
-    <button class="primary" onclick="calculateGoal()">
-      CALCULATE MY PLAN
-    </button>
+<label class="small">
 
-    <div id="calculatorResult" style="margin-top:15px"></div>
+<input
+id="goalMain"
+type="checkbox"
+style="width:auto">
 
-  </div>
+Make this my Main Goal
+
+</label>
+
+
+<button
+class="btn primary"
+onclick="createGoal()">
+
+Create Goal
+
+</button>
+
+</div>
+
+</div>
+
+
+<div id="goalContainer"></div>
 
 </section>
 
 
-<!-- INVEST -->
 
-<section class="page" id="invest">
+<!-- ================= DEBTS ================= -->
 
-  <div class="section-head">
-    <h2>📈 Invest Money</h2>
-    <span>TRACK CONTRIBUTIONS</span>
-  </div>
+<section id="debts" class="view">
 
-  <div class="card">
+<div class="card">
 
-    <div class="card-title">MONEY YOU HAVE INVESTED</div>
+<h2>
+💳 Add Debt
+</h2>
 
-    <div class="invest-total">
-      ₹<span id="investTotal">0</span>
-    </div>
+<div class="form">
 
-    <div class="invest-note">
-      This is the amount you have actually recorded as invested.
-      X7 does not pretend your money has grown unless you enter the actual value.
-    </div>
+<input
+id="debtName"
+placeholder="Debt name"
+/>
 
-  </div>
 
-  <div class="card">
+<input
+id="debtAmount"
+type="number"
+placeholder="Total debt ₹"
+/>
 
-    <div class="field">
-      <label>INVESTMENT AMOUNT</label>
-      <input class="input" id="investmentAmount" type="number" placeholder="₹500">
-    </div>
 
-    <button class="primary" onclick="addInvestment()">
-      + RECORD INVESTMENT
-    </button>
+<button
+class="btn primary"
+onclick="createDebt()">
 
-  </div>
+Add Debt
 
-  <div class="section-head">
-    <h2>Investment History</h2>
-    <span id="investmentCount">0</span>
-  </div>
+</button>
 
-  <div class="card" id="investmentHistory"></div>
+</div>
 
-  <div class="section-head">
-    <h2>💡 X7 Investment Rule</h2>
-    <span>KNOWLEDGE</span>
-  </div>
+</div>
 
-  <div class="card">
-    <div class="card-title">DON'T INVEST BLINDLY</div>
-    <div class="sub">
-      First build an emergency buffer, control high-interest debt,
-      then invest money you can leave untouched for the long term.
-      X7 tracks the money — it doesn't tell you to blindly buy a particular asset.
-    </div>
-  </div>
+
+<div id="debtContainer"></div>
 
 </section>
 
 
-<!-- LEARN -->
 
-<section class="page" id="learn">
+<!-- ================= INVEST ================= -->
 
-  <div class="section-head">
-    <h2>🧠 Learn</h2>
-    <span>GET BETTER DAILY</span>
-  </div>
+<section id="invest" class="view">
 
-  <div class="lesson">
+<div class="card">
 
-    <div class="lesson-number">
-      X7 DAILY KNOWLEDGE
-    </div>
+<h2>
+📈 Invest Money
+</h2>
 
-    <h3 id="lessonTitle"></h3>
+<div class="form">
 
-    <p id="lessonText"></p>
+<input
+id="investmentAmount"
+type="number"
+placeholder="Investment amount ₹"
+/>
 
-    <div class="lesson-tip">
-      <strong>Today's move:</strong>
-      <span id="lessonTip"></span>
-    </div>
 
-  </div>
+<select id="investmentType">
 
-  <div class="section-head">
-    <h2>🔥 Daily Challenge</h2>
-    <span id="challengeStatus">NOT DONE</span>
-  </div>
+<option>Mutual Fund</option>
+<option>Stocks</option>
+<option>Gold</option>
+<option>Silver</option>
+<option>FD</option>
+<option>Crypto</option>
+<option>Other</option>
 
-  <div class="card">
+</select>
 
-    <div class="card-title">YOUR CHALLENGE</div>
 
-    <div id="challengeText" class="sub"></div>
+<input
+id="investmentNote"
+placeholder="Investment note"
+/>
 
-    <button
-      class="primary"
-      style="margin-top:15px"
-      onclick="completeChallenge()"
-      id="challengeButton">
-      COMPLETE +10 XP
-    </button>
 
-  </div>
+<button
+class="btn primary"
+onclick="addInvestment()">
 
-  <div class="section-head">
-    <h2>🏆 X7 Level</h2>
-    <span id="xpText">0 XP</span>
-  </div>
+Invest Money
 
-  <div class="card">
+</button>
 
-    <div class="big" id="levelText">LEVEL 1</div>
+</div>
 
-    <div class="progress">
-      <div id="xpBar" style="width:0%"></div>
-    </div>
+</div>
 
-    <div class="sub">
-      Keep learning. Keep moving.
-    </div>
 
-  </div>
+<div class="grid2 section">
+
+<div class="card">
+
+<div class="label">
+Money Invested
+</div>
+
+<div class="big"
+id="investedMoney">
+₹0
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="label">
+Investments
+</div>
+
+<div class="big"
+id="investmentCount">
+0
+</div>
+
+</div>
+
+</div>
+
+
+<!-- MARKET -->
+
+<div class="card section">
+
+<div class="row">
+
+<h2>
+🌐 Markets
+</h2>
+
+<span class="small">
+Market monitor
+</span>
+
+</div>
+
+
+<div class="market-grid">
+
+<div class="market-card">
+
+<div class="label">
+NIFTY 50
+</div>
+
+<div class="market-value">
+—
+</div>
+
+<div class="small">
+Connect market API
+</div>
+
+</div>
+
+
+<div class="market-card">
+
+<div class="label">
+SENSEX
+</div>
+
+<div class="market-value">
+—
+</div>
+
+<div class="small">
+Connect market API
+</div>
+
+</div>
+
+
+<div class="market-card">
+
+<div class="label">
+GOLD
+</div>
+
+<div class="market-value">
+—
+</div>
+
+<div class="small">
+Connect market API
+</div>
+
+</div>
+
+
+<div class="market-card">
+
+<div class="label">
+SILVER
+</div>
+
+<div class="market-value">
+—
+</div>
+
+<div class="small">
+Connect market API
+</div>
+
+</div>
+
+
+<div class="market-card">
+
+<div class="label">
+USD / INR
+</div>
+
+<div class="market-value">
+—
+</div>
+
+<div class="small">
+Connect market API
+</div>
+
+</div>
+
+
+<div class="market-card">
+
+<div class="label">
+BTC
+</div>
+
+<div class="market-value">
+—
+</div>
+
+<div class="small">
+Connect market API
+</div>
+
+</div>
+
+</div>
+
+
+<div class="small section">
+
+Indian equity markets normally trade Monday-Friday,
+with the NSE/BSE regular session generally running
+from 9:15 AM to 3:30 PM IST.
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- ================= GROW ================= -->
+
+<section id="grow" class="view">
+
+<div class="grid2">
+
+<div class="card">
+
+<h2>
+🧠 Learn Something
+</h2>
+
+<div id="growLesson"></div>
+
+</div>
+
+
+<div class="card">
+
+<h2>
+🔥 Learning Streak
+</h2>
+
+<div class="big"
+id="learningStreak">
+0 days
+</div>
+
+<button
+class="btn primary"
+onclick="completeLearning()">
+
+I Learned Today
+
+</button>
+
+</div>
+
+</div>
+
+
+<div class="card section">
+
+<h2>
+💰 Money Health
+</h2>
+
+<div class="big"
+id="moneyHealth">
+0 / 100
+</div>
+
+<div class="progress">
+
+<span id="healthProgress"></span>
+
+</div>
+
+<div
+class="small"
+id="healthExplanation">
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- ================= HISTORY ================= -->
+
+<section id="history" class="view">
+
+<div class="card">
+
+<div class="row">
+
+<h2>
+📚 Monthly History
+</h2>
+
+<select
+id="historyMonth"
+onchange="renderHistory()"
+style="max-width:220px">
+</select>
+
+</div>
+
+
+<div id="historyStats"></div>
+
+
+<div
+class="section"
+id="historyComparison">
+</div>
+
+
+<div
+class="section"
+id="historyCategories">
+</div>
+
+
+<div
+class="section"
+id="historyTransactions">
+</div>
+
+</div>
 
 </section>
 
 </div>
 
 
-<!-- BOTTOM NAV -->
-
-<div class="bottom">
-
-  <button class="active" onclick="showPage('home',this)">
-    🏠<br>HOME
-  </button>
-
-  <button onclick="showPage('money',this)">
-    💰<br>MONEY
-  </button>
-
-  <button onclick="showPage('goals',this)">
-    🎯<br>GOALS
-  </button>
-
-  <button onclick="showPage('invest',this)">
-    📈<br>INVEST
-  </button>
-
-  <button onclick="showPage('learn',this)">
-    🧠<br>LEARN
-  </button>
-
+<div
+class="toast"
+id="toast">
 </div>
 
-
-<!-- TOAST -->
-
-<div class="toast" id="toast"></div>
-
-
-<!-- TRANSACTION MODAL -->
-
-<div class="modal" id="transactionModal">
-
-  <div class="modal-box">
-
-    <div class="modal-head">
-      <h2>Add Money</h2>
-      <button class="close" onclick="closeModal('transactionModal')">×</button>
-    </div>
-
-    <div class="toggle">
-      <button id="incomeBtn" class="active" onclick="setTransactionType('income')">
-        + INCOME
-      </button>
-
-      <button id="expenseBtn" onclick="setTransactionType('expense')">
-        - EXPENSE
-      </button>
-    </div>
-
-    <div class="field" style="margin-top:15px">
-      <label>AMOUNT</label>
-      <input class="input" id="transactionAmount" type="number" placeholder="₹500">
-    </div>
-
-    <div class="field">
-      <label>DESCRIPTION</label>
-      <input class="input" id="transactionDescription" placeholder="Salary / Lunch / Bus">
-    </div>
-
-    <div class="field">
-      <label>CATEGORY</label>
-
-      <select class="input" id="transactionCategory">
-
-        <option value="Food">🍔 Food</option>
-        <option value="Cigarettes">🚬 Cigarettes</option>
-        <option value="Transport">🚕 Transport</option>
-        <option value="Shopping">🛍 Shopping</option>
-        <option value="Bills">📱 Bills</option>
-        <option value="Other">📦 Other</option>
-
-      </select>
-
-    </div>
-
-    <button class="primary" onclick="addTransaction()">
-      SAVE TRANSACTION
-    </button>
-
-  </div>
-
-</div>
-
-
-<!-- GOAL MODAL -->
-
-<div class="modal" id="goalModal">
-
-  <div class="modal-box">
-
-    <div class="modal-head">
-      <h2>New Money Goal</h2>
-      <button class="close" onclick="closeModal('goalModal')">×</button>
-    </div>
-
-    <div class="field">
-      <label>WHAT ARE YOU SAVING FOR?</label>
-      <input class="input" id="goalName" placeholder="PS5">
-    </div>
-
-    <div class="field">
-      <label>TARGET AMOUNT</label>
-      <input class="input" id="goalTarget" type="number" placeholder="65000">
-    </div>
-
-    <div class="field">
-      <label>ALREADY SAVED</label>
-      <input class="input" id="goalSaved" type="number" placeholder="100">
-    </div>
-
-    <div class="field">
-      <label>DAILY SAVING TARGET</label>
-      <input class="input" id="goalDaily" type="number" placeholder="150">
-    </div>
-
-    <div class="field">
-
-      <label>HOME DASHBOARD</label>
-
-      <div class="toggle">
-
-        <button
-          id="mainGoalYes"
-          class="active"
-          onclick="setMainGoal(true)">
-          ✓ MAKE THIS MY MAIN GOAL
-        </button>
-
-        <button
-          id="mainGoalNo"
-          onclick="setMainGoal(false)">
-          KEEP OFF HOME
-        </button>
-
-      </div>
-
-    </div>
-
-    <div class="sub" style="margin-bottom:15px">
-      Your Home dashboard can show only one goal.
-      You can change it anytime from the Goals section.
-    </div>
-
-    <button class="primary" onclick="addGoal()">
-      CREATE GOAL
-    </button>
-
-  </div>
-
-</div>
-
-
-<!-- GOAL CONTRIBUTION MODAL -->
-
-<div class="modal" id="goalContributionModal">
-
-  <div class="modal-box">
-
-    <div class="modal-head">
-
-      <h2>Add to Goal</h2>
-
-      <button
-        class="close"
-        onclick="closeModal('goalContributionModal')">
-        ×
-      </button>
-
-    </div>
-
-    <div
-      id="goalContributionInfo"
-      class="plan"
-      style="margin-top:0">
-    </div>
-
-    <div class="field" style="margin-top:15px">
-
-      <label>HOW MUCH DID YOU SAVE TODAY?</label>
-
-      <input
-        class="input"
-        id="goalContributionAmount"
-        type="number"
-        placeholder="150">
-
-    </div>
-
-    <button
-      class="primary"
-      onclick="addGoalContribution()">
-      SAVE TO GOAL
-    </button>
-
-  </div>
-
-</div>
-
-
-<!-- DEBT MODAL -->
-
-<div class="modal" id="debtModal">
-
-  <div class="modal-box">
-
-    <div class="modal-head">
-      <h2>Add Debt</h2>
-
-      <button
-        class="close"
-        onclick="closeModal('debtModal')">
-        ×
-      </button>
-    </div>
-
-    <div class="field">
-
-      <label>DEBT NAME</label>
-
-      <input
-        class="input"
-        id="debtName"
-        placeholder="Friend / Loan / Credit">
-
-    </div>
-
-    <div class="field">
-
-      <label>TOTAL DEBT</label>
-
-      <input
-        class="input"
-        id="debtAmount"
-        type="number"
-        placeholder="500">
-
-    </div>
-
-    <button
-      class="primary"
-      onclick="addDebt()">
-      ADD DEBT
-    </button>
-
-  </div>
-
-</div>
-
-
-<!-- DEBT PAYMENT MODAL -->
-
-<div class="modal" id="paymentModal">
-
-  <div class="modal-box">
-
-    <div class="modal-head">
-
-      <h2>Pay Debt</h2>
-
-      <button
-        class="close"
-        onclick="closeModal('paymentModal')">
-        ×
-      </button>
-
-    </div>
-
-    <div
-      id="paymentInfo"
-      class="plan"
-      style="margin-top:0">
-    </div>
-
-    <div class="field" style="margin-top:15px">
-
-      <label>PAYMENT AMOUNT</label>
-
-      <input
-        class="input"
-        id="paymentAmount"
-        type="number"
-        placeholder="250">
-
-    </div>
-
-    <button
-      class="primary"
-      onclick="payDebt()">
-      MAKE PAYMENT
-    </button>
-
-  </div>
-
-</div>
 
 
 <script>
 
-/* =========================
-   STORAGE
-========================= */
+/* =========================================================
+   X7 DATA
+========================================================= */
 
-let transactions =
-  JSON.parse(localStorage.getItem("x7_transactions") || "[]");
-
-let debts =
-  JSON.parse(localStorage.getItem("x7_debts") || "[]");
-
-let goals =
-  JSON.parse(localStorage.getItem("x7_goals") || "[]");
-
-let investments =
-  JSON.parse(localStorage.getItem("x7_investments") || "[]");
-
-let xp =
-  Number(localStorage.getItem("x7_xp") || 0);
-
-let challengeDate =
-  localStorage.getItem("x7_challenge_date") || "";
-
-let transactionType = "income";
-
-let activeDebtId = null;
-
-let activeGoalId = null;
-
-let mainGoalChoice = true;
+const STORAGE_KEY = "X7_MONEY_APP_V7";
 
 
-/* =========================
-   BASIC HELPERS
-========================= */
+let data = JSON.parse(
+    localStorage.getItem(STORAGE_KEY)
+);
 
-function money(value){
-  return Number(value || 0).toLocaleString("en-IN",{
-    maximumFractionDigits:2
-  });
-}
 
-function today(){
+if(!data){
 
-  return new Date().toLocaleDateString("en-IN",{
-    day:"2-digit",
-    month:"short",
-    year:"numeric"
-  });
+    data = {
+
+        transactions: [],
+
+        goals: [],
+
+        debts: [],
+
+        investments: [],
+
+        learning: {
+
+            lastDate:null,
+
+            streak:0
+
+        },
+
+        settings: {
+
+            dailyBudget:500
+
+        }
+
+    };
 
 }
 
-function esc(value){
-
-  return String(value)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
-
-}
 
 function save(){
 
-  localStorage.setItem(
-    "x7_transactions",
-    JSON.stringify(transactions)
-  );
+    localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(data)
+    );
 
-  localStorage.setItem(
-    "x7_debts",
-    JSON.stringify(debts)
-  );
-
-  localStorage.setItem(
-    "x7_goals",
-    JSON.stringify(goals)
-  );
-
-  localStorage.setItem(
-    "x7_investments",
-    JSON.stringify(investments)
-  );
-
-  localStorage.setItem(
-    "x7_xp",
-    xp
-  );
-
-}
-
-function toast(message){
-
-  const t = document.getElementById("toast");
-
-  t.textContent = message;
-
-  t.classList.add("show");
-
-  setTimeout(()=>{
-    t.classList.remove("show");
-  },2200);
+    renderAll();
 
 }
 
 
-/* =========================
-   PAGE NAVIGATION
-========================= */
+/* =========================================================
+   HELPERS
+========================================================= */
 
-function showPage(page,button){
+function money(amount){
 
-  document.querySelectorAll(".page")
-    .forEach(p=>p.classList.remove("active"));
+    return "₹" +
+        Math.round(Number(amount)||0)
+        .toLocaleString("en-IN");
 
-  document.getElementById(page)
-    .classList.add("active");
+}
 
-  document.querySelectorAll(".nav button")
-    .forEach(b=>b.classList.remove("active"));
 
-  document.querySelectorAll(".bottom button")
-    .forEach(b=>b.classList.remove("active"));
+function monthKey(date){
 
-  if(button){
+    const d = new Date(date);
+
+    return d.getFullYear() +
+        "-" +
+        String(d.getMonth()+1)
+        .padStart(2,"0");
+
+}
+
+
+function monthName(key){
+
+    const [year,month] =
+        key.split("-").map(Number);
+
+    return new Date(
+        year,
+        month-1,
+        1
+    ).toLocaleDateString(
+        "en-IN",
+        {
+            month:"long",
+            year:"numeric"
+        }
+    );
+
+}
+
+
+function todayKey(){
+
+    return monthKey(new Date()) +
+        "-" +
+        String(new Date().getDate())
+        .padStart(2,"0");
+
+}
+
+
+function showToast(message){
+
+    const toast =
+        document.getElementById("toast");
+
+    toast.textContent = message;
+
+    toast.classList.add("show");
+
+    setTimeout(
+        ()=>toast.classList.remove("show"),
+        1800
+    );
+
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+function showView(id,button){
+
+    document
+        .querySelectorAll(".view")
+        .forEach(v =>
+            v.classList.remove("active")
+        );
+
+    document
+        .querySelectorAll(".nav button")
+        .forEach(b =>
+            b.classList.remove("active")
+        );
+
+    document
+        .getElementById(id)
+        .classList.add("active");
+
     button.classList.add("active");
-  }
 
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
-
-}
-
-
-/* =========================
-   MODALS
-========================= */
-
-function openModal(id){
-
-  document
-    .getElementById(id)
-    .classList.add("show");
-
-  if(id==="goalModal"){
-
-    setMainGoal(true);
-
-  }
-
-}
-
-function closeModal(id){
-
-  document
-    .getElementById(id)
-    .classList.remove("show");
+    if(id==="history"){
+        populateHistoryMonths();
+        renderHistory();
+    }
 
 }
 
 
-/* =========================
-   MORNING
-========================= */
-
-const quotes = [
-
-  "Discipline beats motivation when motivation disappears.",
-
-  "You don't need more money first. You need better decisions first.",
-
-  "Small amounts become serious money when you stay consistent.",
-
-  "Your future self is watching what you do today.",
-
-  "Make the boring financial decisions. Enjoy the results later.",
-
-  "Don't chase money. Build systems that make money easier to manage.",
-
-  "One good decision today can remove ten bad decisions tomorrow."
-
-];
-
-const messages = [
-
-  "Make today count. Small decisions become big results.",
-
-  "You don't need to be perfect. You need to be consistent.",
-
-  "Protect your money today so your future has more options.",
-
-  "Another day. Another chance to get smarter.",
-
-  "X7 rule: earn, control, save, invest, learn."
-
-];
-
-function setupMorning(){
-
-  const d = new Date();
-
-  document.getElementById("date").textContent =
-    d.toLocaleDateString("en-IN",{
-      weekday:"short",
-      day:"numeric",
-      month:"short"
-    });
-
-  document.getElementById("quote").textContent =
-    quotes[d.getDate()%quotes.length];
-
-  document.getElementById("morningMessage").textContent =
-    messages[d.getDate()%messages.length];
-
-}
-
-
-/* =========================
+/* =========================================================
    TRANSACTIONS
-========================= */
-
-function setTransactionType(type){
-
-  transactionType = type;
-
-  document
-    .getElementById("incomeBtn")
-    .classList.toggle("active",type==="income");
-
-  document
-    .getElementById("expenseBtn")
-    .classList.toggle("active",type==="expense");
-
-}
+========================================================= */
 
 function addTransaction(){
 
-  const amount =
-    Number(document.getElementById("transactionAmount").value);
+    const type =
+        document.getElementById(
+            "transactionType"
+        ).value;
 
-  const description =
-    document.getElementById("transactionDescription").value.trim();
+    const amount =
+        Number(
+            document.getElementById(
+                "transactionAmount"
+            ).value
+        );
 
-  const category =
-    document.getElementById("transactionCategory").value;
+    const note =
+        document.getElementById(
+            "transactionNote"
+        ).value.trim();
 
-  if(!amount || amount<=0){
-
-    toast("Enter an amount.");
-
-    return;
-
-  }
-
-  transactions.push({
-
-    id:Date.now(),
-
-    amount,
-
-    description:
-      description ||
-      (transactionType==="income" ? "Income":"Expense"),
-
-    category,
-
-    type:transactionType,
-
-    date:today()
-
-  });
-
-  save();
-
-  document.getElementById("transactionAmount").value="";
-  document.getElementById("transactionDescription").value="";
-
-  closeModal("transactionModal");
-
-  renderAll();
-
-  toast(
-    transactionType==="income"
-      ? "Income added."
-      : "Expense added."
-  );
-
-}
+    const category =
+        document.getElementById(
+            "transactionCategory"
+        ).value;
 
 
-/* =========================
-   MONEY CALCULATION
-========================= */
+    if(!amount || amount<=0){
 
-function totals(){
+        showToast("Enter a valid amount");
 
-  let income=0;
-
-  let expenses=0;
-
-  transactions.forEach(t=>{
-
-    if(t.type==="income")
-      income += Number(t.amount);
-
-    else
-      expenses += Number(t.amount);
-
-  });
-
-  const invested =
-    investments.reduce(
-      (sum,i)=>sum+Number(i.amount),
-      0
-    );
-
-  return {
-
-    income,
-
-    expenses,
-
-    invested,
-
-    balance:
-      income-expenses,
-
-    available:
-      income-expenses-invested
-
-  };
-
-}
-
-function renderMoney(){
-
-  const t = totals();
-
-  document.getElementById("balance").textContent =
-    money(t.balance);
-
-  document.getElementById("moneyBalance").textContent =
-    money(t.balance);
-
-  document.getElementById("homeIncome").textContent =
-    money(t.income);
-
-  document.getElementById("homeExpenses").textContent =
-    money(t.expenses);
-
-  document.getElementById("homeInvested").textContent =
-    money(t.invested);
-
-  document.getElementById("homeAvailable").textContent =
-    money(t.available);
-
-  const categories = {
-
-    Food:0,
-
-    Cigarettes:0,
-
-    Transport:0,
-
-    Shopping:0,
-
-    Bills:0,
-
-    Other:0
-
-  };
-
-  transactions.forEach(t=>{
-
-    if(
-      t.type==="expense" &&
-      categories[t.category]!==undefined
-    ){
-
-      categories[t.category] +=
-        Number(t.amount);
+        return;
 
     }
 
-  });
 
-  document.getElementById("catFood").textContent =
-    money(categories.Food);
+    data.transactions.push({
 
-  document.getElementById("catCigarettes").textContent =
-    money(categories.Cigarettes);
+        id:Date.now(),
 
-  document.getElementById("catTransport").textContent =
-    money(categories.Transport);
+        type:type,
 
-  document.getElementById("catShopping").textContent =
-    money(categories.Shopping);
+        amount:amount,
 
-  document.getElementById("catBills").textContent =
-    money(categories.Bills);
+        note:note || category,
 
-  document.getElementById("catOther").textContent =
-    money(categories.Other);
+        category:category,
 
-  document.getElementById("transactionCount").textContent =
-    transactions.length;
-
-  renderTransactions();
-
-  renderInsight();
-
-}
-
-function renderTransactions(){
-
-  const box =
-    document.getElementById("transactions");
-
-  if(!transactions.length){
-
-    box.innerHTML =
-      `<div class="empty">
-        No transactions yet.<br>
-        Start by adding your income.
-      </div>`;
-
-    return;
-
-  }
-
-  box.innerHTML="";
-
-  [...transactions]
-    .reverse()
-    .slice(0,30)
-    .forEach(t=>{
-
-      box.innerHTML += `
-
-        <div class="transaction">
-
-          <div>
-
-            <div class="transaction-title">
-              ${esc(t.description)}
-            </div>
-
-            <div class="transaction-meta">
-              ${esc(t.category)} • ${esc(t.date)}
-            </div>
-
-          </div>
-
-          <div
-            class="transaction-amount
-            ${t.type==="income"?"income":"expense"}">
-
-            ${t.type==="income"?"+":"-"}
-            ₹${money(t.amount)}
-
-          </div>
-
-        </div>
-
-      `;
+        date:new Date().toISOString()
 
     });
 
-}
-
-function renderInsight(){
-
-  const t = totals();
-
-  let message="";
-
-  if(t.income===0){
-
-    message =
-      "Start by entering your income. Once X7 knows what comes in, it can show you what actually remains.";
-
-  }else if(t.expenses > t.income){
-
-    message =
-      "Your expenses are currently higher than your recorded income. This is the first thing to fix.";
-
-  }else if(t.invested===0){
-
-    message =
-      "You haven't recorded any investments yet. First make your cash flow stable, then consider investing consistently.";
-
-  }else{
-
-    const rate =
-      ((t.income-t.expenses)/t.income)*100;
-
-    message =
-      `You currently keep about ${rate.toFixed(0)}% of recorded income after expenses. Keep improving the gap.`;
-
-  }
-
-  document.getElementById("moneyInsight").textContent =
-    message;
-
-}
-
-
-/* =========================
-   GOALS
-========================= */
-
-function mainGoal(){
-
-  return goals.find(g=>g.isMain) || null;
-
-}
-
-function setMainGoal(value){
-
-  mainGoalChoice = value;
-
-  document
-    .getElementById("mainGoalYes")
-    .classList.toggle("active",value);
-
-  document
-    .getElementById("mainGoalNo")
-    .classList.toggle("active",!value);
-
-}
-
-function addGoal(){
-
-  const name =
-    document.getElementById("goalName")
-      .value.trim();
-
-  const target =
-    Number(
-      document.getElementById("goalTarget")
-        .value
-    );
-
-  const saved =
-    Number(
-      document.getElementById("goalSaved")
-        .value
-    ) || 0;
-
-  const daily =
-    Number(
-      document.getElementById("goalDaily")
-        .value
-    ) || 0;
-
-  if(!name || !target || target<=0){
-
-    toast("Enter a goal and target.");
-
-    return;
-
-  }
-
-  if(saved<0 || saved>target){
-
-    toast("Saved amount must be below the target.");
-
-    return;
-
-  }
-
-  if(mainGoalChoice){
-
-    goals.forEach(g=>{
-      g.isMain=false;
-    });
-
-  }
-
-  goals.push({
-
-    id:Date.now(),
-
-    name,
-
-    target,
-
-    saved,
-
-    daily,
-
-    isMain:mainGoalChoice,
-
-    created:today()
-
-  });
-
-  save();
-
-  document.getElementById("goalName").value="";
-  document.getElementById("goalTarget").value="";
-  document.getElementById("goalSaved").value="";
-  document.getElementById("goalDaily").value="";
-
-  closeModal("goalModal");
-
-  renderAll();
-
-  toast("Goal created.");
-
-}
-
-function makeMainGoal(id){
-
-  goals.forEach(g=>{
-
-    g.isMain =
-      g.id===id;
-
-  });
-
-  save();
-
-  renderAll();
-
-  toast("Home goal updated.");
-
-}
-
-function daysNeeded(g){
-
-  const remaining =
-    Math.max(
-      0,
-      Number(g.target)-Number(g.saved)
-    );
-
-  const daily =
-    Number(g.daily)||0;
-
-  if(remaining<=0)
-    return 0;
-
-  if(daily<=0)
-    return null;
-
-  return Math.ceil(
-    remaining/daily
-  );
-
-}
-
-function goalPlan(g){
-
-  const remaining =
-    Math.max(
-      0,
-      Number(g.target)-Number(g.saved)
-    );
-
-  if(remaining<=0){
-
-    return `
-      <strong>🎉 Goal reached.</strong>
-      You've done it.
-    `;
-
-  }
-
-  if(!g.daily){
-
-    return `
-      Daily saving target isn't set yet.
-      Add one so X7 can tell you exactly
-      how long the goal will take.
-    `;
-
-  }
-
-  const days =
-    Math.ceil(
-      remaining/g.daily
-    );
-
-  const months =
-    days/30;
-
-  return `
-    Save <strong>₹${money(g.daily)}/day</strong>
-    • ₹${money(remaining)} remaining
-    • about <strong>${days} days</strong>
-    • roughly <strong>${months.toFixed(1)} months</strong>
-  `;
-
-}
-
-function openGoalContribution(id){
-
-  const g =
-    goals.find(x=>x.id===id);
-
-  if(!g)return;
-
-  activeGoalId=id;
-
-  document.getElementById(
-    "goalContributionInfo"
-  ).innerHTML = `
-
-    <strong>🎯 ${esc(g.name)}</strong><br><br>
-
-    Saved: <strong>₹${money(g.saved)}</strong><br>
-
-    Target: ₹${money(g.target)}<br>
-
-    Remaining:
-    ₹${money(Math.max(0,g.target-g.saved))}<br><br>
-
-    ${goalPlan(g)}
-
-  `;
-
-  document.getElementById(
-    "goalContributionAmount"
-  ).value = g.daily || "";
-
-  openModal("goalContributionModal");
-
-}
-
-function addGoalContribution(){
-
-  const g =
-    goals.find(
-      x=>x.id===activeGoalId
-    );
-
-  const amount =
-    Number(
-      document.getElementById(
-        "goalContributionAmount"
-      ).value
-    );
-
-  if(!g || !amount || amount<=0){
-
-    toast("Enter a valid amount.");
-
-    return;
-
-  }
-
-  const remaining =
-    Math.max(
-      0,
-      g.target-g.saved
-    );
-
-  if(amount>remaining){
-
-    toast(
-      `Only ₹${money(remaining)} is remaining.`
-    );
-
-    return;
-
-  }
-
-  g.saved =
-    Number(
-      (g.saved+amount).toFixed(2)
-    );
-
-  save();
-
-  closeModal(
-    "goalContributionModal"
-  );
-
-  activeGoalId=null;
-
-  renderAll();
-
-  toast(
-    `₹${money(amount)} added to ${g.name}.`
-  );
-
-}
-
-function deleteGoal(id){
-
-  if(
-    !confirm(
-      "Delete this goal?"
-    )
-  )return;
-
-  goals =
-    goals.filter(
-      g=>g.id!==id
-    );
-
-  save();
-
-  renderAll();
-
-}
-
-function renderHomeGoal(){
-
-  const box =
-    document.getElementById("homeGoal");
-
-  const g = mainGoal();
-
-  if(!g){
 
     document.getElementById(
-      "homeGoalStatus"
-    ).textContent =
-      "NOT SELECTED";
+        "transactionAmount"
+    ).value="";
 
-    box.innerHTML = `
-
-      <div class="card">
-
-        <div class="goal-name">
-          Choose your Home goal.
-        </div>
-
-        <div class="sub">
-          Go to Goals and choose
-          "MAKE THIS MY MAIN GOAL".
-        </div>
-
-        <button
-          class="primary"
-          style="margin-top:15px"
-          onclick="openModal('goalModal')">
-
-          + CREATE GOAL
-
-        </button>
-
-      </div>
-
-    `;
-
-    return;
-
-  }
-
-  document.getElementById(
-    "homeGoalStatus"
-  ).textContent =
-    Math.round(
-      (g.saved/g.target)*100
-    )+"%";
-
-  const percent =
-    Math.min(
-      100,
-      (g.saved/g.target)*100
-    );
-
-  const remaining =
-    Math.max(
-      0,
-      g.target-g.saved
-    );
-
-  const days =
-    daysNeeded(g);
-
-  box.innerHTML = `
-
-    <div class="card">
-
-      <div class="goal-name">
-        🎯 ${esc(g.name)}
-      </div>
-
-      <div class="goal-amount">
-        ₹${money(g.saved)}
-        <span>/ ₹${money(g.target)}</span>
-      </div>
-
-      <div class="progress">
-        <div style="width:${percent}%"></div>
-      </div>
-
-      <div class="goal-meta">
-
-        <span>
-          ${Math.round(percent)}% complete
-        </span>
-
-        <span>
-          ₹${money(remaining)} left
-        </span>
-
-      </div>
-
-      <div class="plan">
-
-        <strong>Daily plan:</strong>
-
-        ${
-          g.daily
-            ? `Save ₹${money(g.daily)} every day.`
-            : `Set a daily target in Goals.`
-        }
-
-        <br>
-
-        ${
-          days!==null
-            ? `<strong>Finish estimate:</strong>
-               ${days} days
-               (${(days/30).toFixed(1)} months)`
-            : `<strong>Finish estimate:</strong>
-               waiting for your daily target`
-        }
-
-      </div>
-
-      <button
-        class="primary"
-        style="margin-top:14px"
-        onclick="openGoalContribution(${g.id})">
-
-        + ADD TODAY'S SAVING
-
-      </button>
-
-    </div>
-
-  `;
-
-}
-
-function renderGoals(){
-
-  const box =
-    document.getElementById("goals");
-
-  if(!goals.length){
-
-    box.innerHTML = `
-
-      <div class="empty">
-
-        No goals yet.<br><br>
-
-        Create something you want
-        and X7 will turn it into
-        a daily plan.
-
-      </div>
-
-    `;
-
-    return;
-
-  }
-
-  box.innerHTML="";
-
-  goals.forEach(g=>{
-
-    const percent =
-      Math.min(
-        100,
-        (g.saved/g.target)*100
-      );
-
-    const remaining =
-      Math.max(
-        0,
-        g.target-g.saved
-      );
-
-    box.innerHTML += `
-
-      <div class="goal-card">
-
-        <div class="goal-top">
-
-          <div>
-
-            <div class="goal-name">
-              🎯 ${esc(g.name)}
-            </div>
-
-            ${
-              g.isMain
-                ? `<div class="badge">
-                     HOME GOAL
-                   </div>`
-                : ""
-            }
-
-          </div>
-
-          <div class="goal-top-right">
-
-            <strong>
-              ₹${money(g.saved)}
-            </strong>
-
-            <div class="sub">
-              / ₹${money(g.target)}
-            </div>
-
-          </div>
-
-        </div>
-
-        <div class="progress">
-
-          <div
-            style="width:${percent}%">
-          </div>
-
-        </div>
-
-        <div class="goal-meta">
-
-          <span>
-            ${Math.round(percent)}%
-          </span>
-
-          <span>
-            ₹${money(remaining)} remaining
-          </span>
-
-        </div>
-
-        <div class="plan">
-
-          ${goalPlan(g)}
-
-        </div>
-
-        <div class="goal-buttons">
-
-          <button
-            class="small-btn primary-small"
-            onclick="openGoalContribution(${g.id})">
-
-            + ADD SAVING
-
-          </button>
-
-          <button
-            class="small-btn"
-            onclick="makeMainGoal(${g.id})">
-
-            ${
-              g.isMain
-                ? "✓ HOME GOAL"
-                : "SET AS HOME"
-            }
-
-          </button>
-
-          <button
-            class="small-btn"
-            onclick="deleteGoal(${g.id})">
-
-            ×
-
-          </button>
-
-        </div>
-
-      </div>
-
-    `;
-
-  });
-
-}
-
-
-/* =========================
-   PS5 CALCULATOR
-========================= */
-
-function calculateGoal(){
-
-  const name =
     document.getElementById(
-      "calcName"
-    ).value || "Your Goal";
+        "transactionNote"
+    ).value="";
 
-  const target =
-    Number(
-      document.getElementById(
-        "calcTarget"
-      ).value
-    );
 
-  const daily =
-    Number(
-      document.getElementById(
-        "calcDaily"
-      ).value
-    );
+    save();
 
-  const saved =
-    Number(
-      document.getElementById(
-        "calcSaved"
-      ).value
-    ) || 0;
-
-  if(!target || !daily){
-
-    toast(
-      "Enter target and daily saving."
-    );
-
-    return;
-
-  }
-
-  const remaining =
-    Math.max(
-      0,
-      target-saved
-    );
-
-  const days =
-    Math.ceil(
-      remaining/daily
-    );
-
-  const months =
-    days/30;
-
-  const weekly =
-    daily*7;
-
-  const monthly =
-    daily*30;
-
-  document.getElementById(
-    "calculatorResult"
-  ).innerHTML = `
-
-    <div class="plan">
-
-      <strong>
-        🎮 ${esc(name)}
-      </strong>
-
-      <br><br>
-
-      Target:
-      <strong>₹${money(target)}</strong>
-
-      <br>
-
-      Already saved:
-      <strong>₹${money(saved)}</strong>
-
-      <br>
-
-      Still needed:
-      <strong>₹${money(remaining)}</strong>
-
-      <br><br>
-
-      Save:
-      <strong>₹${money(daily)} every day</strong>
-
-      <br>
-
-      That's:
-      <strong>₹${money(weekly)} per week</strong>
-
-      <br>
-
-      About:
-      <strong>₹${money(monthly)} per month</strong>
-
-      <br><br>
-
-      At this pace:
-
-      <strong>
-        ${days} days
-      </strong>
-
-      ≈
-
-      <strong>
-        ${months.toFixed(1)} months
-      </strong>
-
-      <br><br>
-
-      ${
-        remaining===0
-          ? "🔥 You already reached the target."
-          : `If you start today, keep ₹${money(daily)} aside every day.`
-      }
-
-    </div>
-
-    <button
-      class="secondary"
-      style="margin-top:10px"
-      onclick="useCalculatorAsGoal()">
-
-      USE THIS AS A GOAL
-
-    </button>
-
-  `;
-
-}
-
-function useCalculatorAsGoal(){
-
-  document.getElementById("goalName").value =
-    document.getElementById("calcName").value || "Goal";
-
-  document.getElementById("goalTarget").value =
-    document.getElementById("calcTarget").value;
-
-  document.getElementById("goalDaily").value =
-    document.getElementById("calcDaily").value;
-
-  document.getElementById("goalSaved").value =
-    document.getElementById("calcSaved").value || 0;
-
-  openModal("goalModal");
+    showToast("Transaction added");
 
 }
 
 
-/* =========================
-   INVESTMENTS
-========================= */
+/* =========================================================
+   MONTH TOTALS
+========================================================= */
 
-function addInvestment(){
+function getMonthTotals(key){
 
-  const amount =
-    Number(
-      document.getElementById(
-        "investmentAmount"
-      ).value
-    );
+    const transactions =
+        data.transactions.filter(
+            t => monthKey(t.date)===key
+        );
 
-  if(!amount || amount<=0){
 
-    toast("Enter an investment amount.");
+    const income =
+        transactions
+            .filter(t=>t.type==="income")
+            .reduce(
+                (sum,t)=>sum+t.amount,
+                0
+            );
 
-    return;
 
-  }
+    const expenses =
+        transactions
+            .filter(t=>t.type==="expense")
+            .reduce(
+                (sum,t)=>sum+t.amount,
+                0
+            );
 
-  const t = totals();
 
-  if(amount>t.balance){
+    function categoryTotal(category){
 
-    toast(
-      "You don't have enough recorded balance."
-    );
+        return transactions
+            .filter(
+                t =>
+                    t.type==="expense" &&
+                    t.category===category
+            )
+            .reduce(
+                (sum,t)=>sum+t.amount,
+                0
+            );
 
-    return;
+    }
 
-  }
 
-  investments.push({
+    return {
 
-    id:Date.now(),
+        transactions,
 
-    amount,
+        income,
 
-    date:today()
+        expenses,
 
-  });
+        net:income-expenses,
 
-  document.getElementById(
-    "investmentAmount"
-  ).value="";
+        food:categoryTotal("Food"),
 
-  save();
+        transport:categoryTotal("Transport"),
 
-  renderAll();
+        cigarettes:categoryTotal("Cigarettes"),
 
-  toast(
-    `₹${money(amount)} investment recorded.`
-  );
+        shopping:categoryTotal("Shopping"),
 
-}
+        bills:categoryTotal("Bills"),
 
-function deleteInvestment(id){
+        education:categoryTotal("Education"),
 
-  if(
-    !confirm(
-      "Remove this investment record?"
-    )
-  )return;
+        investment:categoryTotal("Investment"),
 
-  investments =
-    investments.filter(
-      i=>i.id!==id
-    );
+        debt:categoryTotal("Debt")
 
-  save();
-
-  renderAll();
-
-}
-
-function renderInvestments(){
-
-  const total =
-    investments.reduce(
-      (sum,i)=>
-        sum+Number(i.amount),
-      0
-    );
-
-  document.getElementById(
-    "investTotal"
-  ).textContent =
-    money(total);
-
-  document.getElementById(
-    "investmentCount"
-  ).textContent =
-    investments.length;
-
-  const box =
-    document.getElementById(
-      "investmentHistory"
-    );
-
-  if(!investments.length){
-
-    box.innerHTML = `
-
-      <div class="empty">
-
-        No investments recorded yet.<br><br>
-
-        Example:<br>
-
-        If you invest ₹500,
-        record ₹500 here.
-
-        X7 will then show
-        <strong>₹500 invested</strong>
-        on your Home dashboard.
-
-      </div>
-
-    `;
-
-    return;
-
-  }
-
-  box.innerHTML="";
-
-  [...investments]
-    .reverse()
-    .forEach(i=>{
-
-      box.innerHTML += `
-
-        <div class="invest-row">
-
-          <div>
-
-            <strong>
-              📈 Investment
-            </strong>
-
-            <div class="invest-date">
-              ${esc(i.date)}
-            </div>
-
-          </div>
-
-          <div style="display:flex;gap:10px;align-items:center">
-
-            <strong>
-              ₹${money(i.amount)}
-            </strong>
-
-            <button
-              class="small-btn"
-              style="padding:6px 10px"
-              onclick="deleteInvestment(${i.id})">
-
-              ×
-
-            </button>
-
-          </div>
-
-        </div>
-
-      `;
-
-    });
+    };
 
 }
 
 
-/* =========================
-   DEBTS
-========================= */
+/* =========================================================
+   HOME
+========================================================= */
 
-function addDebt(){
+const quotes = [
 
-  const name =
-    document.getElementById(
-      "debtName"
-    ).value.trim();
+"Good morning, X7. Small moves become big results.",
 
-  const amount =
-    Number(
-      document.getElementById(
-        "debtAmount"
-      ).value
-    );
+"You don't need to be perfect. You need to be consistent.",
 
-  if(!name || !amount || amount<=0){
+"Protect your money before trying to multiply it.",
 
-    toast("Enter debt details.");
+"Discipline beats motivation when motivation disappears.",
 
-    return;
+"Make today's version of you useful to tomorrow's version.",
 
-  }
+"Learn one thing. Save one thing. Improve one thing.",
 
-  debts.push({
-
-    id:Date.now(),
-
-    name,
-
-    original:amount,
-
-    remaining:amount,
-
-    payments:[],
-
-    date:today()
-
-  });
-
-  document.getElementById("debtName").value="";
-  document.getElementById("debtAmount").value="";
-
-  save();
-
-  closeModal("debtModal");
-
-  renderAll();
-
-  toast("Debt added.");
-
-}
-
-function openDebtPayment(id){
-
-  const d =
-    debts.find(x=>x.id===id);
-
-  if(!d)return;
-
-  activeDebtId=id;
-
-  document.getElementById(
-    "paymentInfo"
-  ).innerHTML = `
-
-    <strong>
-      💳 ${esc(d.name)}
-    </strong>
-
-    <br><br>
-
-    Original debt:
-    ₹${money(d.original)}
-
-    <br>
-
-    Already paid:
-    ₹${money(d.original-d.remaining)}
-
-    <br>
-
-    Remaining:
-    <strong>
-      ₹${money(d.remaining)}
-    </strong>
-
-  `;
-
-  document.getElementById(
-    "paymentAmount"
-  ).value="";
-
-  openModal("paymentModal");
-
-}
-
-function payDebt(){
-
-  const d =
-    debts.find(
-      x=>x.id===activeDebtId
-    );
-
-  const amount =
-    Number(
-      document.getElementById(
-        "paymentAmount"
-      ).value
-    );
-
-  if(!d || !amount || amount<=0){
-
-    toast("Enter a valid payment.");
-
-    return;
-
-  }
-
-  if(amount>d.remaining){
-
-    toast(
-      `Only ₹${money(d.remaining)} remains.`
-    );
-
-    return;
-
-  }
-
-  d.remaining =
-    Number(
-      (d.remaining-amount).toFixed(2)
-    );
-
-  d.payments.push({
-
-    amount,
-
-    date:today()
-
-  });
-
-  save();
-
-  closeModal("paymentModal");
-
-  renderAll();
-
-  toast(
-    `₹${money(amount)} debt payment recorded.`
-  );
-
-}
-
-function deleteDebt(id){
-
-  if(
-    !confirm(
-      "Delete this debt?"
-    )
-  )return;
-
-  debts =
-    debts.filter(
-      d=>d.id!==id
-    );
-
-  save();
-
-  renderAll();
-
-}
-
-function renderDebts(){
-
-  const box =
-    document.getElementById(
-      "debts"
-    );
-
-  if(!debts.length){
-
-    box.innerHTML = `
-
-      <div class="empty">
-
-        No debts recorded.
-
-      </div>
-
-    `;
-
-    return;
-
-  }
-
-  box.innerHTML="";
-
-  debts.forEach(d=>{
-
-    const paid =
-      d.original-d.remaining;
-
-    const percent =
-      Math.min(
-        100,
-        (paid/d.original)*100
-      );
-
-    box.innerHTML += `
-
-      <div class="debt">
-
-        <div class="debt-top">
-
-          <div>
-
-            <div class="debt-name">
-              ${esc(d.name)}
-            </div>
-
-            <div class="debt-info">
-              ₹${money(paid)} paid of
-              ₹${money(d.original)}
-            </div>
-
-          </div>
-
-          <div class="debt-remaining">
-
-            ₹${money(d.remaining)}
-
-          </div>
-
-        </div>
-
-        <div class="debt-bar">
-
-          <div
-            style="width:${percent}%">
-          </div>
-
-        </div>
-
-        <div class="goal-meta">
-
-          <span>
-            ${Math.round(percent)}% paid
-          </span>
-
-          <span>
-            ${d.remaining===0
-              ? "PAID OFF"
-              : "REMAINING"}
-          </span>
-
-        </div>
-
-        ${
-          d.remaining>0
-          ? `
-            <button
-              class="primary"
-              style="margin-top:12px"
-              onclick="openDebtPayment(${d.id})">
-
-              + PAY DEBT
-
-            </button>
-          `
-          : `
-            <div class="plan">
-              🎉 Debt completely paid.
-            </div>
-          `
-        }
-
-        <button
-          class="secondary"
-          style="margin-top:7px"
-          onclick="deleteDebt(${d.id})">
-
-          DELETE DEBT
-
-        </button>
-
-      </div>
-
-    `;
-
-  });
-
-}
-
-
-/* =========================
-   LEARNING
-========================= */
-
-const lessons = [
-
-  {
-    title:"Pay Yourself First",
-    text:"When money comes in, don't wait until the end of the month to see what remains. Decide your saving amount first.",
-    tip:"Move a fixed amount into your goal immediately after getting paid."
-  },
-
-  {
-    title:"Needs vs Wants",
-    text:"A need keeps your life functioning. A want improves your experience. Knowing the difference makes spending decisions easier.",
-    tip:"Before buying something, wait 10 minutes and ask: need or want?"
-  },
-
-  {
-    title:"Compound Growth",
-    text:"Compounding means your returns can themselves generate returns over time. Time is one of the strongest advantages an investor has.",
-    tip:"Consistency over many years usually matters more than trying to predict every market move."
-  },
-
-  {
-    title:"Emergency Money",
-    text:"An emergency fund protects you from having to borrow whenever something unexpected happens.",
-    tip:"Start with a small cash buffer and build it gradually."
-  },
-
-  {
-    title:"Opportunity Cost",
-    text:"Every ₹500 you spend has an alternative use. You could spend it, save it, invest it or use it to reduce debt.",
-    tip:"Ask what your money could do instead before spending it."
-  },
-
-  {
-    title:"Lifestyle Inflation",
-    text:"When income rises, spending often rises too. If every raise disappears into lifestyle upgrades, your financial position may barely improve.",
-    tip:"Whenever income increases, automatically increase saving first."
-  },
-
-  {
-    title:"The 24-Hour Rule",
-    text:"For non-essential purchases, waiting 24 hours can separate an actual desire from an impulse.",
-    tip:"Add expensive wants to X7 Goals instead of buying them immediately."
-  }
+"Your future is being built by what you repeatedly do today."
 
 ];
 
-function renderLesson(){
 
-  const index =
-    new Date().getDate()
-    % lessons.length;
+const lessons = [
 
-  const lesson =
-    lessons[index];
+"Compound interest means your returns can themselves generate returns.",
 
-  document.getElementById(
-    "lessonTitle"
-  ).textContent =
-    lesson.title;
+"A budget is simply a plan for where your money should go.",
 
-  document.getElementById(
-    "lessonText"
-  ).textContent =
-    lesson.text;
+"Track recurring expenses first. They quietly consume cash flow.",
 
-  document.getElementById(
-    "lessonTip"
-  ).textContent =
-    lesson.tip;
+"Emergency savings reduce the need to borrow when something unexpected happens.",
 
-  const challenges = [
+"Before investing, understand risk, liquidity, fees and time horizon.",
 
-    "Track every rupee you spend today.",
+"A good financial goal has a target, deadline and contribution plan.",
 
-    "Don't buy one unnecessary thing today.",
+"Income matters, but controlling the gap between income and spending creates wealth."
 
-    "Put money into one goal today.",
+];
 
-    "Learn one new financial concept.",
 
-    "Check your subscriptions and remove one you don't use.",
+const wisdom = [
 
-    "Write down one thing you want to buy and its real price.",
+"Your future is built from ordinary days.",
 
-    "Save your first ₹100 of the day."
+"Consistency is a financial advantage.",
 
-  ];
+"Spend intentionally, not automatically.",
 
-  document.getElementById(
-    "challengeText"
-  ).textContent =
-    challenges[index];
+"If you cannot measure it, you cannot improve it.",
 
-  updateChallenge();
+"Knowledge compounds too.",
 
-  updateXP();
+"Make the boring decision that future-you will thank you for."
 
-}
+];
 
-function completeChallenge(){
 
-  const todayKey =
-    new Date().toDateString();
+function renderHome(){
 
-  if(challengeDate===todayKey){
+    const key =
+        monthKey(new Date());
 
-    toast("Today's challenge is already complete.");
+    const totals =
+        getMonthTotals(key);
 
-    return;
 
-  }
+    const invested =
+        data.investments
+            .reduce(
+                (sum,i)=>sum+i.amount,
+                0
+            );
 
-  xp += 10;
 
-  challengeDate =
-    todayKey;
-
-  localStorage.setItem(
-    "x7_challenge_date",
-    challengeDate
-  );
-
-  save();
-
-  updateChallenge();
-
-  updateXP();
-
-  toast("+10 XP. Keep going.");
-
-}
-
-function updateChallenge(){
-
-  const done =
-    challengeDate ===
-    new Date().toDateString();
-
-  document.getElementById(
-    "challengeStatus"
-  ).textContent =
-    done
-      ? "COMPLETED"
-      : "NOT DONE";
-
-  const btn =
     document.getElementById(
-      "challengeButton"
+        "homeBalance"
+    ).textContent =
+        money(
+            totals.income -
+            totals.expenses
+        );
+
+
+    document.getElementById(
+        "homeIncome"
+    ).textContent =
+        money(totals.income);
+
+
+    document.getElementById(
+        "homeExpenses"
+    ).textContent =
+        money(totals.expenses);
+
+
+    document.getElementById(
+        "homeInvested"
+    ).textContent =
+        money(invested);
+
+
+    const todayExpenses =
+        data.transactions
+            .filter(
+                t =>
+                    t.type==="expense" &&
+                    t.date.slice(0,10)===todayKey()
+            )
+            .reduce(
+                (sum,t)=>sum+t.amount,
+                0
+            );
+
+
+    document.getElementById(
+        "todayExpense"
+    ).textContent =
+        money(todayExpenses);
+
+
+    document.getElementById(
+        "dailyBudgetText"
+    ).textContent =
+        money(data.settings.dailyBudget);
+
+
+    document.getElementById(
+        "todayRemaining"
+    ).textContent =
+        money(
+            Math.max(
+                0,
+                data.settings.dailyBudget -
+                todayExpenses
+            )
+        );
+
+
+    const mainGoal =
+        data.goals.find(g=>g.main);
+
+
+    document.getElementById(
+        "homeGoal"
+    ).innerHTML =
+        mainGoal
+        ? goalHTML(mainGoal,true)
+        : `<div class="empty">
+             No Main Goal selected.<br>
+             Create one in Goals.
+           </div>`;
+
+
+    const cigarettesToday =
+        data.transactions
+            .filter(
+                t =>
+                    t.category==="Cigarettes" &&
+                    t.date.slice(0,10)===todayKey()
+            ).length;
+
+
+    document.getElementById(
+        "cigaretteToday"
+    ).textContent =
+        `Today: ${cigarettesToday} cigarette${
+            cigarettesToday===1?"":"s"
+        } • ${money(cigarettesToday*14)}`;
+
+
+    const index =
+        new Date().getDate() %
+        lessons.length;
+
+
+    document.getElementById(
+        "dailyKnowledge"
+    ).textContent =
+        lessons[index];
+
+
+    document.getElementById(
+        "dailyWisdom"
+    ).textContent =
+        wisdom[
+            new Date().getDate() %
+            wisdom.length
+        ];
+
+}
+
+
+/* =========================================================
+   CIGARETTES
+========================================================= */
+
+function logCigarette(brand){
+
+    const cigarettePrice = 14;
+
+
+    data.transactions.push({
+
+        id:Date.now(),
+
+        type:"expense",
+
+        amount:cigarettePrice,
+
+        note:brand+" cigarette",
+
+        category:"Cigarettes",
+
+        date:new Date().toISOString()
+
+    });
+
+
+    save();
+
+    showToast(
+        brand+" recorded"
     );
 
-  btn.textContent =
-    done
-      ? "✓ COMPLETED TODAY"
-      : "COMPLETE +10 XP";
-
-  btn.disabled=done;
-
-  btn.style.opacity =
-    done ? ".5" : "1";
-
-}
-
-function updateXP(){
-
-  const level =
-    Math.floor(xp/100)+1;
-
-  const progress =
-    xp%100;
-
-  document.getElementById(
-    "xpText"
-  ).textContent =
-    `${xp} XP`;
-
-  document.getElementById(
-    "levelText"
-  ).textContent =
-    `LEVEL ${level}`;
-
-  document.getElementById(
-    "xpBar"
-  ).style.width =
-    `${progress}%`;
-
 }
 
 
-/* =========================
+/* =========================================================
+   GOALS
+========================================================= */
+
+function createGoal(){
+
+    const name =
+        document
+        .getElementById("goalName")
+        .value.trim();
+
+
+    const target =
+        Number(
+            document
+            .getElementById("goalTarget")
+            .value
+        );
+
+
+    const deadline =
+        document
+        .getElementById("goalDeadline")
+        .value;
+
+
+    const main =
+        document
+        .getElementById("goalMain")
+        .checked;
+
+
+    if(!name || !target){
+
+        showToast(
+            "Enter goal and target"
+        );
+
+        return;
+
+    }
+
+
+    if(main){
+
+        data.goals.forEach(
+            g=>g.main=false
+        );
+
+    }
+
+
+    data.goals.push({
+
+        id:Date.now(),
+
+        name,
+
+        target,
+
+        saved:0,
+
+        deadline,
+
+        main
+
+    });
+
+
+    document.getElementById(
+        "goalName"
+    ).value="";
+
+    document.getElementById(
+        "goalTarget"
+    ).value="";
+
+    document.getElementById(
+        "goalDeadline"
+    ).value="";
+
+    document.getElementById(
+        "goalMain"
+    ).checked=false;
+
+
+    save();
+
+    showToast("Goal created");
+
+}
+
+
+function goalHTML(goal,home=false){
+
+    const remaining =
+        Math.max(
+            0,
+            goal.target -
+            goal.saved
+        );
+
+
+    const percentage =
+        Math.min(
+            100,
+            (goal.saved /
+            goal.target)*100
+        );
+
+
+    let days = 30;
+
+
+    if(goal.deadline){
+
+        days =
+            Math.max(
+                1,
+                Math.ceil(
+                    (
+                        new Date(goal.deadline) -
+                        new Date()
+                    ) /
+                    86400000
+                )
+            );
+
+    }
+
+
+    const daily =
+        Math.ceil(
+            remaining /
+            days
+        );
+
+
+    const monthly =
+        Math.ceil(
+            remaining /
+            Math.max(
+                1,
+                days/30
+            )
+        );
+
+
+    return `
+
+<div class="row">
+
+<strong>
+${goal.name}
+</strong>
+
+<span class="small">
+${money(goal.saved)}
+/
+${money(goal.target)}
+</span>
+
+</div>
+
+
+<div class="progress">
+
+<span
+style="width:${percentage}%">
+</span>
+
+</div>
+
+
+<div class="row">
+
+<span class="small">
+${percentage.toFixed(1)}% saved
+</span>
+
+<span class="small">
+${money(remaining)} remaining
+</span>
+
+</div>
+
+
+<div class="grid2 section">
+
+<div>
+
+<div class="label">
+Save per day
+</div>
+
+<strong>
+${money(daily)}
+</strong>
+
+</div>
+
+
+<div>
+
+<div class="label">
+Save per month
+</div>
+
+<strong>
+${money(monthly)}
+</strong>
+
+</div>
+
+</div>
+
+
+${
+goal.deadline
+?
+`<div class="small section">
+Deadline:
+${new Date(goal.deadline)
+.toLocaleDateString("en-IN")}
+</div>`
+:""
+}
+
+
+${
+!home
+?
+`
+<div class="actions section">
+
+<button
+class="btn primary"
+onclick="addGoalMoney(${goal.id})">
+
++ Add Saved Money
+
+</button>
+
+
+<button
+class="btn"
+onclick="makeMainGoal(${goal.id})">
+
+${goal.main?"★ Main Goal":"Make Main"}
+
+</button>
+
+
+<button
+class="btn danger"
+onclick="deleteGoal(${goal.id})">
+
+Delete
+
+</button>
+
+</div>
+`
+:""
+}
+
+`;
+
+}
+
+
+function renderGoals(){
+
+    const container =
+        document.getElementById(
+            "goalContainer"
+        );
+
+
+    if(!data.goals.length){
+
+        container.innerHTML =
+            `<div class="card section empty">
+                No goals yet.
+             </div>`;
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        data.goals.map(
+            goal =>
+            `<div class="card section">
+                ${goalHTML(goal)}
+             </div>`
+        ).join("");
+
+}
+
+
+function addGoalMoney(id){
+
+    const goal =
+        data.goals.find(
+            g=>g.id===id
+        );
+
+
+    const amount =
+        Number(
+            prompt(
+                `How much did you save for ${goal.name}?`
+            )
+        );
+
+
+    if(!amount || amount<=0)
+        return;
+
+
+    goal.saved += amount;
+
+
+    save();
+
+    showToast(
+        `${money(amount)} added to ${goal.name}`
+    );
+
+}
+
+
+function makeMainGoal(id){
+
+    data.goals.forEach(
+        g=>g.main=false
+    );
+
+
+    const goal =
+        data.goals.find(
+            g=>g.id===id
+        );
+
+
+    if(goal)
+        goal.main=true;
+
+
+    save();
+
+}
+
+
+function deleteGoal(id){
+
+    if(
+        !confirm(
+            "Delete this goal?"
+        )
+    )
+        return;
+
+
+    data.goals =
+        data.goals.filter(
+            g=>g.id!==id
+        );
+
+
+    save();
+
+}
+
+
+/* =========================================================
+   DEBTS
+========================================================= */
+
+function createDebt(){
+
+    const name =
+        document
+        .getElementById("debtName")
+        .value.trim();
+
+
+    const amount =
+        Number(
+            document
+            .getElementById("debtAmount")
+            .value
+        );
+
+
+    if(!name || !amount){
+
+        showToast(
+            "Enter debt details"
+        );
+
+        return;
+
+    }
+
+
+    data.debts.push({
+
+        id:Date.now(),
+
+        name,
+
+        total:amount,
+
+        paid:0,
+
+        payments:[]
+
+    });
+
+
+    document.getElementById(
+        "debtName"
+    ).value="";
+
+
+    document.getElementById(
+        "debtAmount"
+    ).value="";
+
+
+    save();
+
+    showToast("Debt added");
+
+}
+
+
+function payDebt(id){
+
+    const debt =
+        data.debts.find(
+            d=>d.id===id
+        );
+
+
+    const remaining =
+        debt.total -
+        debt.paid;
+
+
+    const amount =
+        Number(
+            prompt(
+                `Remaining: ${money(remaining)}
+                
+Enter payment amount:`
+            )
+        );
+
+
+    if(!amount || amount<=0)
+        return;
+
+
+    const payment =
+        Math.min(
+            amount,
+            remaining
+        );
+
+
+    debt.paid += payment;
+
+
+    debt.payments.push({
+
+        amount:payment,
+
+        date:new Date().toISOString()
+
+    });
+
+
+    /* Debt payment becomes an expense */
+
+    data.transactions.push({
+
+        id:Date.now(),
+
+        type:"expense",
+
+        amount:payment,
+
+        note:"Debt payment: "+debt.name,
+
+        category:"Debt",
+
+        date:new Date().toISOString()
+
+    });
+
+
+    save();
+
+
+    showToast(
+        debt.paid>=debt.total
+        ?"Debt cleared 🎉"
+        :"Debt payment added"
+    );
+
+}
+
+
+function renderDebts(){
+
+    const container =
+        document.getElementById(
+            "debtContainer"
+        );
+
+
+    if(!data.debts.length){
+
+        container.innerHTML =
+            `<div class="card section empty">
+                No debts.
+             </div>`;
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        data.debts.map(
+            debt => {
+
+                const remaining =
+                    debt.total -
+                    debt.paid;
+
+
+                const percentage =
+                    Math.min(
+                        100,
+                        debt.paid /
+                        debt.total *
+                        100
+                    );
+
+
+                return `
+
+<div class="card section">
+
+<div class="row">
+
+<h3>
+${debt.name}
+</h3>
+
+<strong class="${
+    remaining===0
+    ?"good"
+    :"bad"
+}">
+${
+    remaining===0
+    ?"✓ Cleared"
+    :money(remaining)+" remaining"
+}
+</strong>
+
+</div>
+
+
+<div class="progress">
+
+<span
+style="width:${percentage}%">
+</span>
+
+</div>
+
+
+<div class="small">
+
+Paid:
+${money(debt.paid)}
+
+of
+
+${money(debt.total)}
+
+</div>
+
+
+${
+remaining>0
+?
+`
+<button
+class="btn primary section"
+onclick="payDebt(${debt.id})">
+
+Make Payment
+
+</button>
+`
+:""
+}
+
+</div>
+
+`;
+
+            }
+        ).join("");
+
+}
+
+
+/* =========================================================
+   INVESTMENTS
+========================================================= */
+
+function addInvestment(){
+
+    const amount =
+        Number(
+            document
+            .getElementById(
+                "investmentAmount"
+            ).value
+        );
+
+
+    const type =
+        document
+        .getElementById(
+            "investmentType"
+        ).value;
+
+
+    const note =
+        document
+        .getElementById(
+            "investmentNote"
+        ).value;
+
+
+    if(!amount || amount<=0){
+
+        showToast(
+            "Enter investment amount"
+        );
+
+        return;
+
+    }
+
+
+    data.investments.push({
+
+        id:Date.now(),
+
+        amount,
+
+        type,
+
+        note,
+
+        date:new Date().toISOString()
+
+    });
+
+
+    /* Investment is recorded as money leaving
+       available cash, but NOT as ordinary spending.
+       It is its own category. */
+
+    data.transactions.push({
+
+        id:Date.now()+1,
+
+        type:"expense",
+
+        amount,
+
+        note:"Investment: "+
+            (note || type),
+
+        category:"Investment",
+
+        date:new Date().toISOString()
+
+    });
+
+
+    document.getElementById(
+        "investmentAmount"
+    ).value="";
+
+
+    document.getElementById(
+        "investmentNote"
+    ).value="";
+
+
+    save();
+
+    showToast(
+        money(amount)+" invested"
+    );
+
+}
+
+
+function renderInvestments(){
+
+    const total =
+        data.investments
+        .reduce(
+            (sum,i)=>sum+i.amount,
+            0
+        );
+
+
+    document.getElementById(
+        "investedMoney"
+    ).textContent =
+        money(total);
+
+
+    document.getElementById(
+        "investmentCount"
+    ).textContent =
+        data.investments.length;
+
+}
+
+
+/* =========================================================
+   GROW
+========================================================= */
+
+function renderGrow(){
+
+    const index =
+        new Date().getDate() %
+        lessons.length;
+
+
+    document.getElementById(
+        "growLesson"
+    ).textContent =
+        lessons[index];
+
+
+    document.getElementById(
+        "learningStreak"
+    ).textContent =
+        data.learning.streak+
+        " day"+
+        (
+            data.learning.streak===1
+            ?""
+            :"s"
+        );
+
+
+    const totals =
+        getMonthTotals(
+            monthKey(new Date())
+        );
+
+
+    let score=50;
+
+
+    if(totals.net>0)
+        score+=20;
+
+
+    if(data.investments.length>0)
+        score+=10;
+
+
+    if(
+        totals.income>0 &&
+        totals.expenses<
+        totals.income
+    )
+        score+=10;
+
+
+    if(totals.cigarettes>500)
+        score-=10;
+
+
+    score =
+        Math.max(
+            0,
+            Math.min(
+                100,
+                score
+            )
+        );
+
+
+    document.getElementById(
+        "moneyHealth"
+    ).textContent =
+        score+" / 100";
+
+
+    document.getElementById(
+        "healthProgress"
+    ).style.width =
+        score+"%";
+
+
+    document.getElementById(
+        "healthExplanation"
+    ).textContent =
+        "This is an X7 tracking score based on cash flow, spending behaviour and investing activity.";
+
+}
+
+
+function completeLearning(){
+
+    const today =
+        todayKey();
+
+
+    if(
+        data.learning.lastDate===
+        today
+    ){
+
+        showToast(
+            "Already completed today 🔥"
+        );
+
+        return;
+
+    }
+
+
+    const yesterday =
+        new Date();
+
+
+    yesterday.setDate(
+        yesterday.getDate()-1
+    );
+
+
+    const yesterdayKey =
+        yesterday
+        .toISOString()
+        .slice(0,10);
+
+
+    if(
+        data.learning.lastDate===
+        yesterdayKey
+    ){
+
+        data.learning.streak++;
+
+    }else{
+
+        data.learning.streak=1;
+
+    }
+
+
+    data.learning.lastDate=
+        today;
+
+
+    save();
+
+    showToast(
+        "Learning streak updated 🔥"
+    );
+
+}
+
+
+/* =========================================================
+   HISTORY
+========================================================= */
+
+function allMonths(){
+
+    const months =
+        new Set();
+
+
+    /* Every transaction keeps its original date.
+       Therefore old months never disappear. */
+
+    data.transactions.forEach(
+        transaction =>
+            months.add(
+                monthKey(
+                    transaction.date
+                )
+            )
+    );
+
+
+    /* Always include current month */
+
+    months.add(
+        monthKey(new Date())
+    );
+
+
+    return [
+        ...months
+    ].sort().reverse();
+
+}
+
+
+function populateHistoryMonths(){
+
+    const select =
+        document.getElementById(
+            "historyMonth"
+        );
+
+
+    const months =
+        allMonths();
+
+
+    const current =
+        select.value ||
+        monthKey(new Date());
+
+
+    select.innerHTML =
+        months.map(
+            month =>
+            `<option value="${month}">
+                ${monthName(month)}
+             </option>`
+        ).join("");
+
+
+    if(
+        months.includes(current)
+    ){
+
+        select.value=current;
+
+    }
+
+}
+
+
+function renderHistory(){
+
+    populateHistoryMonths();
+
+
+    const select =
+        document.getElementById(
+            "historyMonth"
+        );
+
+
+    const selected =
+        select.value ||
+        monthKey(new Date());
+
+
+    const totals =
+        getMonthTotals(selected);
+
+
+    /* MONTH SUMMARY */
+
+    document.getElementById(
+        "historyStats"
+    ).innerHTML = `
+
+<div class="grid section">
+
+<div class="card">
+
+<div class="label">
+Income
+</div>
+
+<div class="big good">
+${money(totals.income)}
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="label">
+Expenses
+</div>
+
+<div class="big bad">
+${money(totals.expenses)}
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="label">
+Net Growth
+</div>
+
+<div class="big ${
+    totals.net>=0
+    ?"good"
+    :"bad"
+}">
+${money(totals.net)}
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="label">
+Invested
+</div>
+
+<div class="big">
+${money(totals.investment)}
+</div>
+
+</div>
+
+</div>
+
+`;
+
+
+    /* CATEGORY BREAKDOWN */
+
+    document.getElementById(
+        "historyCategories"
+    ).innerHTML = `
+
+<div class="card">
+
+<h3>
+Where did the money go?
+</h3>
+
+<div class="grid2">
+
+<div>
+Food
+<br>
+<strong>
+${money(totals.food)}
+</strong>
+</div>
+
+<div>
+Transport
+<br>
+<strong>
+${money(totals.transport)}
+</strong>
+</div>
+
+<div>
+Cigarettes
+<br>
+<strong>
+${money(totals.cigarettes)}
+</strong>
+</div>
+
+<div>
+Shopping
+<br>
+<strong>
+${money(totals.shopping)}
+</strong>
+</div>
+
+<div>
+Bills
+<br>
+<strong>
+${money(totals.bills)}
+</strong>
+</div>
+
+<div>
+Debt payments
+<br>
+<strong>
+${money(totals.debt)}
+</strong>
+</div>
+
+</div>
+
+</div>
+
+`;
+
+
+    /* COMPARISON */
+
+    const months =
+        allMonths();
+
+
+    const index =
+        months.indexOf(
+            selected
+        );
+
+
+    const previous =
+        months[index+1];
+
+
+    if(previous){
+
+        const previousTotals =
+            getMonthTotals(previous);
+
+
+        const expenseChange =
+            totals.expenses -
+            previousTotals.expenses;
+
+
+        const incomeChange =
+            totals.income -
+            previousTotals.income;
+
+
+        const investmentChange =
+            totals.investment -
+            previousTotals.investment;
+
+
+        const netChange =
+            totals.net -
+            previousTotals.net;
+
+
+        document.getElementById(
+            "historyComparison"
+        ).innerHTML = `
+
+<div class="card">
+
+<h3>
+
+${monthName(selected)}
+
+vs
+
+${monthName(previous)}
+
+</h3>
+
+
+<div class="grid2">
+
+<div>
+
+<div class="label">
+Expense Change
+</div>
+
+<strong class="${
+    expenseChange<=0
+    ?"good"
+    :"bad"
+}">
+${expenseChange>=0?"+":""}
+${money(expenseChange)}
+</strong>
+
+</div>
+
+
+<div>
+
+<div class="label">
+Income Change
+</div>
+
+<strong class="${
+    incomeChange>=0
+    ?"good"
+    :"bad"
+}">
+${incomeChange>=0?"+":""}
+${money(incomeChange)}
+</strong>
+
+</div>
+
+
+<div>
+
+<div class="label">
+Investment Change
+</div>
+
+<strong class="${
+    investmentChange>=0
+    ?"good"
+    :"bad"
+}">
+${investmentChange>=0?"+":""}
+${money(investmentChange)}
+</strong>
+
+</div>
+
+
+<div>
+
+<div class="label">
+Net Growth Change
+</div>
+
+<strong class="${
+    netChange>=0
+    ?"good"
+    :"bad"
+}">
+${netChange>=0?"+":""}
+${money(netChange)}
+</strong>
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
+    }else{
+
+        document.getElementById(
+            "historyComparison"
+        ).innerHTML =
+            `<div class="card">
+                <div class="small">
+                No earlier month available for comparison.
+                </div>
+             </div>`;
+
+    }
+
+
+    /* TRANSACTIONS */
+
+    if(!totals.transactions.length){
+
+        document.getElementById(
+            "historyTransactions"
+        ).innerHTML =
+            `<div class="card empty">
+                No transactions in
+                ${monthName(selected)}.
+             </div>`;
+
+        return;
+
+    }
+
+
+    document.getElementById(
+        "historyTransactions"
+    ).innerHTML = `
+
+<div class="card">
+
+<h3>
+${monthName(selected)} Transactions
+</h3>
+
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>
+Date
+</th>
+
+<th>
+Type
+</th>
+
+<th>
+Category
+</th>
+
+<th>
+Description
+</th>
+
+<th>
+Amount
+</th>
+
+</tr>
+
+</thead>
+
+
+<tbody>
+
+${totals.transactions
+    .slice()
+    .reverse()
+    .map(
+        transaction =>
+        `
+
+<tr>
+
+<td>
+${new Date(
+    transaction.date
+)
+.toLocaleDateString(
+    "en-IN",
+    {
+        day:"2-digit",
+        month:"short"
+    }
+)}
+</td>
+
+
+<td>
+${transaction.type}
+</td>
+
+
+<td>
+${transaction.category}
+</td>
+
+
+<td>
+${transaction.note}
+</td>
+
+
+<td class="${
+    transaction.type==="income"
+    ?"good"
+    :"bad"
+}">
+
+${
+    transaction.type==="income"
+    ?"+"
+    :"-"
+}
+
+${money(transaction.amount)}
+
+</td>
+
+</tr>
+
+`
+    ).join("")}
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+/* =========================================================
    RESET
-========================= */
+========================================================= */
 
-function resetMoney(){
+function resetX7(){
 
-  const yes =
-    confirm(
-      "This will delete your income, expenses, goals, debts and investment records. Continue?"
+    const answer =
+        confirm(
+            "This will delete ALL X7 money data, goals, debts, investments and history. Continue?"
+        );
+
+
+    if(!answer)
+        return;
+
+
+    localStorage.removeItem(
+        STORAGE_KEY
     );
 
-  if(!yes)return;
 
-  transactions=[];
-  debts=[];
-  goals=[];
-  investments=[];
-
-  save();
-
-  renderAll();
-
-  toast("Money data reset.");
+    location.reload();
 
 }
 
 
-/* =========================
-   RENDER EVERYTHING
-========================= */
+/* =========================================================
+   STARTUP
+========================================================= */
 
 function renderAll(){
 
-  renderMoney();
+    renderHome();
 
-  renderHomeGoal();
+    renderGoals();
 
-  renderGoals();
+    renderDebts();
 
-  renderInvestments();
+    renderInvestments();
 
-  renderDebts();
+    renderGrow();
 
-  renderLesson();
+    renderMoney();
+
+    populateHistoryMonths();
 
 }
 
 
-/* =========================
-   START
-========================= */
+/* GREETING */
 
-setupMorning();
+function setGreeting(){
+
+    const hour =
+        new Date().getHours();
+
+
+    let greeting;
+
+
+    if(hour<12){
+
+        greeting=
+            "GOOD MORNING, X7";
+
+    }else if(hour<18){
+
+        greeting=
+            "GOOD AFTERNOON, X7";
+
+    }else{
+
+        greeting=
+            "GOOD EVENING, X7";
+
+    }
+
+
+    document.getElementById(
+        "greeting"
+    ).textContent =
+        greeting;
+
+
+    document.getElementById(
+        "quote"
+    ).textContent =
+        quotes[
+            new Date().getDate()
+            % quotes.length
+        ];
+
+
+    document.getElementById(
+        "currentDate"
+    ).textContent =
+        new Date()
+        .toLocaleDateString(
+            "en-IN",
+            {
+                weekday:"long",
+                day:"numeric",
+                month:"long",
+                year:"numeric"
+            }
+        );
+
+}
+
+
+setGreeting();
 
 renderAll();
 
