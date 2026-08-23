@@ -2,206 +2,3396 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#000000">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#050505">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
-<meta name="apple-mobile-web-app-title" content="X7 Money">
-<title>X7 Money</title>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="X7">
+<title>X7 • Seven — Make It Happen</title>
+
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#000;--card:#0d0d0d;--card2:#121212;--line:#222;--text:#fff;--muted:#777;--dim:#4d4d4d}
-html,body{background:#000;color:#fff;min-height:100%;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif}
-body{overflow-x:hidden}button,input,select{font:inherit}button{-webkit-tap-highlight-color:transparent}
-#splash{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 35%,#181818,#060606 45%,#000 80%);transition:opacity .8s,visibility .8s}
-#splash.hide{opacity:0;visibility:hidden;pointer-events:none}.splash-content{text-align:center;width:90%;max-width:420px;animation:splashIn .9s ease}
-.splash-logo{font-size:105px;line-height:.8;font-weight:950;letter-spacing:-10px;background:linear-gradient(135deg,#fff,#555);-webkit-background-clip:text;background-clip:text;color:transparent;animation:pulse 2.4s infinite}
-.good-morning{margin-top:35px;font-size:25px;font-weight:850;opacity:0;animation:fadeUp .7s .45s forwards}.splash-quote{max-width:330px;margin:13px auto 0;color:#777;font-size:14px;line-height:1.7;opacity:0;animation:fadeUp .7s .8s forwards}.loading{width:110px;height:2px;margin:32px auto 0;background:#202020;overflow:hidden;opacity:0;animation:fadeUp .7s 1s forwards}.loading:after{content:"";display:block;width:45px;height:100%;background:#fff;animation:load 1.2s infinite}
-@keyframes splashIn{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:scale(1)}}@keyframes pulse{0%,100%{transform:scale(1);opacity:.8}50%{transform:scale(1.04);opacity:1}}@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}@keyframes load{from{transform:translateX(-70px)}to{transform:translateX(180px)}}
-#app{min-height:100vh;padding:calc(12px + env(safe-area-inset-top)) 16px calc(85px + env(safe-area-inset-bottom))}
-.container{width:100%;max-width:680px;margin:auto}
-header{display:flex;align-items:center;justify-content:space-between;padding:10px 3px 23px}.brand{display:flex;align-items:center;gap:12px}.logo-box{width:48px;height:48px;display:flex;align-items:center;justify-content:center;background:#fff;color:#000;border-radius:15px;font-size:18px;font-weight:950}.brand-title{font-size:19px;font-weight:850}.brand-sub{margin-top:3px;color:#555;font-size:9px;letter-spacing:1.6px}.date{color:#555;font-size:11px;text-align:right}
-.page{display:none}.page.active{display:block}
-.balance-card{position:relative;padding:30px 25px;border-radius:28px;border:1px solid #222;background:linear-gradient(145deg,#181818,#080808);overflow:hidden}.balance-card:after{content:"";position:absolute;width:250px;height:250px;right:-130px;top:-130px;border-radius:50%;background:#fff;opacity:.025}.balance-label{color:#707070;font-size:10px;letter-spacing:1.5px}.balance{margin-top:8px;font-size:45px;line-height:1;font-weight:900;letter-spacing:-3px}.currency{color:#777;font-size:21px;vertical-align:7px;margin-right:4px}
-.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}.stat{padding:19px;background:#0c0c0c;border:1px solid #1d1d1d;border-radius:20px}.stat-label{color:#555;font-size:10px;letter-spacing:1.3px}.stat-value{margin-top:8px;font-size:21px;font-weight:850}
-.section-header{display:flex;align-items:center;justify-content:space-between;margin-top:30px;margin-bottom:12px}.section-header h2{font-size:18px;font-weight:850}.section-header span{color:#555;font-size:10px}
-.card{padding:20px;border-radius:22px;border:1px solid #222;background:linear-gradient(145deg,#141414,#090909)}
-.categories{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.category{min-height:112px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:12px 5px;background:#0b0b0b;border:1px solid #1c1c1c;border-radius:19px}.category-icon{font-size:31px}.category-name{margin-top:9px;color:#777;font-size:10px;font-weight:650}.category-amount{margin-top:5px;font-size:11px;font-weight:800}
-.debt-summary{padding:20px;border-radius:22px;border:1px solid #232323;background:linear-gradient(145deg,#151515,#090909)}.debt-label{color:#666;font-size:10px;letter-spacing:1.3px}.debt-total{margin-top:7px;font-size:29px;font-weight:900}.progress{height:6px;margin-top:15px;border-radius:20px;background:#202020;overflow:hidden}.progress>div{height:100%;width:0;background:#fff;transition:width .3s}.debt-list,.goals,.insights,.transactions{display:flex;flex-direction:column;gap:9px;margin-top:10px}.debt-item,.goal,.insight,.transaction{padding:16px;background:#0b0b0b;border:1px solid #1b1b1b;border-radius:19px}.debt-top,.goal-top,.transaction{display:flex;justify-content:space-between;align-items:center}.debt-person,.transaction-left{display:flex;align-items:center;gap:11px}.debt-icon,.transaction-icon{width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:14px;background:#171717;font-size:22px;flex:0 0 44px}.debt-name,.goal-name{font-size:14px;font-weight:750}.debt-small,.transaction-meta{margin-top:3px;color:#555;font-size:10px}.debt-remaining{font-size:14px;font-weight:850}.debt-info{display:flex;justify-content:space-between;margin-top:13px;color:#666;font-size:10px}.debt-actions{display:grid;grid-template-columns:1fr 40px;gap:7px;margin-top:12px}.pay-debt,.save{padding:12px;border:none;border-radius:12px;background:#fff;color:#000;font-size:11px;font-weight:850;cursor:pointer}.delete-debt,.delete-transaction{border:none;border-radius:12px;background:#171717;color:#666;cursor:pointer}.add-debt-button,.add-goal{width:100%;margin-top:9px;padding:14px;border:1px solid #242424;border-radius:15px;background:#111;color:#777;font-weight:750;cursor:pointer}
-.grow-options{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:17px}.grow-option{padding:13px 6px;background:#0b0b0b;border:1px solid #222;border-radius:14px;color:#777;text-align:center;cursor:pointer}.grow-option.active{background:#fff;color:#000;border-color:#fff}.grow-option strong{display:block;font-size:15px}.grow-option small{display:block;margin-top:3px;font-size:8px}.investment-list{margin-top:14px}.investment-row{display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-bottom:1px solid #1a1a1a}.investment-row:last-child{border-bottom:none}.investment-name{font-size:12px;font-weight:700}.investment-description{margin-top:3px;color:#555;font-size:9px}.investment-value{font-size:12px;font-weight:800}
-.goal-money{color:#777;font-size:11px}.goal-bar{height:6px;margin-top:11px;border-radius:20px;background:#202020;overflow:hidden}.goal-progress{height:100%;background:#fff}.goal-bottom{display:flex;justify-content:space-between;margin-top:7px;color:#555;font-size:9px}
-.insight-title{font-size:12px;font-weight:800}.insight-text{margin-top:5px;color:#666;font-size:10px;line-height:1.6}
-.action-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:18px}.action{min-height:53px;border-radius:17px;cursor:pointer;font-size:12px;font-weight:850}.add{border:none;background:#fff;color:#000}.reset{border:1px solid #252525;background:#121212;color:#888}
-.transaction-left{min-width:0}.transaction-description{max-width:190px;font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.transaction-right{display:flex;align-items:center}.transaction-amount{font-size:12px;font-weight:850;white-space:nowrap}.income{color:#fff}.expense{color:#888}.empty,.no-debt{padding:30px;border:1px dashed #1c1c1c;border-radius:18px;color:#444;text-align:center;font-size:12px;line-height:1.7}
-.hero-title{font-size:26px;font-weight:900}.hero-sub{margin-top:7px;color:#666;font-size:11px;line-height:1.6}.goal-big{margin-top:22px;font-size:34px;font-weight:900}.goal-target{color:#555;font-size:11px}.goal-scenarios{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:18px}.scenario{padding:14px 6px;background:#090909;border:1px solid #222;border-radius:15px;text-align:center}.scenario strong{font-size:14px}.scenario small{display:block;margin-top:5px;color:#666;font-size:9px}.recommend{margin-top:12px;padding:16px;border:1px solid #292929;border-radius:17px;background:#111}.recommend b{font-size:13px}.recommend p{margin-top:6px;color:#777;font-size:10px;line-height:1.6}
-.lesson-number{color:#555;font-size:10px;letter-spacing:1px}.lesson-title{margin-top:8px;font-size:23px;font-weight:900}.lesson-text{margin-top:10px;color:#777;font-size:12px;line-height:1.8}.xp{margin-top:17px;display:flex;justify-content:space-between;color:#777;font-size:10px}.lesson-bar{height:5px;margin-top:7px;background:#222;border-radius:10px;overflow:hidden}.lesson-bar div{height:100%;background:#fff;width:35%}.challenge{margin-top:10px;padding:19px;border-radius:20px;background:#101010;border:1px solid #222}.challenge h3{font-size:15px}.challenge p{margin-top:7px;color:#777;font-size:11px;line-height:1.6}.complete{width:100%;margin-top:13px;padding:13px;border:none;border-radius:13px;background:#fff;color:#000;font-weight:850}.complete.done{background:#202020;color:#777}
-.level-card{margin-top:10px;padding:20px;border:1px solid #222;border-radius:22px;background:linear-gradient(145deg,#151515,#090909)}.level-top{display:flex;justify-content:space-between}.level-name{font-size:20px;font-weight:900}.level-xp{color:#777;font-size:11px}.topic-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:12px}.topic{padding:14px;background:#0b0b0b;border:1px solid #1c1c1c;border-radius:15px}.topic b{font-size:11px}.topic p{margin-top:4px;color:#555;font-size:9px}
-.bottom-nav{position:fixed;left:50%;bottom:0;transform:translateX(-50%);z-index:1000;width:min(680px,100%);padding:8px 12px calc(8px + env(safe-area-inset-bottom));background:rgba(5,5,5,.92);border-top:1px solid #202020;backdrop-filter:blur(16px);display:grid;grid-template-columns:repeat(4,1fr);gap:5px}.nav-btn{border:0;background:transparent;color:#555;padding:9px 3px;border-radius:13px;font-size:9px;font-weight:800;cursor:pointer}.nav-btn div{font-size:20px;margin-bottom:4px}.nav-btn.active{background:#fff;color:#000}
-.modal{position:fixed;inset:0;z-index:5000;display:flex;align-items:flex-end;justify-content:center;padding:12px;background:rgba(0,0,0,.78);backdrop-filter:blur(12px);opacity:0;visibility:hidden;transition:.25s}.modal.show{opacity:1;visibility:visible}.modal-box{width:100%;max-width:630px;padding:24px;background:#101010;border:1px solid #292929;border-radius:27px;transform:translateY(25px);transition:.3s}.modal.show .modal-box{transform:translateY(0)}.modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}.modal-header h2{font-size:21px}.close{width:35px;height:35px;border:none;border-radius:50%;background:#1d1d1d;color:#999;cursor:pointer;font-size:18px}.field{margin-bottom:14px}.field label{display:block;margin-bottom:7px;color:#666;font-size:9px;letter-spacing:1px}.input,.select{width:100%;padding:15px;border:1px solid #242424;border-radius:14px;background:#070707;color:#fff;outline:none}.type-buttons{display:grid;grid-template-columns:1fr 1fr;gap:8px}.type-button{padding:13px;border:1px solid #252525;border-radius:13px;background:#080808;color:#777;cursor:pointer}.type-button.active{background:#fff;color:#000;border-color:#fff}.warning{color:#777;font-size:12px;line-height:1.7;margin-bottom:20px}.danger,.cancel{width:100%;padding:16px;border-radius:15px;font-weight:900;cursor:pointer}.danger{border:none;background:#fff;color:#000}.cancel{margin-top:8px;border:1px solid #252525;background:#151515;color:#888}
-@media(max-width:420px){.categories{grid-template-columns:repeat(4,1fr)}.category{min-height:105px}.category-icon{font-size:28px}.balance{font-size:38px}.transaction-description{max-width:135px}}
-@media(min-width:700px){#app{padding-top:30px}.modal{align-items:center}}
+
+:root{
+  --bg:#050505;
+  --card:#0d0d0d;
+  --card2:#111;
+  --line:#242424;
+  --muted:#777;
+  --text:#f5f5f5;
+  --soft:#bdbdbd;
+  --white:#fff;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  min-height:100vh;
+}
+
+button,input,select{font:inherit}
+
+button{cursor:pointer}
+
+.app{
+  width:100%;
+  max-width:1050px;
+  margin:auto;
+  padding-bottom:100px;
+}
+
+/* HEADER */
+
+.header{
+  padding:28px 22px 18px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logo{
+  font-size:24px;
+  font-weight:950;
+  letter-spacing:-1.5px;
+}
+
+.logo small{
+  display:block;
+  font-size:8px;
+  letter-spacing:3px;
+  color:#666;
+  margin-top:3px;
+}
+
+.date{
+  color:#555;
+  font-size:10px;
+  text-align:right;
+}
+
+/* NAV */
+
+.nav{
+  display:flex;
+  gap:8px;
+  padding:0 18px 20px;
+  overflow-x:auto;
+}
+
+.nav button{
+  border:1px solid var(--line);
+  background:#0b0b0b;
+  color:#777;
+  border-radius:13px;
+  padding:11px 15px;
+  font-size:11px;
+  font-weight:800;
+  white-space:nowrap;
+}
+
+.nav button.active{
+  background:#fff;
+  color:#000;
+  border-color:#fff;
+}
+
+/* PAGES */
+
+.page{
+  display:none;
+  padding:0 18px;
+}
+
+.page.active{
+  display:block;
+}
+
+/* MORNING */
+
+.morning{
+  min-height:220px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:30px 5px;
+  animation:fadeUp .8s ease;
+}
+
+.morning-label{
+  color:#555;
+  font-size:10px;
+  letter-spacing:3px;
+  font-weight:800;
+}
+
+.morning h1{
+  font-size:clamp(40px,8vw,78px);
+  line-height:.95;
+  letter-spacing:-5px;
+  margin:12px 0;
+}
+
+.morning p{
+  color:#777;
+  max-width:600px;
+  line-height:1.6;
+  font-size:13px;
+}
+
+.quote{
+  margin-top:18px;
+  color:#aaa;
+  font-size:12px;
+  border-left:2px solid #fff;
+  padding-left:12px;
+}
+
+/* CARDS */
+
+.card{
+  background:linear-gradient(145deg,#101010,#090909);
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:22px;
+  margin-bottom:14px;
+}
+
+.card-title{
+  color:#555;
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:2px;
+  margin-bottom:9px;
+}
+
+.big{
+  font-size:42px;
+  font-weight:950;
+  letter-spacing:-2px;
+}
+
+.sub{
+  color:#666;
+  font-size:11px;
+  margin-top:6px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+
+.stat{
+  background:#0b0b0b;
+  border:1px solid #1d1d1d;
+  border-radius:17px;
+  padding:17px;
+}
+
+.stat-label{
+  font-size:8px;
+  color:#555;
+  font-weight:900;
+  letter-spacing:1.5px;
+}
+
+.stat-value{
+  margin-top:8px;
+  font-size:23px;
+  font-weight:900;
+}
+
+/* SECTIONS */
+
+.section-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin:28px 2px 12px;
+}
+
+.section-head h2{
+  font-size:18px;
+  letter-spacing:-.5px;
+}
+
+.section-head span{
+  color:#555;
+  font-size:9px;
+}
+
+/* BUTTON */
+
+.primary{
+  width:100%;
+  border:0;
+  background:#fff;
+  color:#000;
+  border-radius:14px;
+  padding:14px;
+  font-size:11px;
+  font-weight:950;
+}
+
+.secondary{
+  width:100%;
+  border:1px solid #292929;
+  background:#111;
+  color:#aaa;
+  border-radius:14px;
+  padding:13px;
+  font-size:11px;
+  font-weight:850;
+}
+
+.danger{
+  background:#160909;
+  color:#ff8a8a;
+  border:1px solid #3a1616;
+}
+
+/* HOME GOAL */
+
+.goal-name{
+  font-size:21px;
+  font-weight:950;
+}
+
+.goal-amount{
+  font-size:34px;
+  font-weight:950;
+  margin-top:14px;
+}
+
+.goal-amount span{
+  color:#555;
+  font-size:15px;
+}
+
+.progress{
+  width:100%;
+  height:8px;
+  background:#1d1d1d;
+  border-radius:20px;
+  overflow:hidden;
+  margin:16px 0 9px;
+}
+
+.progress div{
+  height:100%;
+  background:#fff;
+  border-radius:20px;
+  transition:.4s;
+}
+
+.goal-meta{
+  display:flex;
+  justify-content:space-between;
+  color:#666;
+  font-size:9px;
+}
+
+.plan{
+  background:#101010;
+  border:1px solid #202020;
+  border-radius:14px;
+  padding:14px;
+  margin-top:14px;
+  color:#777;
+  font-size:10px;
+  line-height:1.8;
+}
+
+.plan strong{
+  color:#fff;
+}
+
+/* GOALS */
+
+.goal-card{
+  background:#0d0d0d;
+  border:1px solid #202020;
+  border-radius:20px;
+  padding:19px;
+  margin-bottom:12px;
+}
+
+.goal-top{
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+}
+
+.goal-top-right{
+  text-align:right;
+}
+
+.goal-top-right strong{
+  font-size:17px;
+}
+
+.badge{
+  display:inline-block;
+  margin-top:7px;
+  background:#fff;
+  color:#000;
+  border-radius:7px;
+  padding:5px 7px;
+  font-size:7px;
+  font-weight:950;
+  letter-spacing:1px;
+}
+
+.goal-buttons{
+  display:grid;
+  grid-template-columns:1fr 1fr 42px;
+  gap:7px;
+  margin-top:13px;
+}
+
+.small-btn{
+  border:1px solid #272727;
+  background:#111;
+  color:#888;
+  border-radius:11px;
+  padding:11px 5px;
+  font-size:9px;
+  font-weight:900;
+}
+
+.small-btn.primary-small{
+  background:#fff;
+  color:#000;
+  border-color:#fff;
+}
+
+/* INPUT */
+
+.field{
+  margin-bottom:14px;
+}
+
+.field label{
+  display:block;
+  color:#555;
+  font-size:8px;
+  font-weight:950;
+  letter-spacing:1.5px;
+  margin-bottom:7px;
+}
+
+.input{
+  width:100%;
+  background:#0a0a0a;
+  border:1px solid #252525;
+  color:#fff;
+  border-radius:13px;
+  padding:14px;
+  outline:none;
+}
+
+.input:focus{
+  border-color:#666;
+}
+
+/* TOGGLE */
+
+.toggle{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:7px;
+}
+
+.toggle button{
+  padding:12px;
+  background:#101010;
+  color:#666;
+  border:1px solid #292929;
+  border-radius:11px;
+  font-size:9px;
+  font-weight:900;
+}
+
+.toggle button.active{
+  background:#fff;
+  color:#000;
+  border-color:#fff;
+}
+
+/* MONEY */
+
+.money-category{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:9px;
+}
+
+.category{
+  background:#0c0c0c;
+  border:1px solid #202020;
+  border-radius:16px;
+  padding:15px;
+  color:#aaa;
+}
+
+.category-icon{
+  font-size:22px;
+}
+
+.category-name{
+  font-size:10px;
+  font-weight:900;
+  margin-top:8px;
+}
+
+.category-total{
+  font-size:15px;
+  margin-top:4px;
+  color:#fff;
+}
+
+/* TRANSACTIONS */
+
+.transaction{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:14px 0;
+  border-bottom:1px solid #191919;
+}
+
+.transaction:last-child{
+  border-bottom:0;
+}
+
+.transaction-title{
+  font-size:11px;
+  font-weight:800;
+}
+
+.transaction-meta{
+  color:#555;
+  font-size:8px;
+  margin-top:4px;
+}
+
+.transaction-amount{
+  font-size:13px;
+  font-weight:900;
+}
+
+.income{
+  color:#fff;
+}
+
+.expense{
+  color:#aaa;
+}
+
+/* DEBT */
+
+.debt{
+  background:#0d0d0d;
+  border:1px solid #202020;
+  border-radius:18px;
+  padding:17px;
+  margin-bottom:10px;
+}
+
+.debt-top{
+  display:flex;
+  justify-content:space-between;
+}
+
+.debt-name{
+  font-size:13px;
+  font-weight:900;
+}
+
+.debt-remaining{
+  font-size:20px;
+  font-weight:950;
+}
+
+.debt-info{
+  color:#555;
+  font-size:9px;
+  margin-top:4px;
+}
+
+.debt-bar{
+  height:6px;
+  background:#1e1e1e;
+  border-radius:20px;
+  margin:13px 0;
+  overflow:hidden;
+}
+
+.debt-bar div{
+  height:100%;
+  background:#fff;
+}
+
+/* INVESTMENT */
+
+.invest-total{
+  font-size:38px;
+  font-weight:950;
+}
+
+.invest-note{
+  color:#666;
+  font-size:10px;
+  line-height:1.6;
+  margin-top:7px;
+}
+
+.invest-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:13px 0;
+  border-bottom:1px solid #191919;
+}
+
+.invest-row:last-child{
+  border:0;
+}
+
+.invest-date{
+  color:#555;
+  font-size:8px;
+  margin-top:4px;
+}
+
+/* LEARNING */
+
+.lesson{
+  border:1px solid #242424;
+  background:#0d0d0d;
+  border-radius:20px;
+  padding:21px;
+}
+
+.lesson-number{
+  color:#555;
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:2px;
+}
+
+.lesson h3{
+  margin:10px 0;
+  font-size:22px;
+}
+
+.lesson p{
+  color:#777;
+  font-size:12px;
+  line-height:1.7;
+}
+
+.lesson-tip{
+  margin-top:14px;
+  background:#111;
+  padding:14px;
+  border-radius:13px;
+  color:#aaa;
+  font-size:10px;
+  line-height:1.7;
+}
+
+/* MODAL */
+
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.82);
+  backdrop-filter:blur(10px);
+  display:none;
+  align-items:flex-end;
+  justify-content:center;
+  z-index:50;
+}
+
+.modal.show{
+  display:flex;
+}
+
+.modal-box{
+  width:min(600px,100%);
+  background:#0d0d0d;
+  border:1px solid #292929;
+  border-radius:25px 25px 0 0;
+  padding:24px;
+  max-height:90vh;
+  overflow:auto;
+  animation:slideUp .3s ease;
+}
+
+.modal-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
+}
+
+.modal-head h2{
+  font-size:20px;
+}
+
+.close{
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  border:1px solid #292929;
+  background:#111;
+  color:#aaa;
+  font-size:20px;
+}
+
+/* EMPTY */
+
+.empty{
+  text-align:center;
+  padding:30px 15px;
+  color:#555;
+  border:1px dashed #242424;
+  border-radius:16px;
+  font-size:10px;
+  line-height:1.7;
+}
+
+/* FOOTER NAV */
+
+.bottom{
+  position:fixed;
+  left:50%;
+  bottom:13px;
+  transform:translateX(-50%);
+  width:min(700px,calc(100% - 24px));
+  background:rgba(12,12,12,.94);
+  backdrop-filter:blur(20px);
+  border:1px solid #292929;
+  border-radius:20px;
+  padding:7px;
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  z-index:30;
+}
+
+.bottom button{
+  border:0;
+  background:transparent;
+  color:#555;
+  padding:10px 4px;
+  border-radius:14px;
+  font-size:9px;
+  font-weight:900;
+}
+
+.bottom button.active{
+  background:#fff;
+  color:#000;
+}
+
+/* TOAST */
+
+.toast{
+  position:fixed;
+  top:20px;
+  left:50%;
+  transform:translateX(-50%) translateY(-20px);
+  background:#fff;
+  color:#000;
+  padding:12px 17px;
+  border-radius:13px;
+  font-size:10px;
+  font-weight:900;
+  opacity:0;
+  pointer-events:none;
+  z-index:100;
+  transition:.3s;
+}
+
+.toast.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
+
+/* ANIMATIONS */
+
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+@keyframes slideUp{
+  from{transform:translateY(100%)}
+  to{transform:translateY(0)}
+}
+
+@media(min-width:700px){
+  .grid{
+    grid-template-columns:repeat(4,1fr);
+  }
+
+  .money-category{
+    grid-template-columns:repeat(4,1fr);
+  }
+
+  .morning{
+    min-height:300px;
+  }
+
+  .modal{
+    align-items:center;
+  }
+
+  .modal-box{
+    border-radius:24px;
+  }
+}
 </style>
 </head>
+
 <body>
-<div id="splash"><div class="splash-content"><div class="splash-logo">X7</div><div class="good-morning">GOOD MORNING, X7.</div><div class="splash-quote" id="splashQuote"></div><div class="loading"></div></div></div>
 
-<main id="app"><div class="container">
-<header><div class="brand"><div class="logo-box">X7</div><div><div class="brand-title">Money</div><div class="brand-sub">PERSONAL FINANCE</div></div></div><div class="date" id="date"></div></header>
+<div class="app">
 
-<section id="homePage" class="page active">
-<div class="balance-card"><div class="balance-label">TOTAL BALANCE</div><div class="balance"><span class="currency">₹</span><span id="balance">0</span></div></div>
-<div class="stats"><div class="stat"><div class="stat-label">INCOME</div><div class="stat-value">₹<span id="income">0</span></div></div><div class="stat"><div class="stat-label">EXPENSES</div><div class="stat-value">₹<span id="expenses">0</span></div></div></div>
-<div class="section-header"><h2>🎯 Main Goal</h2><span id="homeGoalLabel">Create one</span></div><div id="homeGoal"></div>
-<div class="section-header"><h2>🧠 Today's Growth</h2><span>2 min</span></div><div id="homeLesson"></div>
-<div class="section-header"><h2>💡 X7 Suggestion</h2><span>Personal</span></div><div class="insights" id="homeInsight"></div>
+<header class="header">
+  <div class="logo">
+    X7 • SEVEN
+    <small>MAKE IT HAPPEN</small>
+  </div>
+  <div class="date" id="date"></div>
+</header>
+
+<nav class="nav">
+  <button class="active" onclick="showPage('home',this)">HOME</button>
+  <button onclick="showPage('money',this)">MONEY</button>
+  <button onclick="showPage('goals',this)">GOALS</button>
+  <button onclick="showPage('invest',this)">INVEST</button>
+  <button onclick="showPage('learn',this)">LEARN</button>
+</nav>
+
+<!-- HOME -->
+
+<section class="page active" id="home">
+
+  <div class="morning">
+    <div class="morning-label">GOOD MORNING</div>
+    <h1>X7.</h1>
+    <p id="morningMessage">
+      Make today count. Small decisions become big results.
+    </p>
+    <div class="quote" id="quote"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">TOTAL BALANCE</div>
+    <div class="big">₹<span id="balance">0</span></div>
+    <div class="sub">Income minus everyday expenses</div>
+  </div>
+
+  <div class="grid">
+    <div class="stat">
+      <div class="stat-label">INCOME</div>
+      <div class="stat-value">₹<span id="homeIncome">0</span></div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-label">EXPENSES</div>
+      <div class="stat-value">₹<span id="homeExpenses">0</span></div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-label">INVESTED</div>
+      <div class="stat-value">₹<span id="homeInvested">0</span></div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-label">AVAILABLE</div>
+      <div class="stat-value">₹<span id="homeAvailable">0</span></div>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>🎯 Home Goal</h2>
+    <span id="homeGoalStatus">NOT SELECTED</span>
+  </div>
+
+  <div id="homeGoal"></div>
+
+  <div class="section-head">
+    <h2>💡 X7 Insight</h2>
+    <span>TODAY</span>
+  </div>
+
+  <div class="card">
+    <div class="card-title">MONEY CHECK</div>
+    <div id="moneyInsight" class="sub"></div>
+  </div>
+
 </section>
 
-<section id="moneyPage" class="page">
-<div class="section-header"><h2>Spending</h2><span id="transactionCount">0 transactions</span></div><div class="categories" id="categories"></div>
-<div class="section-header"><h2>💸 Debts</h2><span>Track & repay</span></div><div class="debt-summary"><div class="debt-label">TOTAL REMAINING</div><div class="debt-total">₹<span id="debtTotal">0</span></div><div class="progress"><div id="debtProgress"></div></div></div><div class="debt-list" id="debts"></div>
-<div class="section-header"><h2>📈 Invest & Grow</h2><span>Build wealth</span></div><div class="card"><div class="hero-title">Monthly amount</div><div class="hero-sub">Educational allocation only. X7 does not guarantee returns or recommend a specific security.</div><div class="grow-options"><button class="grow-option" data-amount="500" onclick="selectInvestment(500,this)"><strong>₹500</strong><small>START</small></button><button class="grow-option" data-amount="1000" onclick="selectInvestment(1000,this)"><strong>₹1K</strong><small>BUILD</small></button><button class="grow-option" data-amount="2000" onclick="selectInvestment(2000,this)"><strong>₹2K</strong><small>GROW</small></button></div><div class="investment-list" id="investmentPlan"></div></div>
-<div class="section-header"><h2>Recent Transactions</h2><span>X7</span></div><div class="transactions" id="transactions"></div>
-<div class="action-grid"><button class="action add" onclick="openModal('transactionModal')">+ Add Transaction</button><button class="action reset" onclick="openModal('resetModal')">Reset Money</button></div>
+
+<!-- MONEY -->
+
+<section class="page" id="money">
+
+  <div class="section-head">
+    <h2>💰 Money</h2>
+    <span>EVERY RUPEE</span>
+  </div>
+
+  <div class="card">
+    <div class="card-title">CURRENT BALANCE</div>
+    <div class="big">₹<span id="moneyBalance">0</span></div>
+    <div class="sub">Track where your money goes.</div>
+  </div>
+
+  <button class="primary" onclick="openModal('transactionModal')">
+    + ADD MONEY / EXPENSE
+  </button>
+
+  <div class="section-head">
+    <h2>Categories</h2>
+    <span>SPENDING</span>
+  </div>
+
+  <div class="money-category">
+
+    <div class="category">
+      <div class="category-icon">🍔</div>
+      <div class="category-name">FOOD</div>
+      <div class="category-total">₹<span id="catFood">0</span></div>
+    </div>
+
+    <div class="category">
+      <div class="category-icon">🚬</div>
+      <div class="category-name">CIGARETTES</div>
+      <div class="category-total">₹<span id="catCigarettes">0</span></div>
+    </div>
+
+    <div class="category">
+      <div class="category-icon">🚕</div>
+      <div class="category-name">TRANSPORT</div>
+      <div class="category-total">₹<span id="catTransport">0</span></div>
+    </div>
+
+    <div class="category">
+      <div class="category-icon">🛍️</div>
+      <div class="category-name">SHOPPING</div>
+      <div class="category-total">₹<span id="catShopping">0</span></div>
+    </div>
+
+    <div class="category">
+      <div class="category-icon">📱</div>
+      <div class="category-name">BILLS</div>
+      <div class="category-total">₹<span id="catBills">0</span></div>
+    </div>
+
+    <div class="category">
+      <div class="category-icon">📦</div>
+      <div class="category-name">OTHER</div>
+      <div class="category-total">₹<span id="catOther">0</span></div>
+    </div>
+
+  </div>
+
+  <div class="section-head">
+    <h2>Transactions</h2>
+    <span id="transactionCount">0</span>
+  </div>
+
+  <div class="card" id="transactions"></div>
+
+  <div class="section-head">
+    <h2>💳 Debts</h2>
+    <span>PAY THEM DOWN</span>
+  </div>
+
+  <button class="secondary" onclick="openModal('debtModal')">
+    + ADD DEBT
+  </button>
+
+  <div style="margin-top:12px" id="debts"></div>
+
+  <div class="section-head">
+    <h2>🧹 Reset Money</h2>
+    <span>CAREFUL</span>
+  </div>
+
+  <button class="secondary danger" onclick="resetMoney()">
+    RESET ALL MONEY DATA
+  </button>
+
 </section>
 
-<section id="goalsPage" class="page">
-<div class="section-header"><h2>🎯 My Goals</h2><span>Make it happen</span></div><div id="goals" class="goals"></div><button class="add-goal" onclick="openModal('goalModal')">+ Add Money Goal</button>
-<div class="section-header"><h2>What if I save more?</h2><span>Daily calculator</span></div><div class="card"><div class="field"><label>GOAL PRICE</label><input class="input" id="calcTarget" type="number" placeholder="₹65,000"></div><div class="field"><label>ALREADY SAVED</label><input class="input" id="calcSaved" type="number" placeholder="₹0"></div><div class="field"><label>DAILY INCOME</label><input class="input" id="calcIncome" type="number" placeholder="₹500"></div><button class="save" onclick="calculateGoalPlan()">CALCULATE REALISTIC PLAN</button><div id="goalCalculator"></div></div>
+
+<!-- GOALS -->
+
+<section class="page" id="goals">
+
+  <div class="section-head">
+    <h2>🎯 Money Goals</h2>
+    <span>PLAN YOUR WANTS</span>
+  </div>
+
+  <div class="card">
+    <div class="card-title">HOW X7 GOALS WORK</div>
+    <div class="sub">
+      Create something you want to buy. Tell X7 the target, what you've
+      already saved and how much you want to save each day.
+      X7 will continuously calculate the remaining amount and expected finish date.
+    </div>
+  </div>
+
+  <button class="primary" onclick="openModal('goalModal')">
+    + ADD MONEY GOAL
+  </button>
+
+  <div style="margin-top:14px" id="goals"></div>
+
+  <div class="section-head">
+    <h2>🎮 PS5 Calculator</h2>
+    <span>REALISTIC PLAN</span>
+  </div>
+
+  <div class="card">
+
+    <div class="field">
+      <label>WHAT DO YOU WANT?</label>
+      <input class="input" id="calcName" placeholder="PS5">
+    </div>
+
+    <div class="field">
+      <label>TARGET PRICE</label>
+      <input class="input" id="calcTarget" type="number" placeholder="65000">
+    </div>
+
+    <div class="field">
+      <label>HOW MUCH CAN YOU SAVE EACH DAY?</label>
+      <input class="input" id="calcDaily" type="number" placeholder="150">
+    </div>
+
+    <div class="field">
+      <label>ALREADY SAVED</label>
+      <input class="input" id="calcSaved" type="number" placeholder="100">
+    </div>
+
+    <button class="primary" onclick="calculateGoal()">
+      CALCULATE MY PLAN
+    </button>
+
+    <div id="calculatorResult" style="margin-top:15px"></div>
+
+  </div>
+
 </section>
 
-<section id="learnPage" class="page">
-<div class="section-header"><h2>🧠 X7 Learn</h2><span id="streakText">Daily growth</span></div><div id="lessonCard"></div>
-<div class="section-header"><h2>📚 Knowledge Library</h2><span>Small lessons</span></div><div class="topic-grid">
-<div class="topic"><b>💰 Money</b><p>Budgeting, debt, investing, inflation and wealth.</p></div><div class="topic"><b>🧠 Psychology</b><p>Biases, habits, dopamine and decision-making.</p></div><div class="topic"><b>💼 Career</b><p>Sales, negotiation, communication and leadership.</p></div><div class="topic"><b>🏢 Business</b><p>Revenue, margins, pricing, cash flow and growth.</p></div><div class="topic"><b>💻 Technology</b><p>AI, APIs, databases, cloud and cybersecurity.</p></div><div class="topic"><b>🌎 General</b><p>Science, history, economics and useful knowledge.</p></div>
+
+<!-- INVEST -->
+
+<section class="page" id="invest">
+
+  <div class="section-head">
+    <h2>📈 Invest Money</h2>
+    <span>TRACK CONTRIBUTIONS</span>
+  </div>
+
+  <div class="card">
+
+    <div class="card-title">MONEY YOU HAVE INVESTED</div>
+
+    <div class="invest-total">
+      ₹<span id="investTotal">0</span>
+    </div>
+
+    <div class="invest-note">
+      This is the amount you have actually recorded as invested.
+      X7 does not pretend your money has grown unless you enter the actual value.
+    </div>
+
+  </div>
+
+  <div class="card">
+
+    <div class="field">
+      <label>INVESTMENT AMOUNT</label>
+      <input class="input" id="investmentAmount" type="number" placeholder="₹500">
+    </div>
+
+    <button class="primary" onclick="addInvestment()">
+      + RECORD INVESTMENT
+    </button>
+
+  </div>
+
+  <div class="section-head">
+    <h2>Investment History</h2>
+    <span id="investmentCount">0</span>
+  </div>
+
+  <div class="card" id="investmentHistory"></div>
+
+  <div class="section-head">
+    <h2>💡 X7 Investment Rule</h2>
+    <span>KNOWLEDGE</span>
+  </div>
+
+  <div class="card">
+    <div class="card-title">DON'T INVEST BLINDLY</div>
+    <div class="sub">
+      First build an emergency buffer, control high-interest debt,
+      then invest money you can leave untouched for the long term.
+      X7 tracks the money — it doesn't tell you to blindly buy a particular asset.
+    </div>
+  </div>
+
+</section>
+
+
+<!-- LEARN -->
+
+<section class="page" id="learn">
+
+  <div class="section-head">
+    <h2>🧠 Learn</h2>
+    <span>GET BETTER DAILY</span>
+  </div>
+
+  <div class="lesson">
+
+    <div class="lesson-number">
+      X7 DAILY KNOWLEDGE
+    </div>
+
+    <h3 id="lessonTitle"></h3>
+
+    <p id="lessonText"></p>
+
+    <div class="lesson-tip">
+      <strong>Today's move:</strong>
+      <span id="lessonTip"></span>
+    </div>
+
+  </div>
+
+  <div class="section-head">
+    <h2>🔥 Daily Challenge</h2>
+    <span id="challengeStatus">NOT DONE</span>
+  </div>
+
+  <div class="card">
+
+    <div class="card-title">YOUR CHALLENGE</div>
+
+    <div id="challengeText" class="sub"></div>
+
+    <button
+      class="primary"
+      style="margin-top:15px"
+      onclick="completeChallenge()"
+      id="challengeButton">
+      COMPLETE +10 XP
+    </button>
+
+  </div>
+
+  <div class="section-head">
+    <h2>🏆 X7 Level</h2>
+    <span id="xpText">0 XP</span>
+  </div>
+
+  <div class="card">
+
+    <div class="big" id="levelText">LEVEL 1</div>
+
+    <div class="progress">
+      <div id="xpBar" style="width:0%"></div>
+    </div>
+
+    <div class="sub">
+      Keep learning. Keep moving.
+    </div>
+
+  </div>
+
+</section>
+
 </div>
-<div class="section-header"><h2>🔥 Today's Challenge</h2><span>Build discipline</span></div><div class="challenge" id="challengeCard"></div>
-<div class="section-header"><h2>🏆 X7 Level</h2><span>Progress</span></div><div class="level-card" id="levelCard"></div>
-</section>
-</div></main>
 
-<nav class="bottom-nav"><button class="nav-btn active" onclick="showPage('home',this)"><div>🏠</div>HOME</button><button class="nav-btn" onclick="showPage('money',this)"><div>💰</div>MONEY</button><button class="nav-btn" onclick="showPage('goals',this)"><div>🎯</div>GOALS</button><button class="nav-btn" onclick="showPage('learn',this)"><div>🧠</div>LEARN</button></nav>
 
-<!-- transaction modal -->
-<div class="modal" id="transactionModal"><div class="modal-box"><div class="modal-header"><h2>Add Transaction</h2><button class="close" onclick="closeModal('transactionModal')">×</button></div><div class="field"><label>DESCRIPTION</label><input class="input" id="transactionDescription" placeholder="Food, salary, shopping..."></div><div class="field"><label>AMOUNT</label><input class="input" id="transactionAmount" type="number" min="0" placeholder="₹0"></div><div class="field"><label>TYPE</label><div class="type-buttons"><button class="type-button active" id="expenseType" onclick="setTransactionType('expense')">Expense</button><button class="type-button" id="incomeType" onclick="setTransactionType('income')">Income</button></div></div><div class="field" id="transactionCategoryField"><label>CATEGORY</label><select class="select" id="transactionCategory"><option>Food</option><option>Cigarettes</option><option>Transport</option><option>Shopping</option><option>Bills</option><option>Other</option></select></div><button class="save" onclick="addTransaction()">SAVE TRANSACTION</button></div></div>
-<!-- debt modal -->
-<div class="modal" id="debtModal"><div class="modal-box"><div class="modal-header"><h2>Add Debt</h2><button class="close" onclick="closeModal('debtModal')">×</button></div><div class="field"><label>DEBT NAME</label><input class="input" id="debtName" placeholder="Loan, friend, etc."></div><div class="field"><label>ORIGINAL AMOUNT</label><input class="input" id="debtOriginal" type="number" min="0" placeholder="₹500"></div><button class="save" onclick="addDebt()">ADD DEBT</button></div></div>
-<!-- payment modal -->
-<div class="modal" id="paymentModal"><div class="modal-box"><div class="modal-header"><h2>Make Payment</h2><button class="close" onclick="closeModal('paymentModal')">×</button></div><div class="warning" id="paymentDebtInfo"></div><div class="field"><label>PAYMENT AMOUNT</label><input class="input" id="paymentAmount" type="number" min="0" placeholder="₹250"></div><button class="save" onclick="makeDebtPayment()">RECORD PAYMENT</button></div></div>
-<!-- goal modal -->
-<div class="modal" id="goalModal"><div class="modal-box"><div class="modal-header"><h2>New Money Goal</h2><button class="close" onclick="closeModal('goalModal')">×</button></div><div class="field"><label>GOAL</label><input class="input" id="goalName" placeholder="PS5, Emergency Fund..."></div><div class="field"><label>TARGET AMOUNT</label><input class="input" id="goalTarget" type="number" min="0" placeholder="₹65,000"></div><div class="field"><label>CURRENT SAVINGS</label><input class="input" id="goalSaved" type="number" min="0" placeholder="₹0"></div><button class="save" onclick="addGoal()">CREATE GOAL</button></div></div>
-<!-- reset -->
-<div class="modal" id="resetModal"><div class="modal-box"><div class="modal-header"><h2>Reset Money</h2><button class="close" onclick="closeModal('resetModal')">×</button></div><div class="warning">This deletes transactions, debts, debt payments, goals, investment preferences and X7 progress. This cannot be undone.</div><button class="danger" onclick="resetEverything()">YES, RESET EVERYTHING</button><button class="cancel" onclick="closeModal('resetModal')">CANCEL</button></div></div>
+<!-- BOTTOM NAV -->
+
+<div class="bottom">
+
+  <button class="active" onclick="showPage('home',this)">
+    🏠<br>HOME
+  </button>
+
+  <button onclick="showPage('money',this)">
+    💰<br>MONEY
+  </button>
+
+  <button onclick="showPage('goals',this)">
+    🎯<br>GOALS
+  </button>
+
+  <button onclick="showPage('invest',this)">
+    📈<br>INVEST
+  </button>
+
+  <button onclick="showPage('learn',this)">
+    🧠<br>LEARN
+  </button>
+
+</div>
+
+
+<!-- TOAST -->
+
+<div class="toast" id="toast"></div>
+
+
+<!-- TRANSACTION MODAL -->
+
+<div class="modal" id="transactionModal">
+
+  <div class="modal-box">
+
+    <div class="modal-head">
+      <h2>Add Money</h2>
+      <button class="close" onclick="closeModal('transactionModal')">×</button>
+    </div>
+
+    <div class="toggle">
+      <button id="incomeBtn" class="active" onclick="setTransactionType('income')">
+        + INCOME
+      </button>
+
+      <button id="expenseBtn" onclick="setTransactionType('expense')">
+        - EXPENSE
+      </button>
+    </div>
+
+    <div class="field" style="margin-top:15px">
+      <label>AMOUNT</label>
+      <input class="input" id="transactionAmount" type="number" placeholder="₹500">
+    </div>
+
+    <div class="field">
+      <label>DESCRIPTION</label>
+      <input class="input" id="transactionDescription" placeholder="Salary / Lunch / Bus">
+    </div>
+
+    <div class="field">
+      <label>CATEGORY</label>
+
+      <select class="input" id="transactionCategory">
+
+        <option value="Food">🍔 Food</option>
+        <option value="Cigarettes">🚬 Cigarettes</option>
+        <option value="Transport">🚕 Transport</option>
+        <option value="Shopping">🛍 Shopping</option>
+        <option value="Bills">📱 Bills</option>
+        <option value="Other">📦 Other</option>
+
+      </select>
+
+    </div>
+
+    <button class="primary" onclick="addTransaction()">
+      SAVE TRANSACTION
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- GOAL MODAL -->
+
+<div class="modal" id="goalModal">
+
+  <div class="modal-box">
+
+    <div class="modal-head">
+      <h2>New Money Goal</h2>
+      <button class="close" onclick="closeModal('goalModal')">×</button>
+    </div>
+
+    <div class="field">
+      <label>WHAT ARE YOU SAVING FOR?</label>
+      <input class="input" id="goalName" placeholder="PS5">
+    </div>
+
+    <div class="field">
+      <label>TARGET AMOUNT</label>
+      <input class="input" id="goalTarget" type="number" placeholder="65000">
+    </div>
+
+    <div class="field">
+      <label>ALREADY SAVED</label>
+      <input class="input" id="goalSaved" type="number" placeholder="100">
+    </div>
+
+    <div class="field">
+      <label>DAILY SAVING TARGET</label>
+      <input class="input" id="goalDaily" type="number" placeholder="150">
+    </div>
+
+    <div class="field">
+
+      <label>HOME DASHBOARD</label>
+
+      <div class="toggle">
+
+        <button
+          id="mainGoalYes"
+          class="active"
+          onclick="setMainGoal(true)">
+          ✓ MAKE THIS MY MAIN GOAL
+        </button>
+
+        <button
+          id="mainGoalNo"
+          onclick="setMainGoal(false)">
+          KEEP OFF HOME
+        </button>
+
+      </div>
+
+    </div>
+
+    <div class="sub" style="margin-bottom:15px">
+      Your Home dashboard can show only one goal.
+      You can change it anytime from the Goals section.
+    </div>
+
+    <button class="primary" onclick="addGoal()">
+      CREATE GOAL
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- GOAL CONTRIBUTION MODAL -->
+
+<div class="modal" id="goalContributionModal">
+
+  <div class="modal-box">
+
+    <div class="modal-head">
+
+      <h2>Add to Goal</h2>
+
+      <button
+        class="close"
+        onclick="closeModal('goalContributionModal')">
+        ×
+      </button>
+
+    </div>
+
+    <div
+      id="goalContributionInfo"
+      class="plan"
+      style="margin-top:0">
+    </div>
+
+    <div class="field" style="margin-top:15px">
+
+      <label>HOW MUCH DID YOU SAVE TODAY?</label>
+
+      <input
+        class="input"
+        id="goalContributionAmount"
+        type="number"
+        placeholder="150">
+
+    </div>
+
+    <button
+      class="primary"
+      onclick="addGoalContribution()">
+      SAVE TO GOAL
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- DEBT MODAL -->
+
+<div class="modal" id="debtModal">
+
+  <div class="modal-box">
+
+    <div class="modal-head">
+      <h2>Add Debt</h2>
+
+      <button
+        class="close"
+        onclick="closeModal('debtModal')">
+        ×
+      </button>
+    </div>
+
+    <div class="field">
+
+      <label>DEBT NAME</label>
+
+      <input
+        class="input"
+        id="debtName"
+        placeholder="Friend / Loan / Credit">
+
+    </div>
+
+    <div class="field">
+
+      <label>TOTAL DEBT</label>
+
+      <input
+        class="input"
+        id="debtAmount"
+        type="number"
+        placeholder="500">
+
+    </div>
+
+    <button
+      class="primary"
+      onclick="addDebt()">
+      ADD DEBT
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- DEBT PAYMENT MODAL -->
+
+<div class="modal" id="paymentModal">
+
+  <div class="modal-box">
+
+    <div class="modal-head">
+
+      <h2>Pay Debt</h2>
+
+      <button
+        class="close"
+        onclick="closeModal('paymentModal')">
+        ×
+      </button>
+
+    </div>
+
+    <div
+      id="paymentInfo"
+      class="plan"
+      style="margin-top:0">
+    </div>
+
+    <div class="field" style="margin-top:15px">
+
+      <label>PAYMENT AMOUNT</label>
+
+      <input
+        class="input"
+        id="paymentAmount"
+        type="number"
+        placeholder="250">
+
+    </div>
+
+    <button
+      class="primary"
+      onclick="payDebt()">
+      MAKE PAYMENT
+    </button>
+
+  </div>
+
+</div>
+
 
 <script>
-const quotes=["Small steps. Big results.","Discipline creates freedom.","Your future is built by what you do today.","Consistency beats motivation.","Make your money work for you.","Build quietly. Let the results speak.","Every rupee has a purpose.","Think long term. Move today.","One day or day one.","Keep going. X7."];
-const lessons=[
-["Opportunity Cost","Every rupee you spend is a choice about what you cannot spend it on. Before buying something, ask what future goal that money could support.","Finance"],
-["Compound Interest","Small amounts can become meaningful when contributions and returns compound over long periods. Time matters more than trying to find a perfect entry point.","Finance"],
-["Lifestyle Inflation","When income rises, automatically increasing spending can prevent your wealth from rising too. Increase your savings rate before increasing your lifestyle.","Finance"],
-["Delayed Gratification","Being able to wait for something you want is a financial skill. A planned purchase is usually easier to afford than an impulse purchase.","Psychology"],
-["Opportunity Cost of Debt","A debt payment does more than reduce a balance: it frees future cash flow. Paying expensive debt can be a strong priority before taking unnecessary investment risk.","Finance"],
-["Margin","Revenue is not profit. A business can sell a lot and still lose money if its costs are too high. Learn to separate revenue, gross profit and net profit.","Business"],
-["Negotiation","Good negotiation starts with understanding the other side's needs, not just demanding a better price. Preparation creates leverage.","Career"],
-["Confirmation Bias","People tend to notice information that supports what they already believe. Deliberately look for evidence that could prove your assumption wrong.","Psychology"],
-["Inflation","Inflation reduces purchasing power over time. Long-term financial planning should consider not just the amount of money you have, but what that money can buy.","Finance"],
-["Risk vs Return","Higher potential return generally comes with higher uncertainty. Match the risk of an asset to when you actually need the money.","Finance"]
+
+/* =========================
+   STORAGE
+========================= */
+
+let transactions =
+  JSON.parse(localStorage.getItem("x7_transactions") || "[]");
+
+let debts =
+  JSON.parse(localStorage.getItem("x7_debts") || "[]");
+
+let goals =
+  JSON.parse(localStorage.getItem("x7_goals") || "[]");
+
+let investments =
+  JSON.parse(localStorage.getItem("x7_investments") || "[]");
+
+let xp =
+  Number(localStorage.getItem("x7_xp") || 0);
+
+let challengeDate =
+  localStorage.getItem("x7_challenge_date") || "";
+
+let transactionType = "income";
+
+let activeDebtId = null;
+
+let activeGoalId = null;
+
+let mainGoalChoice = true;
+
+
+/* =========================
+   BASIC HELPERS
+========================= */
+
+function money(value){
+  return Number(value || 0).toLocaleString("en-IN",{
+    maximumFractionDigits:2
+  });
+}
+
+function today(){
+
+  return new Date().toLocaleDateString("en-IN",{
+    day:"2-digit",
+    month:"short",
+    year:"numeric"
+  });
+
+}
+
+function esc(value){
+
+  return String(value)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+function save(){
+
+  localStorage.setItem(
+    "x7_transactions",
+    JSON.stringify(transactions)
+  );
+
+  localStorage.setItem(
+    "x7_debts",
+    JSON.stringify(debts)
+  );
+
+  localStorage.setItem(
+    "x7_goals",
+    JSON.stringify(goals)
+  );
+
+  localStorage.setItem(
+    "x7_investments",
+    JSON.stringify(investments)
+  );
+
+  localStorage.setItem(
+    "x7_xp",
+    xp
+  );
+
+}
+
+function toast(message){
+
+  const t = document.getElementById("toast");
+
+  t.textContent = message;
+
+  t.classList.add("show");
+
+  setTimeout(()=>{
+    t.classList.remove("show");
+  },2200);
+
+}
+
+
+/* =========================
+   PAGE NAVIGATION
+========================= */
+
+function showPage(page,button){
+
+  document.querySelectorAll(".page")
+    .forEach(p=>p.classList.remove("active"));
+
+  document.getElementById(page)
+    .classList.add("active");
+
+  document.querySelectorAll(".nav button")
+    .forEach(b=>b.classList.remove("active"));
+
+  document.querySelectorAll(".bottom button")
+    .forEach(b=>b.classList.remove("active"));
+
+  if(button){
+    button.classList.add("active");
+  }
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+}
+
+
+/* =========================
+   MODALS
+========================= */
+
+function openModal(id){
+
+  document
+    .getElementById(id)
+    .classList.add("show");
+
+  if(id==="goalModal"){
+
+    setMainGoal(true);
+
+  }
+
+}
+
+function closeModal(id){
+
+  document
+    .getElementById(id)
+    .classList.remove("show");
+
+}
+
+
+/* =========================
+   MORNING
+========================= */
+
+const quotes = [
+
+  "Discipline beats motivation when motivation disappears.",
+
+  "You don't need more money first. You need better decisions first.",
+
+  "Small amounts become serious money when you stay consistent.",
+
+  "Your future self is watching what you do today.",
+
+  "Make the boring financial decisions. Enjoy the results later.",
+
+  "Don't chase money. Build systems that make money easier to manage.",
+
+  "One good decision today can remove ten bad decisions tomorrow."
+
 ];
-const challenges=["Save your planned amount toward a goal today.","Avoid one unnecessary purchase today.","Learn one concept and explain it in your own words.","Review your biggest expense today.","Put aside a small amount before spending the rest.","Spend 10 minutes learning something useful.","Write down one thing you want to improve this month."];
 
-let transactions=JSON.parse(localStorage.getItem("x7_transactions")||"[]");
-let debts=JSON.parse(localStorage.getItem("x7_debts")||"[]");
-let goals=JSON.parse(localStorage.getItem("x7_goals")||"[]");
-let investmentAmount=Number(localStorage.getItem("x7_investment")||0);
-let xp=Number(localStorage.getItem("x7_xp")||0);
-let challengeDone=localStorage.getItem("x7_challenge_done")===new Date().toDateString();
-let transactionType="expense",activeDebtId=null;
+const messages = [
 
-function money(v){return Number(v||0).toLocaleString("en-IN",{maximumFractionDigits:2})}
-function today(){return new Date().toLocaleDateString("en-IN",{day:"numeric",month:"short",year:"numeric"})}
-function esc(v){const d=document.createElement("div");d.textContent=String(v);return d.innerHTML}
-function save(){localStorage.setItem("x7_transactions",JSON.stringify(transactions));localStorage.setItem("x7_debts",JSON.stringify(debts));localStorage.setItem("x7_goals",JSON.stringify(goals));localStorage.setItem("x7_investment",investmentAmount);localStorage.setItem("x7_xp",xp)}
-document.getElementById("splashQuote").textContent=`"${quotes[Math.floor(Math.random()*quotes.length)]}"`;
-setTimeout(()=>document.getElementById("splash").classList.add("hide"),2800);
-document.getElementById("date").textContent=new Date().toLocaleDateString("en-IN",{weekday:"short",day:"numeric",month:"short"});
+  "Make today count. Small decisions become big results.",
 
-function showPage(name,btn){
- document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
- document.getElementById(name+"Page").classList.add("active");
- document.querySelectorAll(".nav-btn").forEach(b=>b.classList.remove("active"));
- btn.classList.add("active");
- window.scrollTo({top:0,behavior:"smooth"});
-}
-function openModal(id){document.getElementById(id).classList.add("show")}
-function closeModal(id){document.getElementById(id).classList.remove("show")}
-document.addEventListener("click",e=>document.querySelectorAll(".modal.show").forEach(m=>{if(e.target===m)m.classList.remove("show")}));
+  "You don't need to be perfect. You need to be consistent.",
 
-function calculate(){
- let income=0,expenses=0;
- transactions.forEach(t=>t.type==="income"?income+=+t.amount:expenses+=+t.amount);
- document.getElementById("income").textContent=money(income);
- document.getElementById("expenses").textContent=money(expenses);
- document.getElementById("balance").textContent=money(income-expenses);
- let original=0,remaining=0;
- debts.forEach(d=>{original+=+d.original;remaining+=+d.remaining});
- document.getElementById("debtTotal").textContent=money(remaining);
- document.getElementById("debtProgress").style.width=(original?Math.min(100,((original-remaining)/original)*100):0)+"%";
+  "Protect your money today so your future has more options.",
+
+  "Another day. Another chance to get smarter.",
+
+  "X7 rule: earn, control, save, invest, learn."
+
+];
+
+function setupMorning(){
+
+  const d = new Date();
+
+  document.getElementById("date").textContent =
+    d.toLocaleDateString("en-IN",{
+      weekday:"short",
+      day:"numeric",
+      month:"short"
+    });
+
+  document.getElementById("quote").textContent =
+    quotes[d.getDate()%quotes.length];
+
+  document.getElementById("morningMessage").textContent =
+    messages[d.getDate()%messages.length];
+
 }
-const cats={Food:"🍔",Cigarettes:"🚬",Transport:"🚕",Shopping:"🛍️",Bills:"💳",Income:"💰",Other:"📦"};
-function renderCategories(){
- const c=document.getElementById("categories");c.innerHTML="";
- Object.keys(cats).forEach(cat=>{let total=transactions.filter(t=>t.category===cat).reduce((a,t)=>a+ +t.amount,0);c.innerHTML+=`<div class="category"><div class="category-icon">${cats[cat]}</div><div class="category-name">${cat}</div><div class="category-amount">₹${money(total)}</div></div>`});
+
+
+/* =========================
+   TRANSACTIONS
+========================= */
+
+function setTransactionType(type){
+
+  transactionType = type;
+
+  document
+    .getElementById("incomeBtn")
+    .classList.toggle("active",type==="income");
+
+  document
+    .getElementById("expenseBtn")
+    .classList.toggle("active",type==="expense");
+
 }
-function renderTransactions(){
- const c=document.getElementById("transactions");c.innerHTML="";
- if(!transactions.length)c.innerHTML=`<div class="empty">No transactions yet.<br>Start tracking your money with X7.</div>`;
- [...transactions].reverse().forEach(t=>c.innerHTML+=`<div class="transaction"><div class="transaction-left"><div class="transaction-icon">${cats[t.category]||"📦"}</div><div><div class="transaction-description">${esc(t.description)}</div><div class="transaction-meta">${t.category} • ${t.date}</div></div></div><div class="transaction-right"><div class="transaction-amount ${t.type==="income"?"income":"expense"}">${t.type==="income"?"+":"-"} ₹${money(t.amount)}</div><button class="delete-transaction" onclick="deleteTransaction('${t.id}')">×</button></div></div>`);
- document.getElementById("transactionCount").textContent=`${transactions.length} transaction${transactions.length===1?"":"s"}`;
-}
-function setTransactionType(type){transactionType=type;document.getElementById("expenseType").classList.toggle("active",type==="expense");document.getElementById("incomeType").classList.toggle("active",type==="income");document.getElementById("transactionCategoryField").style.display=type==="income"?"none":"block"}
+
 function addTransaction(){
- const description=document.getElementById("transactionDescription").value.trim(),amount=+document.getElementById("transactionAmount").value,category=document.getElementById("transactionCategory").value;
- if(!description||!amount||amount<=0)return alert("Enter a valid description and amount.");
- transactions.push({id:Date.now().toString(),description,amount,type:transactionType,category:transactionType==="income"?"Income":category,date:today()});
- save();calculate();renderAll();document.getElementById("transactionDescription").value="";document.getElementById("transactionAmount").value="";closeModal("transactionModal");
+
+  const amount =
+    Number(document.getElementById("transactionAmount").value);
+
+  const description =
+    document.getElementById("transactionDescription").value.trim();
+
+  const category =
+    document.getElementById("transactionCategory").value;
+
+  if(!amount || amount<=0){
+
+    toast("Enter an amount.");
+
+    return;
+
+  }
+
+  transactions.push({
+
+    id:Date.now(),
+
+    amount,
+
+    description:
+      description ||
+      (transactionType==="income" ? "Income":"Expense"),
+
+    category,
+
+    type:transactionType,
+
+    date:today()
+
+  });
+
+  save();
+
+  document.getElementById("transactionAmount").value="";
+  document.getElementById("transactionDescription").value="";
+
+  closeModal("transactionModal");
+
+  renderAll();
+
+  toast(
+    transactionType==="income"
+      ? "Income added."
+      : "Expense added."
+  );
+
 }
-function deleteTransaction(id){if(confirm("Delete this transaction?")){transactions=transactions.filter(t=>t.id!==id);save();renderAll()}}
-function renderDebts(){
- const c=document.getElementById("debts");c.innerHTML="";
- if(!debts.length){c.innerHTML=`<div class="no-debt">No debts recorded.<br>Keep it that way. 😎</div><button class="add-debt-button" onclick="openModal('debtModal')">+ Add Debt</button>`;return}
- debts.forEach(d=>{let paid=d.original-d.remaining,p=d.original?Math.min(100,paid/d.original*100):0;c.innerHTML+=`<div class="debt-item"><div class="debt-top"><div class="debt-person"><div class="debt-icon">💸</div><div><div class="debt-name">${esc(d.name)}</div><div class="debt-small">Original ₹${money(d.original)}</div></div></div><div class="debt-remaining">₹${money(d.remaining)}</div></div><div class="progress"><div style="width:${p}%"></div></div><div class="debt-info"><span>Paid ₹${money(paid)}</span><span>${Math.round(p)}% cleared</span></div><div class="debt-actions">${d.remaining>0?`<button class="pay-debt" onclick="openPayment('${d.id}')">+ Make Payment</button>`:`<button class="pay-debt" disabled>✓ Debt Cleared</button>`}<button class="delete-debt" onclick="deleteDebt('${d.id}')">×</button></div></div>`});
- c.innerHTML+=`<button class="add-debt-button" onclick="openModal('debtModal')">+ Add Another Debt</button>`;
+
+
+/* =========================
+   MONEY CALCULATION
+========================= */
+
+function totals(){
+
+  let income=0;
+
+  let expenses=0;
+
+  transactions.forEach(t=>{
+
+    if(t.type==="income")
+      income += Number(t.amount);
+
+    else
+      expenses += Number(t.amount);
+
+  });
+
+  const invested =
+    investments.reduce(
+      (sum,i)=>sum+Number(i.amount),
+      0
+    );
+
+  return {
+
+    income,
+
+    expenses,
+
+    invested,
+
+    balance:
+      income-expenses,
+
+    available:
+      income-expenses-invested
+
+  };
+
 }
-function addDebt(){let name=document.getElementById("debtName").value.trim(),original=+document.getElementById("debtOriginal").value;if(!name||!original||original<=0)return alert("Enter valid debt details.");debts.push({id:Date.now().toString(),name,original,remaining:original,payments:[],created:today()});save();renderAll();document.getElementById("debtName").value="";document.getElementById("debtOriginal").value="";closeModal("debtModal")}
-function openPayment(id){let d=debts.find(x=>x.id===id);if(!d)return;activeDebtId=id;document.getElementById("paymentDebtInfo").innerHTML=`<strong>${esc(d.name)}</strong><br><br>Original: ₹${money(d.original)}<br>Paid: ₹${money(d.original-d.remaining)}<br>Remaining: <strong>₹${money(d.remaining)}</strong>`;document.getElementById("paymentAmount").value="";openModal("paymentModal")}
-function makeDebtPayment(){let d=debts.find(x=>x.id===activeDebtId),p=+document.getElementById("paymentAmount").value;if(!d||!p||p<=0)return alert("Enter a valid payment.");if(p>d.remaining)return alert(`Maximum payment is ₹${money(d.remaining)}.`);d.remaining=+Math.max(0,d.remaining-p).toFixed(2);d.payments.push({amount:p,date:today()});save();renderAll();closeModal("paymentModal");activeDebtId=null}
-function deleteDebt(id){if(confirm("Delete this debt?")){debts=debts.filter(d=>d.id!==id);save();renderAll()}}
-function selectInvestment(amount,b){investmentAmount=amount;document.querySelectorAll(".grow-option").forEach(x=>x.classList.remove("active"));b.classList.add("active");save();renderInvestment()}
-function renderInvestment(){let c=document.getElementById("investmentPlan");if(!investmentAmount){c.innerHTML=`<div class="investment-row"><div><div class="investment-name">Choose an amount</div><div class="investment-description">Start with a monthly amount above.</div></div><div class="investment-value">₹0</div></div>`;return}let a=investmentAmount;c.innerHTML=`<div class="investment-row"><div><div class="investment-name">🛟 Emergency Fund</div><div class="investment-description">Build accessible safety savings.</div></div><div class="investment-value">₹${money(a*.5)}</div></div><div class="investment-row"><div><div class="investment-name">📈 Diversified Investing</div><div class="investment-description">Research diversified long-term options.</div></div><div class="investment-value">₹${money(a*.35)}</div></div><div class="investment-row"><div><div class="investment-name">💰 Flexible Savings</div><div class="investment-description">Keep some money available.</div></div><div class="investment-value">₹${money(a*.15)}</div></div>`}
+
+function renderMoney(){
+
+  const t = totals();
+
+  document.getElementById("balance").textContent =
+    money(t.balance);
+
+  document.getElementById("moneyBalance").textContent =
+    money(t.balance);
+
+  document.getElementById("homeIncome").textContent =
+    money(t.income);
+
+  document.getElementById("homeExpenses").textContent =
+    money(t.expenses);
+
+  document.getElementById("homeInvested").textContent =
+    money(t.invested);
+
+  document.getElementById("homeAvailable").textContent =
+    money(t.available);
+
+  const categories = {
+
+    Food:0,
+
+    Cigarettes:0,
+
+    Transport:0,
+
+    Shopping:0,
+
+    Bills:0,
+
+    Other:0
+
+  };
+
+  transactions.forEach(t=>{
+
+    if(
+      t.type==="expense" &&
+      categories[t.category]!==undefined
+    ){
+
+      categories[t.category] +=
+        Number(t.amount);
+
+    }
+
+  });
+
+  document.getElementById("catFood").textContent =
+    money(categories.Food);
+
+  document.getElementById("catCigarettes").textContent =
+    money(categories.Cigarettes);
+
+  document.getElementById("catTransport").textContent =
+    money(categories.Transport);
+
+  document.getElementById("catShopping").textContent =
+    money(categories.Shopping);
+
+  document.getElementById("catBills").textContent =
+    money(categories.Bills);
+
+  document.getElementById("catOther").textContent =
+    money(categories.Other);
+
+  document.getElementById("transactionCount").textContent =
+    transactions.length;
+
+  renderTransactions();
+
+  renderInsight();
+
+}
+
+function renderTransactions(){
+
+  const box =
+    document.getElementById("transactions");
+
+  if(!transactions.length){
+
+    box.innerHTML =
+      `<div class="empty">
+        No transactions yet.<br>
+        Start by adding your income.
+      </div>`;
+
+    return;
+
+  }
+
+  box.innerHTML="";
+
+  [...transactions]
+    .reverse()
+    .slice(0,30)
+    .forEach(t=>{
+
+      box.innerHTML += `
+
+        <div class="transaction">
+
+          <div>
+
+            <div class="transaction-title">
+              ${esc(t.description)}
+            </div>
+
+            <div class="transaction-meta">
+              ${esc(t.category)} • ${esc(t.date)}
+            </div>
+
+          </div>
+
+          <div
+            class="transaction-amount
+            ${t.type==="income"?"income":"expense"}">
+
+            ${t.type==="income"?"+":"-"}
+            ₹${money(t.amount)}
+
+          </div>
+
+        </div>
+
+      `;
+
+    });
+
+}
+
+function renderInsight(){
+
+  const t = totals();
+
+  let message="";
+
+  if(t.income===0){
+
+    message =
+      "Start by entering your income. Once X7 knows what comes in, it can show you what actually remains.";
+
+  }else if(t.expenses > t.income){
+
+    message =
+      "Your expenses are currently higher than your recorded income. This is the first thing to fix.";
+
+  }else if(t.invested===0){
+
+    message =
+      "You haven't recorded any investments yet. First make your cash flow stable, then consider investing consistently.";
+
+  }else{
+
+    const rate =
+      ((t.income-t.expenses)/t.income)*100;
+
+    message =
+      `You currently keep about ${rate.toFixed(0)}% of recorded income after expenses. Keep improving the gap.`;
+
+  }
+
+  document.getElementById("moneyInsight").textContent =
+    message;
+
+}
+
+
+/* =========================
+   GOALS
+========================= */
+
+function mainGoal(){
+
+  return goals.find(g=>g.isMain) || null;
+
+}
+
+function setMainGoal(value){
+
+  mainGoalChoice = value;
+
+  document
+    .getElementById("mainGoalYes")
+    .classList.toggle("active",value);
+
+  document
+    .getElementById("mainGoalNo")
+    .classList.toggle("active",!value);
+
+}
+
+function addGoal(){
+
+  const name =
+    document.getElementById("goalName")
+      .value.trim();
+
+  const target =
+    Number(
+      document.getElementById("goalTarget")
+        .value
+    );
+
+  const saved =
+    Number(
+      document.getElementById("goalSaved")
+        .value
+    ) || 0;
+
+  const daily =
+    Number(
+      document.getElementById("goalDaily")
+        .value
+    ) || 0;
+
+  if(!name || !target || target<=0){
+
+    toast("Enter a goal and target.");
+
+    return;
+
+  }
+
+  if(saved<0 || saved>target){
+
+    toast("Saved amount must be below the target.");
+
+    return;
+
+  }
+
+  if(mainGoalChoice){
+
+    goals.forEach(g=>{
+      g.isMain=false;
+    });
+
+  }
+
+  goals.push({
+
+    id:Date.now(),
+
+    name,
+
+    target,
+
+    saved,
+
+    daily,
+
+    isMain:mainGoalChoice,
+
+    created:today()
+
+  });
+
+  save();
+
+  document.getElementById("goalName").value="";
+  document.getElementById("goalTarget").value="";
+  document.getElementById("goalSaved").value="";
+  document.getElementById("goalDaily").value="";
+
+  closeModal("goalModal");
+
+  renderAll();
+
+  toast("Goal created.");
+
+}
+
+function makeMainGoal(id){
+
+  goals.forEach(g=>{
+
+    g.isMain =
+      g.id===id;
+
+  });
+
+  save();
+
+  renderAll();
+
+  toast("Home goal updated.");
+
+}
+
+function daysNeeded(g){
+
+  const remaining =
+    Math.max(
+      0,
+      Number(g.target)-Number(g.saved)
+    );
+
+  const daily =
+    Number(g.daily)||0;
+
+  if(remaining<=0)
+    return 0;
+
+  if(daily<=0)
+    return null;
+
+  return Math.ceil(
+    remaining/daily
+  );
+
+}
+
+function goalPlan(g){
+
+  const remaining =
+    Math.max(
+      0,
+      Number(g.target)-Number(g.saved)
+    );
+
+  if(remaining<=0){
+
+    return `
+      <strong>🎉 Goal reached.</strong>
+      You've done it.
+    `;
+
+  }
+
+  if(!g.daily){
+
+    return `
+      Daily saving target isn't set yet.
+      Add one so X7 can tell you exactly
+      how long the goal will take.
+    `;
+
+  }
+
+  const days =
+    Math.ceil(
+      remaining/g.daily
+    );
+
+  const months =
+    days/30;
+
+  return `
+    Save <strong>₹${money(g.daily)}/day</strong>
+    • ₹${money(remaining)} remaining
+    • about <strong>${days} days</strong>
+    • roughly <strong>${months.toFixed(1)} months</strong>
+  `;
+
+}
+
+function openGoalContribution(id){
+
+  const g =
+    goals.find(x=>x.id===id);
+
+  if(!g)return;
+
+  activeGoalId=id;
+
+  document.getElementById(
+    "goalContributionInfo"
+  ).innerHTML = `
+
+    <strong>🎯 ${esc(g.name)}</strong><br><br>
+
+    Saved: <strong>₹${money(g.saved)}</strong><br>
+
+    Target: ₹${money(g.target)}<br>
+
+    Remaining:
+    ₹${money(Math.max(0,g.target-g.saved))}<br><br>
+
+    ${goalPlan(g)}
+
+  `;
+
+  document.getElementById(
+    "goalContributionAmount"
+  ).value = g.daily || "";
+
+  openModal("goalContributionModal");
+
+}
+
+function addGoalContribution(){
+
+  const g =
+    goals.find(
+      x=>x.id===activeGoalId
+    );
+
+  const amount =
+    Number(
+      document.getElementById(
+        "goalContributionAmount"
+      ).value
+    );
+
+  if(!g || !amount || amount<=0){
+
+    toast("Enter a valid amount.");
+
+    return;
+
+  }
+
+  const remaining =
+    Math.max(
+      0,
+      g.target-g.saved
+    );
+
+  if(amount>remaining){
+
+    toast(
+      `Only ₹${money(remaining)} is remaining.`
+    );
+
+    return;
+
+  }
+
+  g.saved =
+    Number(
+      (g.saved+amount).toFixed(2)
+    );
+
+  save();
+
+  closeModal(
+    "goalContributionModal"
+  );
+
+  activeGoalId=null;
+
+  renderAll();
+
+  toast(
+    `₹${money(amount)} added to ${g.name}.`
+  );
+
+}
+
+function deleteGoal(id){
+
+  if(
+    !confirm(
+      "Delete this goal?"
+    )
+  )return;
+
+  goals =
+    goals.filter(
+      g=>g.id!==id
+    );
+
+  save();
+
+  renderAll();
+
+}
+
+function renderHomeGoal(){
+
+  const box =
+    document.getElementById("homeGoal");
+
+  const g = mainGoal();
+
+  if(!g){
+
+    document.getElementById(
+      "homeGoalStatus"
+    ).textContent =
+      "NOT SELECTED";
+
+    box.innerHTML = `
+
+      <div class="card">
+
+        <div class="goal-name">
+          Choose your Home goal.
+        </div>
+
+        <div class="sub">
+          Go to Goals and choose
+          "MAKE THIS MY MAIN GOAL".
+        </div>
+
+        <button
+          class="primary"
+          style="margin-top:15px"
+          onclick="openModal('goalModal')">
+
+          + CREATE GOAL
+
+        </button>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+  document.getElementById(
+    "homeGoalStatus"
+  ).textContent =
+    Math.round(
+      (g.saved/g.target)*100
+    )+"%";
+
+  const percent =
+    Math.min(
+      100,
+      (g.saved/g.target)*100
+    );
+
+  const remaining =
+    Math.max(
+      0,
+      g.target-g.saved
+    );
+
+  const days =
+    daysNeeded(g);
+
+  box.innerHTML = `
+
+    <div class="card">
+
+      <div class="goal-name">
+        🎯 ${esc(g.name)}
+      </div>
+
+      <div class="goal-amount">
+        ₹${money(g.saved)}
+        <span>/ ₹${money(g.target)}</span>
+      </div>
+
+      <div class="progress">
+        <div style="width:${percent}%"></div>
+      </div>
+
+      <div class="goal-meta">
+
+        <span>
+          ${Math.round(percent)}% complete
+        </span>
+
+        <span>
+          ₹${money(remaining)} left
+        </span>
+
+      </div>
+
+      <div class="plan">
+
+        <strong>Daily plan:</strong>
+
+        ${
+          g.daily
+            ? `Save ₹${money(g.daily)} every day.`
+            : `Set a daily target in Goals.`
+        }
+
+        <br>
+
+        ${
+          days!==null
+            ? `<strong>Finish estimate:</strong>
+               ${days} days
+               (${(days/30).toFixed(1)} months)`
+            : `<strong>Finish estimate:</strong>
+               waiting for your daily target`
+        }
+
+      </div>
+
+      <button
+        class="primary"
+        style="margin-top:14px"
+        onclick="openGoalContribution(${g.id})">
+
+        + ADD TODAY'S SAVING
+
+      </button>
+
+    </div>
+
+  `;
+
+}
+
 function renderGoals(){
- const c=document.getElementById("goals");c.innerHTML="";
- if(!goals.length)c.innerHTML=`<div class="empty">No goals yet.<br>Create something worth saving for.</div>`;
- goals.forEach(g=>{let p=g.target?Math.min(100,g.saved/g.target*100):0;c.innerHTML+=`<div class="goal"><div class="goal-top"><div class="goal-name">🎯 ${esc(g.name)}</div><div class="goal-money">₹${money(g.saved)} / ₹${money(g.target)}</div></div><div class="progress"><div style="width:${p}%"></div></div><div class="goal-bottom"><span>${Math.round(p)}% complete</span><button onclick="deleteGoal('${g.id}')" style="border:0;background:none;color:#555;cursor:pointer">Delete</button></div></div>`});
+
+  const box =
+    document.getElementById("goals");
+
+  if(!goals.length){
+
+    box.innerHTML = `
+
+      <div class="empty">
+
+        No goals yet.<br><br>
+
+        Create something you want
+        and X7 will turn it into
+        a daily plan.
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+  box.innerHTML="";
+
+  goals.forEach(g=>{
+
+    const percent =
+      Math.min(
+        100,
+        (g.saved/g.target)*100
+      );
+
+    const remaining =
+      Math.max(
+        0,
+        g.target-g.saved
+      );
+
+    box.innerHTML += `
+
+      <div class="goal-card">
+
+        <div class="goal-top">
+
+          <div>
+
+            <div class="goal-name">
+              🎯 ${esc(g.name)}
+            </div>
+
+            ${
+              g.isMain
+                ? `<div class="badge">
+                     HOME GOAL
+                   </div>`
+                : ""
+            }
+
+          </div>
+
+          <div class="goal-top-right">
+
+            <strong>
+              ₹${money(g.saved)}
+            </strong>
+
+            <div class="sub">
+              / ₹${money(g.target)}
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="progress">
+
+          <div
+            style="width:${percent}%">
+          </div>
+
+        </div>
+
+        <div class="goal-meta">
+
+          <span>
+            ${Math.round(percent)}%
+          </span>
+
+          <span>
+            ₹${money(remaining)} remaining
+          </span>
+
+        </div>
+
+        <div class="plan">
+
+          ${goalPlan(g)}
+
+        </div>
+
+        <div class="goal-buttons">
+
+          <button
+            class="small-btn primary-small"
+            onclick="openGoalContribution(${g.id})">
+
+            + ADD SAVING
+
+          </button>
+
+          <button
+            class="small-btn"
+            onclick="makeMainGoal(${g.id})">
+
+            ${
+              g.isMain
+                ? "✓ HOME GOAL"
+                : "SET AS HOME"
+            }
+
+          </button>
+
+          <button
+            class="small-btn"
+            onclick="deleteGoal(${g.id})">
+
+            ×
+
+          </button>
+
+        </div>
+
+      </div>
+
+    `;
+
+  });
+
 }
-function addGoal(){let name=document.getElementById("goalName").value.trim(),target=+document.getElementById("goalTarget").value,saved=+document.getElementById("goalSaved").value||0;if(!name||!target||target<=0||saved<0||saved>target)return alert("Enter valid goal details.");goals.push({id:Date.now().toString(),name,target,saved});save();renderAll();["goalName","goalTarget","goalSaved"].forEach(id=>document.getElementById(id).value="");closeModal("goalModal")}
-function deleteGoal(id){if(confirm("Delete this goal?")){goals=goals.filter(g=>g.id!==id);save();renderAll()}}
-function renderGoalHome(){
- const c=document.getElementById("homeGoal");if(!goals.length){c.innerHTML=`<div class="card"><div class="hero-title">Create your first goal.</div><div class="hero-sub">PS5, emergency fund, phone, travel — X7 will calculate a realistic daily saving plan.</div><button class="save" style="margin-top:15px;width:100%" onclick="openModal('goalModal')">+ CREATE GOAL</button></div>`;document.getElementById("homeGoalLabel").textContent="Create one";return}
- let g=goals[0],p=g.target?g.saved/g.target*100:0;document.getElementById("homeGoalLabel").textContent=`${Math.round(p)}%`;c.innerHTML=`<div class="card"><div class="hero-title">🎯 ${esc(g.name)}</div><div class="goal-big">₹${money(g.saved)} <span class="goal-target">/ ₹${money(g.target)}</span></div><div class="progress"><div style="width:${p}%"></div></div><div class="hero-sub">${Math.round(p)}% complete • ₹${money(Math.max(0,g.target-g.saved))} remaining</div><button class="save" style="margin-top:15px;width:100%" onclick="showPage('goals',document.querySelectorAll('.nav-btn')[2])">VIEW PLAN</button></div>`;
+
+
+/* =========================
+   PS5 CALCULATOR
+========================= */
+
+function calculateGoal(){
+
+  const name =
+    document.getElementById(
+      "calcName"
+    ).value || "Your Goal";
+
+  const target =
+    Number(
+      document.getElementById(
+        "calcTarget"
+      ).value
+    );
+
+  const daily =
+    Number(
+      document.getElementById(
+        "calcDaily"
+      ).value
+    );
+
+  const saved =
+    Number(
+      document.getElementById(
+        "calcSaved"
+      ).value
+    ) || 0;
+
+  if(!target || !daily){
+
+    toast(
+      "Enter target and daily saving."
+    );
+
+    return;
+
+  }
+
+  const remaining =
+    Math.max(
+      0,
+      target-saved
+    );
+
+  const days =
+    Math.ceil(
+      remaining/daily
+    );
+
+  const months =
+    days/30;
+
+  const weekly =
+    daily*7;
+
+  const monthly =
+    daily*30;
+
+  document.getElementById(
+    "calculatorResult"
+  ).innerHTML = `
+
+    <div class="plan">
+
+      <strong>
+        🎮 ${esc(name)}
+      </strong>
+
+      <br><br>
+
+      Target:
+      <strong>₹${money(target)}</strong>
+
+      <br>
+
+      Already saved:
+      <strong>₹${money(saved)}</strong>
+
+      <br>
+
+      Still needed:
+      <strong>₹${money(remaining)}</strong>
+
+      <br><br>
+
+      Save:
+      <strong>₹${money(daily)} every day</strong>
+
+      <br>
+
+      That's:
+      <strong>₹${money(weekly)} per week</strong>
+
+      <br>
+
+      About:
+      <strong>₹${money(monthly)} per month</strong>
+
+      <br><br>
+
+      At this pace:
+
+      <strong>
+        ${days} days
+      </strong>
+
+      ≈
+
+      <strong>
+        ${months.toFixed(1)} months
+      </strong>
+
+      <br><br>
+
+      ${
+        remaining===0
+          ? "🔥 You already reached the target."
+          : `If you start today, keep ₹${money(daily)} aside every day.`
+      }
+
+    </div>
+
+    <button
+      class="secondary"
+      style="margin-top:10px"
+      onclick="useCalculatorAsGoal()">
+
+      USE THIS AS A GOAL
+
+    </button>
+
+  `;
+
 }
-function calculateGoalPlan(){
- let target=+document.getElementById("calcTarget").value,saved=+document.getElementById("calcSaved").value||0,income=+document.getElementById("calcIncome").value;if(!target||!income||target<=saved)return alert("Enter a target, saved amount and daily income.");let rem=target-saved,options=[Math.max(50,Math.round(income*.2)),Math.max(50,Math.round(income*.3)),Math.max(50,Math.round(income*.4))];let html=`<div class="goal-scenarios">`;options.forEach(x=>html+=`<div class="scenario"><strong>₹${money(x)}/day</strong><small>${Math.ceil(rem/x)} days<br>≈ ${Math.ceil(rem/x/30)} months</small></div>`);html+=`</div><div class="recommend"><b>💡 X7 recommendation</b><p>Start with ₹${money(options[0])}/day if that leaves enough for your normal spending. A sustainable plan is better than an aggressive target you cannot maintain.</p></div>`;document.getElementById("goalCalculator").innerHTML=html}
-function currentLesson(){return lessons[new Date().getDate()%lessons.length]}
+
+function useCalculatorAsGoal(){
+
+  document.getElementById("goalName").value =
+    document.getElementById("calcName").value || "Goal";
+
+  document.getElementById("goalTarget").value =
+    document.getElementById("calcTarget").value;
+
+  document.getElementById("goalDaily").value =
+    document.getElementById("calcDaily").value;
+
+  document.getElementById("goalSaved").value =
+    document.getElementById("calcSaved").value || 0;
+
+  openModal("goalModal");
+
+}
+
+
+/* =========================
+   INVESTMENTS
+========================= */
+
+function addInvestment(){
+
+  const amount =
+    Number(
+      document.getElementById(
+        "investmentAmount"
+      ).value
+    );
+
+  if(!amount || amount<=0){
+
+    toast("Enter an investment amount.");
+
+    return;
+
+  }
+
+  const t = totals();
+
+  if(amount>t.balance){
+
+    toast(
+      "You don't have enough recorded balance."
+    );
+
+    return;
+
+  }
+
+  investments.push({
+
+    id:Date.now(),
+
+    amount,
+
+    date:today()
+
+  });
+
+  document.getElementById(
+    "investmentAmount"
+  ).value="";
+
+  save();
+
+  renderAll();
+
+  toast(
+    `₹${money(amount)} investment recorded.`
+  );
+
+}
+
+function deleteInvestment(id){
+
+  if(
+    !confirm(
+      "Remove this investment record?"
+    )
+  )return;
+
+  investments =
+    investments.filter(
+      i=>i.id!==id
+    );
+
+  save();
+
+  renderAll();
+
+}
+
+function renderInvestments(){
+
+  const total =
+    investments.reduce(
+      (sum,i)=>
+        sum+Number(i.amount),
+      0
+    );
+
+  document.getElementById(
+    "investTotal"
+  ).textContent =
+    money(total);
+
+  document.getElementById(
+    "investmentCount"
+  ).textContent =
+    investments.length;
+
+  const box =
+    document.getElementById(
+      "investmentHistory"
+    );
+
+  if(!investments.length){
+
+    box.innerHTML = `
+
+      <div class="empty">
+
+        No investments recorded yet.<br><br>
+
+        Example:<br>
+
+        If you invest ₹500,
+        record ₹500 here.
+
+        X7 will then show
+        <strong>₹500 invested</strong>
+        on your Home dashboard.
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+  box.innerHTML="";
+
+  [...investments]
+    .reverse()
+    .forEach(i=>{
+
+      box.innerHTML += `
+
+        <div class="invest-row">
+
+          <div>
+
+            <strong>
+              📈 Investment
+            </strong>
+
+            <div class="invest-date">
+              ${esc(i.date)}
+            </div>
+
+          </div>
+
+          <div style="display:flex;gap:10px;align-items:center">
+
+            <strong>
+              ₹${money(i.amount)}
+            </strong>
+
+            <button
+              class="small-btn"
+              style="padding:6px 10px"
+              onclick="deleteInvestment(${i.id})">
+
+              ×
+
+            </button>
+
+          </div>
+
+        </div>
+
+      `;
+
+    });
+
+}
+
+
+/* =========================
+   DEBTS
+========================= */
+
+function addDebt(){
+
+  const name =
+    document.getElementById(
+      "debtName"
+    ).value.trim();
+
+  const amount =
+    Number(
+      document.getElementById(
+        "debtAmount"
+      ).value
+    );
+
+  if(!name || !amount || amount<=0){
+
+    toast("Enter debt details.");
+
+    return;
+
+  }
+
+  debts.push({
+
+    id:Date.now(),
+
+    name,
+
+    original:amount,
+
+    remaining:amount,
+
+    payments:[],
+
+    date:today()
+
+  });
+
+  document.getElementById("debtName").value="";
+  document.getElementById("debtAmount").value="";
+
+  save();
+
+  closeModal("debtModal");
+
+  renderAll();
+
+  toast("Debt added.");
+
+}
+
+function openDebtPayment(id){
+
+  const d =
+    debts.find(x=>x.id===id);
+
+  if(!d)return;
+
+  activeDebtId=id;
+
+  document.getElementById(
+    "paymentInfo"
+  ).innerHTML = `
+
+    <strong>
+      💳 ${esc(d.name)}
+    </strong>
+
+    <br><br>
+
+    Original debt:
+    ₹${money(d.original)}
+
+    <br>
+
+    Already paid:
+    ₹${money(d.original-d.remaining)}
+
+    <br>
+
+    Remaining:
+    <strong>
+      ₹${money(d.remaining)}
+    </strong>
+
+  `;
+
+  document.getElementById(
+    "paymentAmount"
+  ).value="";
+
+  openModal("paymentModal");
+
+}
+
+function payDebt(){
+
+  const d =
+    debts.find(
+      x=>x.id===activeDebtId
+    );
+
+  const amount =
+    Number(
+      document.getElementById(
+        "paymentAmount"
+      ).value
+    );
+
+  if(!d || !amount || amount<=0){
+
+    toast("Enter a valid payment.");
+
+    return;
+
+  }
+
+  if(amount>d.remaining){
+
+    toast(
+      `Only ₹${money(d.remaining)} remains.`
+    );
+
+    return;
+
+  }
+
+  d.remaining =
+    Number(
+      (d.remaining-amount).toFixed(2)
+    );
+
+  d.payments.push({
+
+    amount,
+
+    date:today()
+
+  });
+
+  save();
+
+  closeModal("paymentModal");
+
+  renderAll();
+
+  toast(
+    `₹${money(amount)} debt payment recorded.`
+  );
+
+}
+
+function deleteDebt(id){
+
+  if(
+    !confirm(
+      "Delete this debt?"
+    )
+  )return;
+
+  debts =
+    debts.filter(
+      d=>d.id!==id
+    );
+
+  save();
+
+  renderAll();
+
+}
+
+function renderDebts(){
+
+  const box =
+    document.getElementById(
+      "debts"
+    );
+
+  if(!debts.length){
+
+    box.innerHTML = `
+
+      <div class="empty">
+
+        No debts recorded.
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+  box.innerHTML="";
+
+  debts.forEach(d=>{
+
+    const paid =
+      d.original-d.remaining;
+
+    const percent =
+      Math.min(
+        100,
+        (paid/d.original)*100
+      );
+
+    box.innerHTML += `
+
+      <div class="debt">
+
+        <div class="debt-top">
+
+          <div>
+
+            <div class="debt-name">
+              ${esc(d.name)}
+            </div>
+
+            <div class="debt-info">
+              ₹${money(paid)} paid of
+              ₹${money(d.original)}
+            </div>
+
+          </div>
+
+          <div class="debt-remaining">
+
+            ₹${money(d.remaining)}
+
+          </div>
+
+        </div>
+
+        <div class="debt-bar">
+
+          <div
+            style="width:${percent}%">
+          </div>
+
+        </div>
+
+        <div class="goal-meta">
+
+          <span>
+            ${Math.round(percent)}% paid
+          </span>
+
+          <span>
+            ${d.remaining===0
+              ? "PAID OFF"
+              : "REMAINING"}
+          </span>
+
+        </div>
+
+        ${
+          d.remaining>0
+          ? `
+            <button
+              class="primary"
+              style="margin-top:12px"
+              onclick="openDebtPayment(${d.id})">
+
+              + PAY DEBT
+
+            </button>
+          `
+          : `
+            <div class="plan">
+              🎉 Debt completely paid.
+            </div>
+          `
+        }
+
+        <button
+          class="secondary"
+          style="margin-top:7px"
+          onclick="deleteDebt(${d.id})">
+
+          DELETE DEBT
+
+        </button>
+
+      </div>
+
+    `;
+
+  });
+
+}
+
+
+/* =========================
+   LEARNING
+========================= */
+
+const lessons = [
+
+  {
+    title:"Pay Yourself First",
+    text:"When money comes in, don't wait until the end of the month to see what remains. Decide your saving amount first.",
+    tip:"Move a fixed amount into your goal immediately after getting paid."
+  },
+
+  {
+    title:"Needs vs Wants",
+    text:"A need keeps your life functioning. A want improves your experience. Knowing the difference makes spending decisions easier.",
+    tip:"Before buying something, wait 10 minutes and ask: need or want?"
+  },
+
+  {
+    title:"Compound Growth",
+    text:"Compounding means your returns can themselves generate returns over time. Time is one of the strongest advantages an investor has.",
+    tip:"Consistency over many years usually matters more than trying to predict every market move."
+  },
+
+  {
+    title:"Emergency Money",
+    text:"An emergency fund protects you from having to borrow whenever something unexpected happens.",
+    tip:"Start with a small cash buffer and build it gradually."
+  },
+
+  {
+    title:"Opportunity Cost",
+    text:"Every ₹500 you spend has an alternative use. You could spend it, save it, invest it or use it to reduce debt.",
+    tip:"Ask what your money could do instead before spending it."
+  },
+
+  {
+    title:"Lifestyle Inflation",
+    text:"When income rises, spending often rises too. If every raise disappears into lifestyle upgrades, your financial position may barely improve.",
+    tip:"Whenever income increases, automatically increase saving first."
+  },
+
+  {
+    title:"The 24-Hour Rule",
+    text:"For non-essential purchases, waiting 24 hours can separate an actual desire from an impulse.",
+    tip:"Add expensive wants to X7 Goals instead of buying them immediately."
+  }
+
+];
+
 function renderLesson(){
- let l=currentLesson(),html=`<div class="card"><div class="lesson-number">TODAY • ${l[2].toUpperCase()}</div><div class="lesson-title">${l[0]}</div><div class="lesson-text">${l[1]}</div><div class="xp"><span>Knowledge XP</span><span>+10 XP</span></div><div class="lesson-bar"><div style="width:${Math.min(100,(xp%100))}%"></div></div><button class="save" style="width:100%;margin-top:15px" onclick="completeLesson()">LEARNED ✓</button></div>`;document.getElementById("lessonCard").innerHTML=html;document.getElementById("homeLesson").innerHTML=html}
-function completeLesson(){xp+=10;save();renderLesson();renderLevel()}
-function renderChallenge(){let text=challenges[new Date().getDate()%challenges.length];document.getElementById("challengeCard").innerHTML=`<h3>🔥 ${text}</h3><p>Small actions repeated consistently become habits.</p><button class="complete ${challengeDone?"done":""}" onclick="completeChallenge()">${challengeDone?"✓ COMPLETED TODAY":"+ COMPLETE CHALLENGE"}</button>`}
-function completeChallenge(){if(!challengeDone){xp+=10;challengeDone=true;localStorage.setItem("x7_challenge_done",new Date().toDateString());save();renderChallenge();renderLevel()}}
-function renderLevel(){let levels=["STARTING","AWARE","DISCIPLINED","BUILDER","STRATEGIST","WEALTH BUILDER"],idx=Math.min(levels.length-1,Math.floor(xp/100));document.getElementById("levelCard").innerHTML=`<div class="level-top"><div><div class="level-name">X7 LEVEL ${String(idx+1).padStart(2,"0")}</div><div style="color:#777;font-size:11px;margin-top:4px">${levels[idx]}</div></div><div class="level-xp">${xp} XP</div></div><div class="progress"><div style="width:${xp%100}%"></div></div>`}
-function renderHomeInsight(){
- let income=transactions.filter(t=>t.type==="income").reduce((a,t)=>a+ +t.amount,0),expense=transactions.filter(t=>t.type==="expense").reduce((a,t)=>a+ +t.amount,0),debt=debts.reduce((a,d)=>a+ +d.remaining,0),top={name:"None",amount:0};let totals={};transactions.filter(t=>t.type==="expense").forEach(t=>totals[t.category]=(totals[t.category]||0)+ +t.amount);Object.keys(totals).forEach(k=>{if(totals[k]>top.amount)top={name:k,amount:totals[k]}});let text=income?`You have recorded ₹${money(income)} income and ₹${money(expense)} expenses. Your current recorded surplus is ₹${money(income-expense)}.`:debt?`You have ₹${money(debt)} of debt remaining. A useful next move is to make a realistic repayment plan.`:"Start by recording your income and spending. X7 will turn the data into useful suggestions.";document.getElementById("homeInsight").innerHTML=`<div class="insight"><div class="insight-title">💡 X7 noticed</div><div class="insight-text">${text}</div></div>${top.amount?`<div class="insight"><div class="insight-title">📊 Biggest category</div><div class="insight-text">${top.name} is currently your largest recorded expense at ₹${money(top.amount)}.</div></div>`:""}`}
-function resetEverything(){if(!confirm("Reset ALL X7 money and growth data?"))return;transactions=[];debts=[];goals=[];investmentAmount=0;xp=0;localStorage.clear();challengeDone=false;renderAll();closeModal("resetModal")}
-function renderAll(){calculate();renderCategories();renderTransactions();renderDebts();renderInvestment();renderGoals();renderGoalHome();renderHomeInsight();renderLesson();renderChallenge();renderLevel()}
-setTransactionType("expense");renderAll();
+
+  const index =
+    new Date().getDate()
+    % lessons.length;
+
+  const lesson =
+    lessons[index];
+
+  document.getElementById(
+    "lessonTitle"
+  ).textContent =
+    lesson.title;
+
+  document.getElementById(
+    "lessonText"
+  ).textContent =
+    lesson.text;
+
+  document.getElementById(
+    "lessonTip"
+  ).textContent =
+    lesson.tip;
+
+  const challenges = [
+
+    "Track every rupee you spend today.",
+
+    "Don't buy one unnecessary thing today.",
+
+    "Put money into one goal today.",
+
+    "Learn one new financial concept.",
+
+    "Check your subscriptions and remove one you don't use.",
+
+    "Write down one thing you want to buy and its real price.",
+
+    "Save your first ₹100 of the day."
+
+  ];
+
+  document.getElementById(
+    "challengeText"
+  ).textContent =
+    challenges[index];
+
+  updateChallenge();
+
+  updateXP();
+
+}
+
+function completeChallenge(){
+
+  const todayKey =
+    new Date().toDateString();
+
+  if(challengeDate===todayKey){
+
+    toast("Today's challenge is already complete.");
+
+    return;
+
+  }
+
+  xp += 10;
+
+  challengeDate =
+    todayKey;
+
+  localStorage.setItem(
+    "x7_challenge_date",
+    challengeDate
+  );
+
+  save();
+
+  updateChallenge();
+
+  updateXP();
+
+  toast("+10 XP. Keep going.");
+
+}
+
+function updateChallenge(){
+
+  const done =
+    challengeDate ===
+    new Date().toDateString();
+
+  document.getElementById(
+    "challengeStatus"
+  ).textContent =
+    done
+      ? "COMPLETED"
+      : "NOT DONE";
+
+  const btn =
+    document.getElementById(
+      "challengeButton"
+    );
+
+  btn.textContent =
+    done
+      ? "✓ COMPLETED TODAY"
+      : "COMPLETE +10 XP";
+
+  btn.disabled=done;
+
+  btn.style.opacity =
+    done ? ".5" : "1";
+
+}
+
+function updateXP(){
+
+  const level =
+    Math.floor(xp/100)+1;
+
+  const progress =
+    xp%100;
+
+  document.getElementById(
+    "xpText"
+  ).textContent =
+    `${xp} XP`;
+
+  document.getElementById(
+    "levelText"
+  ).textContent =
+    `LEVEL ${level}`;
+
+  document.getElementById(
+    "xpBar"
+  ).style.width =
+    `${progress}%`;
+
+}
+
+
+/* =========================
+   RESET
+========================= */
+
+function resetMoney(){
+
+  const yes =
+    confirm(
+      "This will delete your income, expenses, goals, debts and investment records. Continue?"
+    );
+
+  if(!yes)return;
+
+  transactions=[];
+  debts=[];
+  goals=[];
+  investments=[];
+
+  save();
+
+  renderAll();
+
+  toast("Money data reset.");
+
+}
+
+
+/* =========================
+   RENDER EVERYTHING
+========================= */
+
+function renderAll(){
+
+  renderMoney();
+
+  renderHomeGoal();
+
+  renderGoals();
+
+  renderInvestments();
+
+  renderDebts();
+
+  renderLesson();
+
+}
+
+
+/* =========================
+   START
+========================= */
+
+setupMorning();
+
+renderAll();
+
 </script>
+
 </body>
 </html>
