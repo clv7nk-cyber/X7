@@ -482,6 +482,104 @@ th{
 
 }
 
+
+/* ================= X7 LIFE OS ADDITIONS ================= */
+
+.type-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:8px;
+}
+.type-option{
+    border:1px solid #303030;
+    background:#0b0b0b;
+    color:#aaa;
+    border-radius:14px;
+    padding:11px;
+    text-align:center;
+    cursor:pointer;
+}
+.type-option.active{
+    background:#fff;
+    color:#000;
+    border-color:#fff;
+    font-weight:800;
+}
+.badge{
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+    padding:5px 9px;
+    border:1px solid #303030;
+    border-radius:99px;
+    font-size:11px;
+    color:#aaa;
+}
+.goal-card{
+    position:relative;
+}
+.goal-complete{
+    border-color:#2c6b4b;
+}
+.mini-stat{
+    background:#0c0c0c;
+    border:1px solid #242424;
+    border-radius:15px;
+    padding:12px;
+}
+.check-row{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    padding:9px 0;
+    border-bottom:1px solid #222;
+}
+.check-row:last-child{border-bottom:0}
+.check-row input{
+    width:auto;
+    accent-color:#fff;
+}
+.score-ring{
+    width:100px;
+    height:100px;
+    border-radius:50%;
+    border:8px solid #282828;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:24px;
+    font-weight:900;
+}
+.insight{
+    border-left:3px solid #fff;
+    padding:10px 12px;
+    background:#0d0d0d;
+    border-radius:0 12px 12px 0;
+    margin-top:8px;
+}
+.month-mission{
+    border:1px solid #252525;
+    border-radius:16px;
+    padding:14px;
+    background:#0d0d0d;
+}
+.wish-item{
+    border:1px solid #252525;
+    border-radius:16px;
+    padding:14px;
+    background:#0d0d0d;
+}
+.completed{
+    opacity:.65;
+}
+.completed .wish-title,
+.completed .bucket-title{
+    text-decoration:line-through;
+}
+@media(max-width:800px){
+    .type-grid{grid-template-columns:1fr 1fr 1fr}
+}
+
 </style>
 </head>
 
@@ -533,6 +631,18 @@ th{
 
 <button onclick="showView('grow',this)">
     🧠 Grow
+</button>
+
+<button onclick="showView('life',this)">
+    🌱 Life
+</button>
+
+<button onclick="showView('wishlist',this)">
+    🛒 Wishlist
+</button>
+
+<button onclick="showView('bucket',this)">
+    🗺️ Bucket List
 </button>
 
 <button onclick="showView('history',this)">
@@ -1238,6 +1348,122 @@ id="healthExplanation">
 
 
 
+
+<!-- ================= LIFE OS ================= -->
+
+<section id="life" class="view">
+
+<div class="grid2">
+
+<div class="card">
+<h2>🏆 X7 Life Score</h2>
+<div class="row">
+<div class="score-ring" id="lifeScore">0</div>
+<div>
+<div class="label">This Month</div>
+<div class="small" id="lifeScoreText">Building your score...</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<h2>📅 Monthly Missions</h2>
+<div id="monthlyMissions"></div>
+</div>
+
+</div>
+
+<div class="grid2 section">
+
+<div class="card">
+<h2>🎯 Add Life Goal</h2>
+<div class="form">
+<input id="lifeGoalName" placeholder="e.g. Join gym, read a book, learn Python">
+<select id="lifeGoalType">
+<option value="life">Life Goal</option>
+<option value="experience">Experience</option>
+<option value="health">Health</option>
+<option value="learning">Learning</option>
+</select>
+<input id="lifeGoalDeadline" type="date">
+<button class="btn primary" onclick="createLifeGoal()">Add Life Goal</button>
+</div>
+</div>
+
+<div class="card">
+<h2>🔥 Add Habit</h2>
+<div class="form">
+<input id="habitName" placeholder="e.g. Gym">
+<input id="habitTarget" type="number" min="1" placeholder="Monthly target e.g. 12">
+<button class="btn primary" onclick="createHabit()">Add Habit</button>
+</div>
+</div>
+
+</div>
+
+<div class="card section">
+<h2>🌱 My Life Goals</h2>
+<div id="lifeGoalsContainer"></div>
+</div>
+
+<div class="card section">
+<h2>🔥 Habits & Streaks</h2>
+<div id="habitsContainer"></div>
+</div>
+
+<div class="card section">
+<h2>🧠 X7 Insights</h2>
+<div id="x7Insights"></div>
+</div>
+
+</section>
+
+
+<!-- ================= WISHLIST ================= -->
+
+<section id="wishlist" class="view">
+
+<div class="card">
+<h2>🛒 I Want This</h2>
+<div class="form">
+<input id="wishName" placeholder="What do you want? e.g. iPhone">
+<input id="wishPrice" type="number" min="0" placeholder="Price ₹ (optional)">
+<input id="wishDeadline" type="date">
+<button class="btn primary" onclick="createWishlistItem()">Add to Wishlist</button>
+</div>
+</div>
+
+<div class="card section">
+<h2>My Wishlist</h2>
+<div id="wishlistContainer"></div>
+</div>
+
+</section>
+
+
+<!-- ================= BUCKET LIST ================= -->
+
+<section id="bucket" class="view">
+
+<div class="card">
+<h2>🗺️ Bucket List</h2>
+<div class="form">
+<input id="bucketName" placeholder="e.g. Go to Goa, watch sunrise, travel alone">
+<button class="btn primary" onclick="createBucketItem()">Add to Bucket List</button>
+</div>
+</div>
+
+<div class="card section">
+<div class="row">
+<h2>Things I Want To Experience</h2>
+<span class="badge" id="bucketProgress">0 / 0</span>
+</div>
+<div id="bucketContainer"></div>
+</div>
+
+</section>
+
+
 <!-- ================= HISTORY ================= -->
 
 <section id="history" class="view">
@@ -1331,14 +1557,52 @@ if(!data){
 
             dailyBudget:500
 
-        }
+        },
+
+        lifeGoals: [],
+
+        habits: [],
+
+        wishlist: [],
+
+        bucketList: [],
+
+        monthlyMissions: {}
 
     };
 
 }
 
 
+function ensureX7Data(){
+
+    if(!Array.isArray(data.lifeGoals))
+        data.lifeGoals=[];
+
+    if(!Array.isArray(data.habits))
+        data.habits=[];
+
+    if(!Array.isArray(data.wishlist))
+        data.wishlist=[];
+
+    if(!Array.isArray(data.bucketList))
+        data.bucketList=[];
+
+    if(!data.monthlyMissions)
+        data.monthlyMissions={};
+
+    if(!data.settings)
+        data.settings={dailyBudget:500};
+
+    if(!data.settings.dailyBudget)
+        data.settings.dailyBudget=500;
+}
+
+ensureX7Data();
+
 function save(){
+
+    ensureX7Data();
 
     localStorage.setItem(
         STORAGE_KEY,
@@ -1522,6 +1786,62 @@ function addTransaction(){
 
     showToast("Transaction added");
 
+}
+
+
+
+/* =========================================================
+   MONEY VIEW
+========================================================= */
+
+function renderMoney(){
+
+    const key = monthKey(new Date());
+    const totals = getMonthTotals(key);
+
+    document.getElementById("moneyCurrentMonth").textContent =
+        monthName(key);
+
+    const container = document.getElementById("moneyTransactions");
+
+    if(!totals.transactions.length){
+        container.innerHTML =
+            `<div class="empty">No transactions this month.</div>`;
+        return;
+    }
+
+    container.innerHTML = `
+        <div class="small section">
+            Income: <strong class="good">${money(totals.income)}</strong>
+            &nbsp; • &nbsp;
+            Expenses: <strong class="bad">${money(totals.expenses)}</strong>
+        </div>
+        <div class="table-wrap section">
+        <table>
+        <thead>
+        <tr>
+            <th>Date</th>
+            <th>Type</th>
+            <th>Category</th>
+            <th>Description</th>
+            <th>Amount</th>
+        </tr>
+        </thead>
+        <tbody>
+        ${totals.transactions.slice().reverse().map(t => `
+            <tr>
+                <td>${new Date(t.date).toLocaleDateString("en-IN",{day:"2-digit",month:"short"})}</td>
+                <td>${t.type}</td>
+                <td>${t.category}</td>
+                <td>${t.note || ""}</td>
+                <td class="${t.type==="income"?"good":"bad"}">
+                    ${t.type==="income"?"+":"-"}${money(t.amount)}
+                </td>
+            </tr>
+        `).join("")}
+        </tbody>
+        </table>
+        </div>`;
 }
 
 
@@ -3245,6 +3565,567 @@ ${money(transaction.amount)}
 }
 
 
+
+/* =========================================================
+   X7 LIFE OS
+========================================================= */
+
+function createLifeGoal(){
+
+    const name = document.getElementById("lifeGoalName").value.trim();
+    const type = document.getElementById("lifeGoalType").value;
+    const deadline = document.getElementById("lifeGoalDeadline").value;
+
+    if(!name){
+        showToast("Enter a life goal");
+        return;
+    }
+
+    data.lifeGoals.push({
+        id:Date.now(),
+        name,
+        type,
+        deadline,
+        completed:false,
+        completedDate:null
+    });
+
+    document.getElementById("lifeGoalName").value="";
+    document.getElementById("lifeGoalDeadline").value="";
+
+    save();
+    showToast("Life goal added 🎯");
+}
+
+function completeLifeGoal(id){
+
+    const goal=data.lifeGoals.find(g=>g.id===id);
+    if(!goal) return;
+
+    goal.completed=!goal.completed;
+    goal.completedDate=goal.completed ? new Date().toISOString() : null;
+
+    save();
+    showToast(goal.completed ? "Goal completed 🎉 +XP" : "Goal reopened");
+}
+
+function deleteLifeGoal(id){
+    data.lifeGoals=data.lifeGoals.filter(g=>g.id!==id);
+    save();
+}
+
+function createHabit(){
+
+    const name=document.getElementById("habitName").value.trim();
+    const target=Number(document.getElementById("habitTarget").value);
+
+    if(!name || !target || target<1){
+        showToast("Enter habit and monthly target");
+        return;
+    }
+
+    data.habits.push({
+        id:Date.now(),
+        name,
+        target,
+        completedDates:[]
+    });
+
+    document.getElementById("habitName").value="";
+    document.getElementById("habitTarget").value="";
+
+    save();
+    showToast("Habit added 🔥");
+}
+
+function habitDateKey(){
+    return new Date().toISOString().slice(0,10);
+}
+
+function toggleHabit(id){
+
+    const habit=data.habits.find(h=>h.id===id);
+    if(!habit) return;
+
+    const today=habitDateKey();
+    const index=habit.completedDates.indexOf(today);
+
+    if(index>=0)
+        habit.completedDates.splice(index,1);
+    else
+        habit.completedDates.push(today);
+
+    save();
+}
+
+function habitMonthCount(habit){
+
+    const current=monthKey(new Date());
+
+    return habit.completedDates.filter(
+        d=>monthKey(d)===current
+    ).length;
+}
+
+function habitStreak(habit){
+
+    const dates=new Set(habit.completedDates);
+    let cursor=new Date();
+
+    if(!dates.has(cursor.toISOString().slice(0,10))){
+        cursor.setDate(cursor.getDate()-1);
+    }
+
+    let streak=0;
+
+    while(dates.has(cursor.toISOString().slice(0,10))){
+        streak++;
+        cursor.setDate(cursor.getDate()-1);
+    }
+
+    return streak;
+}
+
+function createWishlistItem(){
+
+    const name=document.getElementById("wishName").value.trim();
+    const price=Number(document.getElementById("wishPrice").value)||0;
+    const deadline=document.getElementById("wishDeadline").value;
+
+    if(!name){
+        showToast("Enter something you want");
+        return;
+    }
+
+    data.wishlist.push({
+        id:Date.now(),
+        name,
+        price,
+        saved:0,
+        deadline,
+        purchased:false
+    });
+
+    document.getElementById("wishName").value="";
+    document.getElementById("wishPrice").value="";
+    document.getElementById("wishDeadline").value="";
+
+    save();
+    showToast("Added to wishlist 🛒");
+}
+
+function addWishlistSavings(id){
+
+    const item=data.wishlist.find(w=>w.id===id);
+    if(!item) return;
+
+    const amount=Number(prompt(
+        `How much have you saved toward ${item.name}?`
+    ));
+
+    if(!amount || amount<=0) return;
+
+    item.saved+=amount;
+
+    if(item.price>0 && item.saved>=item.price)
+        item.saved=item.price;
+
+    save();
+    showToast("Wishlist savings updated");
+}
+
+function completeWishlist(id){
+
+    const item=data.wishlist.find(w=>w.id===id);
+    if(!item) return;
+
+    item.purchased=!item.purchased;
+
+    save();
+    showToast(item.purchased ? "Marked as purchased 🎉" : "Marked as wanted");
+}
+
+function deleteWishlist(id){
+
+    data.wishlist=data.wishlist.filter(w=>w.id!==id);
+    save();
+}
+
+function createBucketItem(){
+
+    const name=document.getElementById("bucketName").value.trim();
+
+    if(!name){
+        showToast("Enter a bucket-list item");
+        return;
+    }
+
+    data.bucketList.push({
+        id:Date.now(),
+        name,
+        completed:false,
+        completedDate:null
+    });
+
+    document.getElementById("bucketName").value="";
+
+    save();
+    showToast("Bucket-list item added 🗺️");
+}
+
+function toggleBucket(id){
+
+    const item=data.bucketList.find(b=>b.id===id);
+    if(!item) return;
+
+    item.completed=!item.completed;
+    item.completedDate=item.completed ? new Date().toISOString() : null;
+
+    save();
+    showToast(item.completed ? "Bucket-list item completed 🎉 +XP" : "Moved back to list");
+}
+
+function deleteBucket(id){
+
+    data.bucketList=data.bucketList.filter(b=>b.id!==id);
+    save();
+}
+
+function renderLife(){
+
+    /* LIFE GOALS */
+
+    const lifeGoals=document.getElementById("lifeGoalsContainer");
+
+    if(!data.lifeGoals.length){
+
+        lifeGoals.innerHTML=
+            `<div class="empty">No life goals yet. Add one above.</div>`;
+
+    }else{
+
+        lifeGoals.innerHTML=data.lifeGoals.map(g=>`
+
+        <div class="mini-stat section ${g.completed?"completed":""}">
+
+            <div class="row">
+                <div>
+                    <strong>${g.name}</strong>
+                    <div class="small">
+                        ${g.type}${g.deadline ? " • Due "+new Date(g.deadline).toLocaleDateString("en-IN") : ""}
+                    </div>
+                </div>
+
+                <span class="badge">
+                    ${g.completed ? "✓ Complete" : "In progress"}
+                </span>
+            </div>
+
+            <div class="actions section">
+                <button class="btn primary" onclick="completeLifeGoal(${g.id})">
+                    ${g.completed ? "Reopen" : "Complete"}
+                </button>
+                <button class="btn danger" onclick="deleteLifeGoal(${g.id})">
+                    Delete
+                </button>
+            </div>
+
+        </div>
+
+        `).join("");
+    }
+
+    /* HABITS */
+
+    const habits=document.getElementById("habitsContainer");
+
+    if(!data.habits.length){
+
+        habits.innerHTML=
+            `<div class="empty">No habits yet. Add something you want to repeat.</div>`;
+
+    }else{
+
+        const today=habitDateKey();
+
+        habits.innerHTML=data.habits.map(h=>{
+
+            const count=habitMonthCount(h);
+            const pct=Math.min(100,count/h.target*100);
+            const done=h.completedDates.includes(today);
+
+            return `
+            <div class="mini-stat section">
+
+                <div class="row">
+                    <div>
+                        <strong>${h.name}</strong>
+                        <div class="small">
+                            ${count}/${h.target} this month • ${habitStreak(h)} day streak
+                        </div>
+                    </div>
+
+                    <button class="btn ${done?"primary":""}" onclick="toggleHabit(${h.id})">
+                        ${done ? "✓ Done Today" : "Complete Today"}
+                    </button>
+                </div>
+
+                <div class="progress">
+                    <span style="width:${pct}%"></span>
+                </div>
+
+            </div>`;
+        }).join("");
+    }
+
+    renderMonthlyMissions();
+    renderX7Insights();
+    renderLifeScore();
+}
+
+function renderMonthlyMissions(){
+
+    const key=monthKey(new Date());
+    const totals=getMonthTotals(key);
+
+    const gymHabit=data.habits.find(h=>/gym|workout|work out/i.test(h.name));
+    const completedGoals=data.lifeGoals.filter(g=>g.completed).length;
+    const completedBucket=data.bucketList.filter(b=>b.completed).length;
+
+    const missions=[
+        {
+            name:"Save more than you spend",
+            current:totals.net>0?1:0,
+            target:1
+        },
+        {
+            name:"Complete a life goal",
+            current:Math.min(completedGoals,1),
+            target:1
+        },
+        {
+            name:"Complete a bucket-list item",
+            current:Math.min(completedBucket,1),
+            target:1
+        }
+    ];
+
+    if(gymHabit){
+        missions.push({
+            name:`${gymHabit.name} — ${gymHabit.target} sessions`,
+            current:Math.min(habitMonthCount(gymHabit),gymHabit.target),
+            target:gymHabit.target
+        });
+    }
+
+    document.getElementById("monthlyMissions").innerHTML=missions.map(m=>{
+        const pct=Math.min(100,m.current/m.target*100);
+
+        return `
+        <div class="month-mission">
+            <div class="row">
+                <strong>${m.name}</strong>
+                <span class="small">${m.current}/${m.target}</span>
+            </div>
+            <div class="progress">
+                <span style="width:${pct}%"></span>
+            </div>
+        </div>`;
+    }).join("");
+}
+
+function renderX7Insights(){
+
+    const key=monthKey(new Date());
+    const totals=getMonthTotals(key);
+    const insights=[];
+
+    if(totals.income>0 && totals.expenses>totals.income){
+        insights.push("⚠️ You are spending more than your income this month.");
+    }else if(totals.income>0){
+        insights.push(`💰 Your current monthly cash-flow surplus is ${money(totals.net)}.`);
+    }
+
+    if(totals.cigarettes>0){
+        insights.push(`🚬 Cigarettes have cost ${money(totals.cigarettes)} this month.`);
+    }
+
+    if(totals.investment>0){
+        insights.push(`📈 You invested ${money(totals.investment)} this month.`);
+    }
+
+    const unfinished=data.wishlist.filter(w=>!w.purchased && w.price>0);
+
+    if(unfinished.length){
+        const item=unfinished[0];
+        const remaining=Math.max(0,item.price-item.saved);
+
+        if(item.deadline && remaining>0){
+            const days=Math.max(
+                1,
+                Math.ceil((new Date(item.deadline)-new Date())/86400000)
+            );
+
+            insights.push(
+                `🛒 ${item.name}: ${money(remaining)} remaining, about ${money(Math.ceil(remaining/days))}/day to reach the target.`
+            );
+        }
+    }
+
+    if(data.habits.length){
+        const strongest=data.habits.slice().sort(
+            (a,b)=>habitStreak(b)-habitStreak(a)
+        )[0];
+
+        insights.push(
+            `🔥 Your strongest current habit streak is ${habitStreak(strongest)} day${habitStreak(strongest)===1?"":"s"}.`
+        );
+    }
+
+    if(!insights.length)
+        insights.push("Start adding transactions, goals and habits. X7 will learn your patterns.");
+
+    document.getElementById("x7Insights").innerHTML=
+        insights.map(i=>`<div class="insight">${i}</div>`).join("");
+}
+
+function renderLifeScore(){
+
+    const totals=getMonthTotals(monthKey(new Date()));
+
+    let finance=50;
+
+    if(totals.income>0 && totals.net>=0) finance+=20;
+    if(totals.investment>0) finance+=10;
+    if(totals.expenses>0 && totals.income>0 &&
+       totals.expenses/totals.income<0.7) finance+=10;
+
+    finance=Math.max(0,Math.min(100,finance));
+
+    const goalScore=data.lifeGoals.length
+        ? data.lifeGoals.filter(g=>g.completed).length/data.lifeGoals.length*100
+        : 50;
+
+    const habitScore=data.habits.length
+        ? data.habits.reduce(
+            (sum,h)=>sum+Math.min(1,habitMonthCount(h)/h.target),
+            0
+          )/data.habits.length*100
+        : 50;
+
+    const bucketScore=data.bucketList.length
+        ? data.bucketList.filter(b=>b.completed).length/data.bucketList.length*100
+        : 50;
+
+    const score=Math.round(
+        finance*.4+
+        goalScore*.2+
+        habitScore*.25+
+        bucketScore*.15
+    );
+
+    document.getElementById("lifeScore").textContent=score;
+    document.getElementById("lifeScoreText").textContent=
+        `Finance ${Math.round(finance)} • Goals ${Math.round(goalScore)} • Habits ${Math.round(habitScore)} • Experiences ${Math.round(bucketScore)}`;
+}
+
+function renderWishlist(){
+
+    const container=document.getElementById("wishlistContainer");
+
+    if(!data.wishlist.length){
+        container.innerHTML=`<div class="empty">Your wishlist is empty.</div>`;
+        return;
+    }
+
+    container.innerHTML=data.wishlist.map(w=>{
+
+        const remaining=Math.max(0,w.price-w.saved);
+        const pct=w.price>0 ? Math.min(100,w.saved/w.price*100) : 0;
+
+        let dailyText="";
+
+        if(w.deadline && remaining>0){
+            const days=Math.max(
+                1,
+                Math.ceil((new Date(w.deadline)-new Date())/86400000)
+            );
+
+            dailyText=`About ${money(Math.ceil(remaining/days))}/day to reach it.`;
+        }
+
+        return `
+        <div class="wish-item section ${w.purchased?"completed":""}">
+
+            <div class="row">
+                <div>
+                    <strong class="wish-title">${w.name}</strong>
+                    <div class="small">
+                        ${w.price>0 ? money(w.saved)+" / "+money(w.price) : "No price set"}
+                        ${w.deadline ? " • "+new Date(w.deadline).toLocaleDateString("en-IN") : ""}
+                    </div>
+                </div>
+
+                <span class="badge">
+                    ${w.purchased ? "✓ Bought" : "Wanted"}
+                </span>
+            </div>
+
+            ${w.price>0 ? `
+            <div class="progress">
+                <span style="width:${pct}%"></span>
+            </div>
+            <div class="row small">
+                <span>${pct.toFixed(0)}% funded</span>
+                <span>${remaining>0?money(remaining)+" remaining":"Fully funded"}</span>
+            </div>
+            ${dailyText ? `<div class="small section">${dailyText}</div>` : ""}
+            ` : ""}
+
+            <div class="actions section">
+                ${w.price>0 && !w.purchased ?
+                    `<button class="btn primary" onclick="addWishlistSavings(${w.id})">+ Add Saved</button>` : ""}
+                <button class="btn" onclick="completeWishlist(${w.id})">
+                    ${w.purchased ? "Mark Wanted" : "Mark Bought"}
+                </button>
+                <button class="btn danger" onclick="deleteWishlist(${w.id})">Delete</button>
+            </div>
+
+        </div>`;
+    }).join("");
+}
+
+function renderBucket(){
+
+    const container=document.getElementById("bucketContainer");
+    const total=data.bucketList.length;
+    const completed=data.bucketList.filter(b=>b.completed).length;
+
+    document.getElementById("bucketProgress").textContent=
+        `${completed} / ${total}`;
+
+    if(!total){
+        container.innerHTML=`<div class="empty">Your bucket list is empty.</div>`;
+        return;
+    }
+
+    container.innerHTML=data.bucketList.map(b=>`
+        <div class="check-row ${b.completed?"completed":""}">
+            <input
+                type="checkbox"
+                ${b.completed?"checked":""}
+                onchange="toggleBucket(${b.id})">
+            <div style="flex:1">
+                <strong class="bucket-title">${b.name}</strong>
+                ${b.completedDate ?
+                    `<div class="small">Completed ${new Date(b.completedDate).toLocaleDateString("en-IN")}</div>`:""}
+            </div>
+            <button class="btn danger" onclick="deleteBucket(${b.id})">Delete</button>
+        </div>
+    `).join("");
+}
+
+
 /* =========================================================
    RESET
 ========================================================= */
@@ -3277,6 +4158,8 @@ function resetX7(){
 
 function renderAll(){
 
+    ensureX7Data();
+
     renderHome();
 
     renderGoals();
@@ -3288,6 +4171,12 @@ function renderAll(){
     renderGrow();
 
     renderMoney();
+
+    renderLife();
+
+    renderWishlist();
+
+    renderBucket();
 
     populateHistoryMonths();
 
