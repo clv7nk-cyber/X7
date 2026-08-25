@@ -3,1545 +3,6812 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+
 <meta name="theme-color" content="#050505">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="X7">
-<title>X7 — Money & Growth</title>
+
+<title>X7 — Personal Command Center</title>
 
 <style>
 :root{
- --bg:#050505;--panel:#101010;--panel2:#151515;--border:#292929;
- --text:#f5f5f5;--muted:#888;--green:#65f3a2;--red:#ff6868;
- --yellow:#ffd86b;--blue:#77b7ff;--radius:22px;
+    --bg:#050505;
+    --panel:#101010;
+    --panel2:#151515;
+    --border:#292929;
+    --text:#f5f5f5;
+    --muted:#888;
+    --green:#65f3a2;
+    --red:#ff6868;
+    --yellow:#ffd86b;
+    --blue:#70a7ff;
+    --purple:#bd8cff;
+    --radius:22px;
 }
+
 *{box-sizing:border-box}
+
+html{scroll-behavior:smooth}
+
 body{
- margin:0;background:radial-gradient(circle at 50% -20%,#252525,#0b0b0b 35%,#050505 70%);
- color:var(--text);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif
+    margin:0;
+    background:
+        radial-gradient(circle at 50% -20%,#252525 0%,#0b0b0b 35%,#050505 70%);
+    color:var(--text);
+    font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
 }
-button,input,select{font:inherit}
+
+button,input,select,textarea{font:inherit}
+
 button{cursor:pointer}
-.app{max-width:1150px;margin:auto;padding:18px;padding-bottom:100px}
-.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
-.logo{font-size:38px;font-weight:950;letter-spacing:-4px}
-.logo-sub{font-size:10px;color:#888;letter-spacing:3px}
-.nav{display:flex;gap:7px;overflow-x:auto;margin-bottom:20px;padding-bottom:5px}
-.nav button{border:1px solid var(--border);background:#0c0c0c;color:#999;padding:10px 14px;border-radius:14px;white-space:nowrap}
-.nav button.active{background:#fff;color:#000}
-.view{display:none}.view.active{display:block}
+
+textarea{
+    width:100%;
+    min-height:130px;
+    resize:vertical;
+    background:#090909;
+    color:#fff;
+    border:1px solid #303030;
+    border-radius:14px;
+    padding:13px;
+    outline:none;
+}
+
+textarea:focus,
+input:focus,
+select:focus{
+    border-color:#777;
+}
+
+.app{
+    max-width:1150px;
+    margin:auto;
+    padding:18px;
+    padding-bottom:120px;
+}
+
+.header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:16px;
+}
+
+.logo{
+    font-size:38px;
+    font-weight:950;
+    letter-spacing:-4px;
+}
+
+.logo-sub{
+    color:#777;
+    font-size:9px;
+    letter-spacing:3px;
+}
+
+.nav{
+    display:flex;
+    gap:7px;
+    overflow-x:auto;
+    padding-bottom:6px;
+    margin-bottom:18px;
+}
+
+.nav button{
+    flex-shrink:0;
+    border:1px solid var(--border);
+    background:#0c0c0c;
+    color:#999;
+    padding:10px 13px;
+    border-radius:14px;
+}
+
+.nav button.active{
+    background:#fff;
+    color:#000;
+}
+
+.view{display:none}
+.view.active{display:block}
+
 .card{
- background:linear-gradient(145deg,#151515,#0b0b0b);
- border:1px solid var(--border);border-radius:var(--radius);padding:19px;
- box-shadow:0 15px 40px #0006
+    background:linear-gradient(145deg,#151515,#0b0b0b);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:20px;
+    box-shadow:0 15px 40px #0006;
 }
-.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
-.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+
 .section{margin-top:14px}
-h2{font-size:19px;margin:0 0 13px}h3{margin:0 0 9px}
-.label{color:#888;font-size:11px;text-transform:uppercase;letter-spacing:1.2px}
-.big{font-size:30px;font-weight:900;margin-top:7px}
-.muted,.small{color:#888}.small{font-size:12px}
-.good{color:var(--green)}.bad{color:var(--red)}.yellow{color:var(--yellow)}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+}
+
+.grid2{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:14px;
+}
+
+.grid3{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+}
+
+h2{
+    font-size:19px;
+    margin:0 0 13px;
+}
+
+h3{
+    margin:0 0 10px;
+}
+
+.label{
+    color:var(--muted);
+    font-size:10px;
+    text-transform:uppercase;
+    letter-spacing:1.3px;
+}
+
+.big{
+    font-size:30px;
+    font-weight:900;
+    margin-top:7px;
+}
+
+.muted,.small{
+    color:var(--muted);
+}
+
+.small{font-size:12px}
+
+.good{color:var(--green)}
+.bad{color:var(--red)}
+.yellow{color:var(--yellow)}
 .blue{color:var(--blue)}
-.row{display:flex;justify-content:space-between;align-items:center;gap:10px}
-.hero{min-height:210px;position:relative;overflow:hidden;display:flex;justify-content:center;flex-direction:column}
-.hero:after{content:"X7";position:absolute;right:-15px;bottom:-65px;font-size:190px;font-weight:950;color:#ffffff04;letter-spacing:-15px}
-.hero>*{position:relative;z-index:2}
-.greeting{font-size:13px;letter-spacing:2px;color:#aaa}
-.quote{max-width:750px;font-size:28px;line-height:1.12;font-weight:900;margin-top:10px}
-.date{color:#777;font-size:12px;margin-top:14px}
-.actions{display:flex;flex-wrap:wrap;gap:8px}
-.btn{border:1px solid #333;background:#171717;color:#eee;border-radius:14px;padding:10px 14px}
-.btn:hover{background:#222}.btn.primary{background:#fff;color:#000;border-color:#fff;font-weight:800}
-.btn.danger{background:#211010;border-color:#481c1c;color:#ff8c8c}
-.form{display:grid;gap:10px}
+.purple{color:var(--purple)}
+
+.row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+}
+
+.actions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+}
+
+.btn{
+    border:1px solid #333;
+    background:#171717;
+    color:#eee;
+    border-radius:14px;
+    padding:10px 14px;
+}
+
+.btn:hover{background:#222}
+
+.btn.primary{
+    background:#fff;
+    color:#000;
+    border-color:#fff;
+    font-weight:800;
+}
+
+.btn.danger{
+    background:#211010;
+    border-color:#481c1c;
+    color:#ff8c8c;
+}
+
+.btn.green{
+    border-color:#285c42;
+    color:var(--green);
+    background:#0d1a14;
+}
+
+.form{
+    display:grid;
+    gap:10px;
+}
+
 input,select{
- width:100%;background:#090909;color:#fff;border:1px solid #303030;
- border-radius:13px;padding:12px;outline:none
+    width:100%;
+    background:#090909;
+    color:#fff;
+    border:1px solid #303030;
+    border-radius:13px;
+    padding:12px;
+    outline:none;
 }
-input:focus,select:focus{border-color:#777}
-.progress{width:100%;height:9px;background:#282828;border-radius:99px;overflow:hidden;margin:12px 0}
-.progress span{display:block;height:100%;background:#fff;border-radius:99px}
-.mini-stat,.market-card,.mission,.wish,.insight{
- background:#0d0d0d;border:1px solid #252525;border-radius:16px;padding:14px
+
+.progress{
+    width:100%;
+    height:9px;
+    background:#282828;
+    border-radius:99px;
+    overflow:hidden;
+    margin:11px 0;
 }
-.market-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.market-value{font-size:22px;font-weight:850;margin-top:6px}
-.empty{text-align:center;color:#666;padding:30px 10px}
-.badge{display:inline-flex;align-items:center;padding:5px 9px;border:1px solid #303030;border-radius:99px;font-size:11px;color:#aaa}
-.score{
- width:105px;height:105px;border-radius:50%;border:8px solid #292929;
- display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:900
+
+.progress span{
+    display:block;
+    height:100%;
+    background:#fff;
+    border-radius:99px;
 }
-.alert{border-left:3px solid var(--red);padding:11px;background:#160d0d;border-radius:0 12px 12px 0;margin-top:8px}
-.success{border-left:3px solid var(--green);padding:11px;background:#0b170f;border-radius:0 12px 12px 0;margin-top:8px}
-table{width:100%;border-collapse:collapse}th,td{padding:10px 6px;border-bottom:1px solid #222;text-align:left;font-size:13px}th{color:#777}
+
+.badge{
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+    padding:5px 9px;
+    border:1px solid #303030;
+    border-radius:99px;
+    font-size:11px;
+    color:#aaa;
+}
+
+.hero{
+    min-height:330px;
+    position:relative;
+    overflow:hidden;
+    display:flex;
+    justify-content:center;
+    flex-direction:column;
+    animation:heroIn .7s ease;
+}
+
+.hero::after{
+    content:"X7";
+    position:absolute;
+    right:-15px;
+    bottom:-70px;
+    font-size:190px;
+    font-weight:950;
+    color:#ffffff04;
+    letter-spacing:-15px;
+}
+
+.hero>*{
+    position:relative;
+    z-index:2;
+}
+
+.greeting{
+    font-size:13px;
+    letter-spacing:2px;
+    color:#aaa;
+}
+
+.quote{
+    max-width:760px;
+    font-size:29px;
+    line-height:1.1;
+    font-weight:900;
+    margin-top:9px;
+}
+
+.date{
+    color:#777;
+    font-size:12px;
+    margin-top:12px;
+}
+
+@keyframes heroIn{
+    from{opacity:0;transform:translateY(15px)}
+    to{opacity:1;transform:translateY(0)}
+}
+
+.command-money{
+    margin-top:22px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+}
+
+.command-stat{
+    background:#0c0c0c;
+    border:1px solid #242424;
+    border-radius:16px;
+    padding:14px;
+}
+
+.priority{
+    border:1px solid #383838;
+    background:#0d0d0d;
+    border-radius:18px;
+    padding:16px;
+}
+
+.priority.hot{
+    border-color:#725d25;
+}
+
+.suggestion{
+    border-left:3px solid #fff;
+    background:#0d0d0d;
+    border-radius:0 13px 13px 0;
+    padding:12px;
+    margin-top:8px;
+}
+
+.deadline{
+    background:#0d0d0d;
+    border:1px solid #292929;
+    border-radius:16px;
+    padding:14px;
+}
+
+.deadline.urgent{
+    border-color:#653535;
+}
+
+.mini-stat{
+    background:#0c0c0c;
+    border:1px solid #242424;
+    border-radius:15px;
+    padding:13px;
+}
+
+.item{
+    background:#0d0d0d;
+    border:1px solid #252525;
+    border-radius:16px;
+    padding:14px;
+    margin-top:9px;
+}
+
+.completed{
+    opacity:.62;
+}
+
+.completed .strike{
+    text-decoration:line-through;
+}
+
+.score-ring{
+    width:100px;
+    height:100px;
+    border-radius:50%;
+    border:8px solid #282828;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:24px;
+    font-weight:900;
+}
+
+.market-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+}
+
+.market-card{
+    background:#0d0d0d;
+    border:1px solid #242424;
+    border-radius:17px;
+    padding:15px;
+}
+
+.market-value{
+    font-size:22px;
+    font-weight:850;
+    margin-top:6px;
+}
+
 .table-wrap{overflow-x:auto}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,td{
+    padding:10px 6px;
+    border-bottom:1px solid #222;
+    text-align:left;
+    font-size:13px;
+}
+
+th{color:#777}
+
+.empty{
+    text-align:center;
+    color:#666;
+    padding:30px 10px;
+}
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:#000c;
+    display:none;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+    z-index:80;
+}
+
+.modal.show{display:flex}
+
+.modal-box{
+    width:min(620px,100%);
+    max-height:90vh;
+    overflow:auto;
+    background:#111;
+    border:1px solid #333;
+    border-radius:24px;
+    padding:20px;
+}
+
 .toast{
- position:fixed;left:50%;bottom:20px;transform:translate(-50%,20px);
- background:#fff;color:#000;padding:12px 18px;border-radius:14px;font-weight:800;
- opacity:0;pointer-events:none;transition:.25s;z-index:100
+    position:fixed;
+    left:50%;
+    bottom:20px;
+    transform:translate(-50%,20px);
+    background:white;
+    color:black;
+    padding:12px 18px;
+    border-radius:14px;
+    font-weight:800;
+    opacity:0;
+    pointer-events:none;
+    transition:.25s;
+    z-index:100;
 }
-.toast.show{opacity:1;transform:translate(-50%,0)}
-.type-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.type-option{border:1px solid #303030;background:#0b0b0b;color:#aaa;border-radius:14px;padding:11px;text-align:center;cursor:pointer}
-.type-option.active{background:#fff;color:#000;font-weight:800}
-.completed{opacity:.6;text-decoration:line-through}
-canvas{width:100%;height:220px;background:#0b0b0b;border-radius:16px}
-@media(max-width:800px){
- .grid{grid-template-columns:repeat(2,1fr)}.grid2,.grid3{grid-template-columns:1fr}
- .market-grid{grid-template-columns:1fr 1fr}.quote{font-size:23px}
+
+.toast.show{
+    opacity:1;
+    transform:translate(-50%,0);
 }
-@media(max-width:500px){.big{font-size:25px}.app{padding:12px}}
+
+.fab{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    width:58px;
+    height:58px;
+    border-radius:50%;
+    border:1px solid #555;
+    background:#fff;
+    color:#000;
+    font-size:25px;
+    font-weight:900;
+    z-index:40;
+}
+
+.what-now{
+    position:fixed;
+    left:20px;
+    bottom:20px;
+    z-index:40;
+    border:1px solid #555;
+    background:#111;
+    color:#fff;
+    border-radius:18px;
+    padding:14px 18px;
+    font-weight:900;
+}
+
+.type-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:8px;
+}
+
+.type-option{
+    border:1px solid #303030;
+    background:#0b0b0b;
+    color:#aaa;
+    border-radius:14px;
+    padding:11px;
+    text-align:center;
+    cursor:pointer;
+}
+
+.type-option.active{
+    background:#fff;
+    color:#000;
+    font-weight:800;
+}
+
+textarea.statement{
+    min-height:220px;
+}
+
+.result-box{
+    padding:15px;
+    background:#0d0d0d;
+    border:1px solid #292929;
+    border-radius:16px;
+}
+
+.afford{
+    border-radius:18px;
+    padding:18px;
+    margin-top:12px;
+}
+
+.afford.green{
+    background:#0d1c14;
+    border:1px solid #285c42;
+}
+
+.afford.yellow{
+    background:#1c190d;
+    border:1px solid #665525;
+}
+
+.afford.red{
+    background:#1d0e0e;
+    border:1px solid #633131;
+}
+
+.project-card{
+    border:1px solid #292929;
+    border-radius:18px;
+    padding:16px;
+    background:#0d0d0d;
+}
+
+.quick-note{
+    border-left:3px solid var(--blue);
+    background:#0d0d0d;
+    padding:12px;
+    border-radius:0 12px 12px 0;
+}
+
+@media(max-width:850px){
+    .grid{grid-template-columns:repeat(2,1fr)}
+    .grid3{grid-template-columns:1fr 1fr}
+    .grid2{grid-template-columns:1fr}
+    .command-money{grid-template-columns:1fr}
+    .market-grid{grid-template-columns:1fr 1fr}
+}
+
+@media(max-width:500px){
+    .app{padding:12px}
+    .grid{grid-template-columns:1fr 1fr}
+    .grid3{grid-template-columns:1fr}
+    .quote{font-size:23px}
+    .big{font-size:25px}
+    .what-now{
+        left:12px;
+        bottom:12px;
+        font-size:12px;
+    }
+    .fab{
+        right:12px;
+        bottom:12px;
+    }
+}
 </style>
 </head>
 
 <body>
+
 <div class="app">
 
 <div class="header">
- <div>
-  <div class="logo">X7</div>
-  <div class="logo-sub">MONEY • DISCIPLINE • GROWTH</div>
- </div>
- <button class="btn danger" onclick="resetX7()">Reset</button>
+    <div>
+        <div class="logo">X7</div>
+        <div class="logo-sub">MONEY • LIFE • DISCIPLINE • GROWTH</div>
+    </div>
+
+    <button class="btn danger" onclick="resetX7()">Reset</button>
 </div>
 
 <div class="nav">
- <button class="active" onclick="showView('home',this)">🏠 Home</button>
- <button onclick="showView('money',this)">💰 Money</button>
- <button onclick="showView('goals',this)">🎯 Goals</button>
- <button onclick="showView('debts',this)">💳 Debts</button>
- <button onclick="showView('invest',this)">📈 Invest</button>
- <button onclick="showView('grow',this)">🧠 Grow</button>
- <button onclick="showView('life',this)">🌱 Life</button>
- <button onclick="showView('wishlist',this)">🛒 Wishlist</button>
- <button onclick="showView('bucket',this)">🗺️ Bucket</button>
- <button onclick="showView('history',this)">📚 History</button>
+
+<button class="active" onclick="showView('home',this)">🏠 Home</button>
+<button onclick="showView('money',this)">💰 Money</button>
+<button onclick="showView('goals',this)">🎯 Goals</button>
+<button onclick="showView('afford',this)">💸 Afford?</button>
+<button onclick="showView('debts',this)">💳 Debts</button>
+<button onclick="showView('invest',this)">📈 Invest</button>
+<button onclick="showView('projects',this)">📂 Projects</button>
+<button onclick="showView('tasks',this)">✅ Tasks</button>
+<button onclick="showView('notes',this)">📝 Notes</button>
+<button onclick="showView('deadlines',this)">📅 Deadlines</button>
+<button onclick="showView('life',this)">🌱 Life</button>
+<button onclick="showView('wishlist',this)">🛒 Wishlist</button>
+<button onclick="showView('bucket',this)">🪣 Bucket</button>
+<button onclick="showView('grow',this)">🧠 Grow</button>
+<button onclick="showView('history',this)">📚 History</button>
+
 </div>
 
-<!-- HOME -->
+
+<!-- =====================================================
+HOME / DAILY COMMAND CENTER
+===================================================== -->
+
 <section id="home" class="view active">
 
 <div class="card hero">
- <div class="greeting" id="greeting"></div>
- <div class="quote" id="quote"></div>
- <div class="date" id="currentDate"></div>
+
+<div class="greeting" id="greeting"></div>
+
+<div class="quote" id="quote"></div>
+
+<div class="date" id="currentDate"></div>
+
+<div class="command-money">
+
+<div class="command-stat">
+<div class="label">Available Today</div>
+<div class="big good" id="availableToday">₹0</div>
 </div>
 
-<div class="grid section">
- <div class="card"><div class="label">Available Cash</div><div class="big" id="homeBalance">₹0</div></div>
- <div class="card"><div class="label">Income</div><div class="big good" id="homeIncome">₹0</div></div>
- <div class="card"><div class="label">Expenses</div><div class="big bad" id="homeExpenses">₹0</div></div>
- <div class="card"><div class="label">Net Worth</div><div class="big" id="homeNetWorth">₹0</div></div>
+<div class="command-stat">
+<div class="label">Month Balance</div>
+<div class="big" id="homeBalance">₹0</div>
 </div>
 
-<div class="grid section">
- <div class="card"><div class="label">Invested</div><div class="big" id="homeInvested">₹0</div></div>
- <div class="card"><div class="label">Debt</div><div class="big bad" id="homeDebt">₹0</div></div>
- <div class="card"><div class="label">XP / Level</div><div class="big yellow" id="homeLevel">Lv 1</div></div>
- <div class="card"><div class="label">Life Score</div><div class="big" id="homeLifeScore">0</div></div>
+<div class="command-stat">
+<div class="label">Today's Spending</div>
+<div class="big bad" id="todayExpense">₹0</div>
 </div>
+
+</div>
+
+</div>
+
 
 <div class="grid2 section">
 
 <div class="card">
- <div class="row"><h2>💸 Smart Daily Budget</h2><span class="badge">Live</span></div>
- <div class="big" id="smartDailyBudget">₹0</div>
- <div class="small" id="budgetExplanation"></div>
- <div class="progress"><span id="budgetProgress"></span></div>
- <div class="row small">
-  <span>Spent today: <b id="todaySpent">₹0</b></span>
-  <span>Safe remaining: <b id="safeRemaining">₹0</b></span>
- </div>
+
+<div class="row">
+<h2>🔥 Today's Priority</h2>
+<span class="badge">X7 DECIDES</span>
 </div>
+
+<div id="todayPriority"></div>
+
+<button class="btn primary section"
+onclick="openWhatNow()">
+WHAT SHOULD I DO NOW?
+</button>
+
+</div>
+
 
 <div class="card">
- <h2>🎯 Main Goal</h2>
- <div id="homeGoal"></div>
+
+<h2>⚡ X7 Suggests</h2>
+
+<div id="homeSuggestions"></div>
+
 </div>
 
 </div>
+
 
 <div class="grid2 section">
 
 <div class="card">
- <h2>🚨 Financial Alerts</h2>
- <div id="financialAlerts"></div>
+
+<h2>🎯 Active Goals</h2>
+
+<div id="homeGoals"></div>
+
 </div>
+
 
 <div class="card">
- <h2>🤖 X7 Insight</h2>
- <div id="homeInsight"></div>
+
+<h2>📅 Upcoming</h2>
+
+<div id="homeDeadlines"></div>
+
 </div>
 
 </div>
+
+
+<div class="grid2 section">
+
+<div class="card">
+
+<h2>📝 Quick Notes</h2>
+
+<div id="homeNotes"></div>
+
+<button class="btn section"
+onclick="openQuickAdd('note')">
++ Add Note
+</button>
+
+</div>
+
+
+<div class="card">
+
+<h2>📂 Projects</h2>
+
+<div id="homeProjects"></div>
+
+</div>
+
+</div>
+
 
 <div class="card section">
- <div class="row">
-  <h2>🚬 Cigarettes</h2>
-  <span class="small">₹14 each</span>
- </div>
- <div class="actions">
-  <button class="btn" onclick="logCigarette('Marlboro')">Marlboro</button>
-  <button class="btn" onclick="logCigarette('Other')">Other</button>
- </div>
- <div class="small section" id="cigaretteToday">Today: 0</div>
+
+<div class="row">
+<h2>🚬 Cigarettes</h2>
+<span class="small">₹14 each</span>
 </div>
 
+<div class="actions">
+
+<button class="btn"
+onclick="logCigarette('Marlboro')">
+Marlboro +1
+</button>
+
+<button class="btn"
+onclick="logCigarette('Other')">
+Other +1
+</button>
+
+</div>
+
+<div class="small section" id="cigaretteToday"></div>
+
+</div>
+
+
 <div class="grid2 section">
- <div class="card"><h2>🧠 Daily Knowledge</h2><div id="dailyKnowledge"></div></div>
- <div class="card"><h2>💭 Daily Wisdom</h2><div id="dailyWisdom"></div></div>
+
+<div class="card">
+<h2>🧠 Daily Knowledge</h2>
+<div id="dailyKnowledge"></div>
+</div>
+
+<div class="card">
+<h2>💭 Daily Wisdom</h2>
+<div id="dailyWisdom"></div>
+</div>
+
 </div>
 
 </section>
 
-<!-- MONEY -->
+
+<!-- =====================================================
+MONEY
+===================================================== -->
+
 <section id="money" class="view">
 
 <div class="card">
- <h2>💰 Add Money</h2>
- <div class="form">
-  <select id="transactionType">
-   <option value="income">Income</option>
-   <option value="expense">Expense</option>
-  </select>
-  <input id="transactionAmount" type="number" placeholder="Amount ₹">
-  <input id="transactionNote" placeholder="What was this?">
-  <select id="transactionCategory">
-   <option>Food</option><option>Transport</option><option>Cigarettes</option>
-   <option>Shopping</option><option>Bills</option><option>Education</option>
-   <option>Entertainment</option><option>Other</option>
-  </select>
-  <button class="btn primary" onclick="addTransaction()">Add Transaction</button>
- </div>
+
+<h2>💰 Add Transaction</h2>
+
+<div class="form">
+
+<select id="transactionType">
+<option value="income">Income</option>
+<option value="expense">Expense</option>
+</select>
+
+<input id="transactionAmount"
+type="number"
+placeholder="Amount ₹">
+
+<input id="transactionNote"
+placeholder="What was this?">
+
+<select id="transactionCategory">
+<option>Food</option>
+<option>Transport</option>
+<option>Cigarettes</option>
+<option>Shopping</option>
+<option>Bills</option>
+<option>Education</option>
+<option>Investment</option>
+<option>Debt</option>
+<option>Other</option>
+</select>
+
+<button class="btn primary"
+onclick="addTransaction()">
+Add Transaction
+</button>
+
 </div>
+</div>
+
 
 <div class="card section">
- <div class="row">
-  <h2>📥 Income Integration</h2>
-  <span class="badge">Browser Safe</span>
- </div>
- <p class="small">
- X7 cannot silently read bank SMS or bank accounts from GitHub Pages.
- You can import a bank CSV/statement or manually record income now.
- </p>
- <input type="file" id="incomeFile" accept=".csv,.txt" onchange="importIncome(event)">
+
+<div class="row">
+<h2>📥 GPay Statement Import</h2>
+<span class="badge">NO BANK ACCESS</span>
 </div>
 
-<div class="grid2 section">
- <div class="card">
-  <h2>📊 Spending Analytics</h2>
-  <div id="analytics"></div>
- </div>
- <div class="card">
-  <h2>📈 Monthly Trend</h2>
-  <canvas id="trendCanvas"></canvas>
- </div>
+<p class="small">
+Copy the text from your GPay statement and paste it below.
+X7 does not access GPay, your bank, SMS or passwords.
+</p>
+
+<textarea
+id="gpayStatement"
+class="statement"
+placeholder="Paste your GPay statement here..."></textarea>
+
+<div class="actions section">
+<button class="btn primary"
+onclick="analyzeGPay()">
+Analyze Statement
+</button>
+
+<button class="btn"
+onclick="document.getElementById('gpayStatement').value=''">
+Clear
+</button>
 </div>
+
+<div id="gpayPreview"></div>
+
+</div>
+
 
 <div class="card section">
- <div class="row"><h2>This Month</h2><span class="small" id="moneyCurrentMonth"></span></div>
- <div id="moneyTransactions"></div>
+
+<div class="row">
+<h2>This Month</h2>
+<span class="small" id="moneyCurrentMonth"></span>
+</div>
+
+<div id="moneyTransactions"></div>
+
 </div>
 
 </section>
 
-<!-- GOALS -->
+
+<!-- =====================================================
+GOALS
+===================================================== -->
+
 <section id="goals" class="view">
 
 <div class="card">
- <h2>🎯 Add Money Goal</h2>
- <div class="form">
-  <input id="goalName" placeholder="Goal name e.g. PS5 / iPhone">
-  <input id="goalTarget" type="number" placeholder="Target amount ₹">
-  <input id="goalDeadline" type="date">
-  <label class="small"><input id="goalMain" type="checkbox" style="width:auto"> Make Main Goal</label>
-  <button class="btn primary" onclick="createGoal()">Create Goal</button>
- </div>
+
+<h2>🎯 Create Goal</h2>
+
+<div class="form">
+
+<input id="goalName"
+placeholder="Goal name e.g. PS5">
+
+<input id="goalTarget"
+type="number"
+placeholder="Target amount ₹">
+
+<input id="goalDeadline"
+type="date">
+
+<input id="goalInitial"
+type="number"
+placeholder="Already saved ₹ (optional)">
+
+<label class="small">
+<input id="goalMain"
+type="checkbox"
+style="width:auto">
+Make this my Main Goal
+</label>
+
+<button class="btn primary"
+onclick="createGoal()">
+Create Goal
+</button>
+
+</div>
 </div>
 
 <div id="goalContainer"></div>
 
 </section>
 
-<!-- DEBTS -->
+
+<!-- =====================================================
+AFFORDABILITY
+===================================================== -->
+
+<section id="afford" class="view">
+
+<div class="card">
+
+<h2>💸 Can I Afford This?</h2>
+
+<p class="small">
+Tell X7 what you want to buy. X7 will consider your
+current money, daily budget, goals, debts and upcoming
+deadlines and give you an opinion.
+</p>
+
+<div class="form">
+
+<input
+id="affordItem"
+placeholder="e.g. AirPods">
+
+<input
+id="affordAmount"
+type="number"
+placeholder="Price ₹">
+
+<input
+id="affordDays"
+type="number"
+placeholder="Days until next payday (optional)">
+
+<button class="btn primary"
+onclick="calculateAffordability()">
+Can I Afford This?
+</button>
+
+</div>
+
+<div id="affordResult"></div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+DEBTS
+===================================================== -->
+
 <section id="debts" class="view">
 
 <div class="card">
- <h2>💳 Add Debt</h2>
- <div class="form">
-  <input id="debtName" placeholder="Debt name">
-  <input id="debtAmount" type="number" placeholder="Total debt ₹">
-  <button class="btn primary" onclick="createDebt()">Add Debt</button>
- </div>
+
+<h2>💳 Add Debt</h2>
+
+<div class="form">
+
+<input id="debtName"
+placeholder="Debt name">
+
+<input id="debtAmount"
+type="number"
+placeholder="Total debt ₹">
+
+<input id="debtMonthly"
+type="number"
+placeholder="Expected monthly payment ₹">
+
+<button class="btn primary"
+onclick="createDebt()">
+Add Debt
+</button>
+
+</div>
 </div>
 
 <div id="debtContainer"></div>
 
 </section>
 
-<!-- INVEST -->
+
+<!-- =====================================================
+INVESTMENTS
+===================================================== -->
+
 <section id="invest" class="view">
 
 <div class="card">
- <h2>📈 Invest Money</h2>
- <div class="form">
-  <input id="investmentAmount" type="number" placeholder="Investment amount ₹">
-  <select id="investmentType">
-   <option>Mutual Fund</option><option>Stocks</option><option>Gold</option>
-   <option>Silver</option><option>FD</option><option>Crypto</option><option>Other</option>
-  </select>
-  <input id="investmentNote" placeholder="Investment note">
-  <button class="btn primary" onclick="addInvestment()">Invest Money</button>
- </div>
+
+<h2>📈 Invest Money</h2>
+
+<div class="form">
+
+<input id="investmentAmount"
+type="number"
+placeholder="Investment amount ₹">
+
+<select id="investmentType">
+<option>Mutual Fund</option>
+<option>Stocks</option>
+<option>Gold</option>
+<option>Silver</option>
+<option>FD</option>
+<option>Crypto</option>
+<option>Other</option>
+</select>
+
+<input id="investmentNote"
+placeholder="Investment note">
+
+<button class="btn primary"
+onclick="addInvestment()">
+Invest Money
+</button>
+
 </div>
+</div>
+
 
 <div class="grid2 section">
- <div class="card"><div class="label">Money Invested</div><div class="big" id="investedMoney">₹0</div></div>
- <div class="card"><div class="label">Investments</div><div class="big" id="investmentCount">0</div></div>
+
+<div class="card">
+<div class="label">Money Invested</div>
+<div class="big" id="investedMoney">₹0</div>
 </div>
 
+<div class="card">
+<div class="label">Investments</div>
+<div class="big" id="investmentCount">0</div>
+</div>
+
+</div>
+
+
 <div class="card section">
- <h2>🌐 Markets</h2>
- <div class="market-grid">
-  <div class="market-card"><div class="label">NIFTY 50</div><div class="market-value">—</div><div class="small">API required</div></div>
-  <div class="market-card"><div class="label">SENSEX</div><div class="market-value">—</div><div class="small">API required</div></div>
-  <div class="market-card"><div class="label">GOLD</div><div class="market-value">—</div><div class="small">API required</div></div>
-  <div class="market-card"><div class="label">SILVER</div><div class="market-value">—</div><div class="small">API required</div></div>
-  <div class="market-card"><div class="label">USD / INR</div><div class="market-value">—</div><div class="small">API required</div></div>
-  <div class="market-card"><div class="label">BTC</div><div class="market-value">—</div><div class="small">API required</div></div>
- </div>
+
+<h2>🌐 Markets</h2>
+
+<div class="market-grid">
+
+<div class="market-card">
+<div class="label">NIFTY 50</div>
+<div class="market-value">—</div>
+<div class="small">Connect market API</div>
+</div>
+
+<div class="market-card">
+<div class="label">SENSEX</div>
+<div class="market-value">—</div>
+<div class="small">Connect market API</div>
+</div>
+
+<div class="market-card">
+<div class="label">GOLD</div>
+<div class="market-value">—</div>
+<div class="small">Connect market API</div>
+</div>
+
+<div class="market-card">
+<div class="label">SILVER</div>
+<div class="market-value">—</div>
+<div class="small">Connect market API</div>
+</div>
+
+<div class="market-card">
+<div class="label">USD / INR</div>
+<div class="market-value">—</div>
+<div class="small">Connect market API</div>
+</div>
+
+<div class="market-card">
+<div class="label">BTC</div>
+<div class="market-value">—</div>
+<div class="small">Connect market API</div>
+</div>
+
+</div>
+
 </div>
 
 </section>
 
-<!-- GROW -->
-<section id="grow" class="view">
 
-<div class="grid2">
- <div class="card"><h2>🧠 Learn Something</h2><div id="growLesson"></div></div>
- <div class="card">
-  <h2>🔥 Learning Streak</h2>
-  <div class="big" id="learningStreak">0 days</div>
-  <button class="btn primary" onclick="completeLearning()">I Learned Today</button>
- </div>
+<!-- =====================================================
+PROJECTS
+===================================================== -->
+
+<section id="projects" class="view">
+
+<div class="card">
+
+<h2>📂 Create Project</h2>
+
+<div class="form">
+
+<input id="projectName"
+placeholder="e.g. House Hunt">
+
+<select id="projectType">
+<option>Work</option>
+<option>Business</option>
+<option>Personal</option>
+<option>Money</option>
+<option>Education</option>
+<option>Other</option>
+</select>
+
+<input id="projectDeadline"
+type="date">
+
+<input id="projectDescription"
+placeholder="What is this project about?">
+
+<button class="btn primary"
+onclick="createProject()">
+Create Project
+</button>
+
+</div>
+</div>
+
+<div id="projectContainer"></div>
+
+</section>
+
+
+<!-- =====================================================
+TASKS
+===================================================== -->
+
+<section id="tasks" class="view">
+
+<div class="card">
+
+<h2>✅ Add Task</h2>
+
+<div class="form">
+
+<input id="taskName"
+placeholder="e.g. Fix House Hunt property UI">
+
+<select id="taskProject">
+<option value="">No project</option>
+</select>
+
+<select id="taskPriority">
+<option value="high">High Priority</option>
+<option value="medium" selected>Medium Priority</option>
+<option value="low">Low Priority</option>
+</select>
+
+<input id="taskDeadline"
+type="date">
+
+<input id="taskMinutes"
+type="number"
+placeholder="Estimated minutes">
+
+<button class="btn primary"
+onclick="createTask()">
+Add Task
+</button>
+
+</div>
 </div>
 
 <div class="card section">
- <h2>💰 Money Health</h2>
- <div class="big" id="moneyHealth">0 / 100</div>
- <div class="progress"><span id="healthProgress"></span></div>
- <div class="small" id="healthExplanation"></div>
-</div>
 
-<div class="card section">
- <h2>🏆 X7 Level System</h2>
- <div class="row">
-  <div><div class="big" id="levelDisplay">Level 1</div><div class="small" id="xpText"></div></div>
-  <div class="score" id="xpRing">0%</div>
- </div>
- <div class="progress"><span id="xpProgress"></span></div>
+<h2>🔥 My Tasks</h2>
+
+<div id="taskContainer"></div>
+
 </div>
 
 </section>
 
-<!-- LIFE -->
+
+<!-- =====================================================
+NOTES
+===================================================== -->
+
+<section id="notes" class="view">
+
+<div class="card">
+
+<h2>📝 Quick Brain Dump</h2>
+
+<div class="form">
+
+<textarea
+id="noteText"
+placeholder="Write anything... X7 will keep it as a note."></textarea>
+
+<select id="noteProject">
+<option value="">No project</option>
+</select>
+
+<select id="notePriority">
+<option value="medium">Medium</option>
+<option value="high">High</option>
+<option value="low">Low</option>
+</select>
+
+<button class="btn primary"
+onclick="createNote()">
+Save Note
+</button>
+
+</div>
+</div>
+
+<div class="card section">
+
+<h2>🧠 My Notes</h2>
+
+<div id="noteContainer"></div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+DEADLINES
+===================================================== -->
+
+<section id="deadlines" class="view">
+
+<div class="card">
+
+<h2>📅 Add Deadline</h2>
+
+<div class="form">
+
+<input id="deadlineName"
+placeholder="e.g. House submission">
+
+<input id="deadlineDate"
+type="date">
+
+<input id="deadlineProject"
+placeholder="Project name">
+
+<textarea id="deadlineSteps"
+placeholder="Suggested steps, one per line..."></textarea>
+
+<button class="btn primary"
+onclick="createDeadline()">
+Add Deadline
+</button>
+
+</div>
+</div>
+
+<div id="deadlineContainer"></div>
+
+</section>
+
+
+<!-- =====================================================
+LIFE
+===================================================== -->
+
 <section id="life" class="view">
 
 <div class="grid2">
- <div class="card">
-  <h2>🏆 X7 Life Score</h2>
-  <div class="row">
-   <div class="score" id="lifeScore">0</div>
-   <div><div class="label">This Month</div><div class="small" id="lifeScoreText"></div></div>
-  </div>
- </div>
- <div class="card">
-  <h2>📅 Monthly Missions</h2>
-  <div id="monthlyMissions"></div>
- </div>
+
+<div class="card">
+
+<h2>🏆 X7 Life Score</h2>
+
+<div class="row">
+
+<div class="score-ring"
+id="lifeScore">
+0
 </div>
+
+<div>
+<div class="label">This Month</div>
+<div class="small" id="lifeScoreText"></div>
+</div>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h2>🎯 Add Life Goal</h2>
+
+<div class="form">
+
+<input id="lifeGoalName"
+placeholder="e.g. Join gym, read a book">
+
+<select id="lifeGoalType">
+<option value="life">Life Goal</option>
+<option value="experience">Experience</option>
+<option value="health">Health</option>
+<option value="learning">Learning</option>
+</select>
+
+<input id="lifeGoalDeadline"
+type="date">
+
+<button class="btn primary"
+onclick="createLifeGoal()">
+Add Life Goal
+</button>
+
+</div>
+
+</div>
+
+</div>
+
 
 <div class="grid2 section">
- <div class="card">
-  <h2>🎯 Add Life Goal</h2>
-  <div class="form">
-   <input id="lifeGoalName" placeholder="e.g. Join gym, learn Python">
-   <select id="lifeGoalType">
-    <option value="life">Life Goal</option><option value="experience">Experience</option>
-    <option value="health">Health</option><option value="learning">Learning</option>
-   </select>
-   <input id="lifeGoalDeadline" type="date">
-   <button class="btn primary" onclick="createLifeGoal()">Add Life Goal</button>
-  </div>
- </div>
 
- <div class="card">
-  <h2>🏋️ Add Habit / Gym</h2>
-  <div class="form">
-   <input id="habitName" placeholder="e.g. Gym">
-   <input id="habitTarget" type="number" min="1" placeholder="Monthly target e.g. 12">
-   <button class="btn primary" onclick="createHabit()">Add Habit</button>
-  </div>
- </div>
+<div class="card">
+
+<h2>🔥 Add Habit</h2>
+
+<div class="form">
+
+<input id="habitName"
+placeholder="e.g. Gym">
+
+<input id="habitTarget"
+type="number"
+min="1"
+placeholder="Monthly target">
+
+<button class="btn primary"
+onclick="createHabit()">
+Add Habit
+</button>
+
 </div>
 
-<div class="card section"><h2>🌱 My Life Goals</h2><div id="lifeGoalsContainer"></div></div>
-<div class="card section"><h2>🔥 Habits & Streaks</h2><div id="habitsContainer"></div></div>
-<div class="card section"><h2>🧠 X7 Insights</h2><div id="x7Insights"></div></div>
+</div>
+
+
+<div class="card">
+
+<h2>🔥 Habits</h2>
+
+<div id="habitsContainer"></div>
+
+</div>
+
+</div>
+
+
+<div class="card section">
+
+<h2>🌱 Life Goals</h2>
+<div id="lifeGoalsContainer"></div>
+
+</div>
 
 </section>
 
-<!-- WISHLIST -->
+
+<!-- =====================================================
+WISHLIST
+===================================================== -->
+
 <section id="wishlist" class="view">
 
 <div class="card">
- <h2>🛒 Major Purchase Planner</h2>
- <div class="form">
-  <input id="wishName" placeholder="e.g. iPhone 17">
-  <input id="wishPrice" type="number" placeholder="Price ₹">
-  <input id="wishDeadline" type="date">
-  <button class="btn primary" onclick="createWishlistItem()">Add Purchase</button>
- </div>
+
+<h2>🛒 I Want This</h2>
+
+<div class="form">
+
+<input id="wishName"
+placeholder="What do you want?">
+
+<input id="wishPrice"
+type="number"
+placeholder="Price ₹">
+
+<input id="wishDeadline"
+type="date">
+
+<button class="btn primary"
+onclick="createWishlistItem()">
+Add to Wishlist
+</button>
+
+</div>
 </div>
 
 <div class="card section">
- <h2>My Wishlist</h2>
- <div id="wishlistContainer"></div>
+
+<h2>My Wishlist</h2>
+
+<div id="wishlistContainer"></div>
+
 </div>
 
 </section>
 
-<!-- BUCKET -->
+
+<!-- =====================================================
+BUCKET LIST
+===================================================== -->
+
 <section id="bucket" class="view">
 
 <div class="card">
- <h2>🗺️ Bucket List</h2>
- <div class="form">
-  <input id="bucketName" placeholder="e.g. Goa, sunrise, travel alone">
-  <button class="btn primary" onclick="createBucketItem()">Add</button>
- </div>
+
+<h2>🪣 Add Bucket List Item</h2>
+
+<div class="form">
+
+<input id="bucketName"
+placeholder="e.g. Go to Goa">
+
+<select id="bucketType">
+<option value="experience">✈️ Experience</option>
+<option value="thing">🛍️ Thing</option>
+<option value="personal">🏆 Personal</option>
+</select>
+
+<input id="bucketTarget"
+type="number"
+placeholder="Target amount ₹ (optional)">
+
+<input id="bucketDeadline"
+type="date">
+
+<textarea id="bucketSteps"
+placeholder="Steps, one per line..."></textarea>
+
+<button class="btn primary"
+onclick="createBucketItem()">
+Add to Bucket List
+</button>
+
+</div>
 </div>
 
+
 <div class="card section">
- <div class="row"><h2>Things I Want To Experience</h2><span class="badge" id="bucketProgress">0 / 0</span></div>
- <div id="bucketContainer"></div>
+
+<div class="row">
+<h2>Things I Want To Experience</h2>
+<span class="badge" id="bucketProgress">0 / 0</span>
+</div>
+
+<div id="bucketContainer"></div>
+
 </div>
 
 </section>
 
-<!-- HISTORY -->
+
+<!-- =====================================================
+GROW
+===================================================== -->
+
+<section id="grow" class="view">
+
+<div class="grid2">
+
+<div class="card">
+
+<h2>🧠 Learn Something</h2>
+<div id="growLesson"></div>
+
+</div>
+
+<div class="card">
+
+<h2>🔥 Learning Streak</h2>
+
+<div class="big" id="learningStreak">
+0 days
+</div>
+
+<button class="btn primary"
+onclick="completeLearning()">
+I Learned Today
+</button>
+
+</div>
+
+</div>
+
+
+<div class="card section">
+
+<h2>💰 Money Health</h2>
+
+<div class="big" id="moneyHealth">
+0 / 100
+</div>
+
+<div class="progress">
+<span id="healthProgress"></span>
+</div>
+
+<div class="small" id="healthExplanation"></div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+HISTORY
+===================================================== -->
+
 <section id="history" class="view">
 
 <div class="card">
- <div class="row">
-  <h2>📚 Monthly History</h2>
-  <select id="historyMonth" onchange="renderHistory()" style="max-width:220px"></select>
- </div>
- <div id="historyStats"></div>
- <div id="historyComparison" class="section"></div>
- <div id="historyCategories" class="section"></div>
- <div id="historyTransactions" class="section"></div>
+
+<div class="row">
+
+<h2>📚 Monthly History</h2>
+
+<select id="historyMonth"
+onchange="renderHistory()"
+style="max-width:220px">
+</select>
+
 </div>
 
-<div class="card section">
- <h2>📊 Net Worth History</h2>
- <div id="netWorthHistory"></div>
+<div id="historyStats"></div>
+
+<div class="section" id="historyComparison"></div>
+
+<div class="section" id="historyCategories"></div>
+
+<div class="section" id="historyTransactions"></div>
+
 </div>
 
 </section>
 
 </div>
 
+
+<!-- FLOATING ACTIONS -->
+
+<button class="what-now"
+onclick="openWhatNow()">
+🧭 WHAT NOW?
+</button>
+
+<button class="fab"
+onclick="openQuickAdd()">
++
+</button>
+
+
+<!-- =====================================================
+QUICK ADD MODAL
+===================================================== -->
+
+<div class="modal" id="quickModal">
+
+<div class="modal-box">
+
+<div class="row">
+<h2>➕ Quick Add</h2>
+<button class="btn"
+onclick="closeModal('quickModal')">
+✕
+</button>
+</div>
+
+<div class="type-grid section">
+
+<div class="type-option"
+onclick="openQuickAdd('expense')">
+💸 Expense
+</div>
+
+<div class="type-option"
+onclick="openQuickAdd('income')">
+💰 Income
+</div>
+
+<div class="type-option"
+onclick="openQuickAdd('goal')">
+🎯 Goal
+</div>
+
+<div class="type-option"
+onclick="openQuickAdd('task')">
+✅ Task
+</div>
+
+<div class="type-option"
+onclick="openQuickAdd('note')">
+📝 Note
+</div>
+
+<div class="type-option"
+onclick="openQuickAdd('bucket')">
+🪣 Bucket
+</div>
+
+<div class="type-option"
+onclick="openQuickAdd('project')">
+📂 Project
+</div>
+
+<div class="type-option"
+onclick="openQuickAdd('deadline')">
+📅 Deadline
+</div>
+
+</div>
+
+</div>
+</div>
+
+
+<!-- =====================================================
+WHAT NOW MODAL
+===================================================== -->
+
+<div class="modal" id="whatNowModal">
+
+<div class="modal-box">
+
+<div class="row">
+
+<h2>🧭 What Should I Do Now?</h2>
+
+<button class="btn"
+onclick="closeModal('whatNowModal')">
+✕
+</button>
+
+</div>
+
+<div id="whatNowContent"></div>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+TOAST
+===================================================== -->
+
 <div class="toast" id="toast"></div>
 
-<script>
-const STORAGE_KEY="X7_MONEY_APP_V8";
 
-let data=JSON.parse(localStorage.getItem(STORAGE_KEY));
+<script>
+
+/* =========================================================
+X7 DATA
+========================================================= */
+
+const STORAGE_KEY="X7_MONEY_APP_V7";
+
+let data;
+
+try{
+    data=JSON.parse(localStorage.getItem(STORAGE_KEY));
+}catch(e){
+    data=null;
+}
 
 if(!data){
- data={
-  transactions:[],goals:[],debts:[],investments:[],
-  learning:{lastDate:null,streak:0},
-  settings:{dailyBudget:500},
-  lifeGoals:[],habits:[],wishlist:[],bucketList:[],
-  netWorthSnapshots:{},xp:0
- };
+
+    data={
+        transactions:[],
+        goals:[],
+        debts:[],
+        investments:[],
+        learning:{
+            lastDate:null,
+            streak:0
+        },
+        settings:{
+            dailyBudget:500
+        },
+        lifeGoals:[],
+        habits:[],
+        wishlist:[],
+        bucketList:[],
+        monthlyMissions:{},
+        projects:[],
+        tasks:[],
+        notes:[],
+        deadlines:[]
+    };
 }
 
-function ensure(){
- data.transactions??=[];
- data.goals??=[];
- data.debts??=[];
- data.investments??=[];
- data.lifeGoals??=[];
- data.habits??=[];
- data.wishlist??=[];
- data.bucketList??=[];
- data.netWorthSnapshots??={};
- data.learning??={lastDate:null,streak:0};
- data.settings??={dailyBudget:500};
- data.xp??=0;
+function ensureX7Data(){
+
+    if(!Array.isArray(data.transactions))
+        data.transactions=[];
+
+    if(!Array.isArray(data.goals))
+        data.goals=[];
+
+    if(!Array.isArray(data.debts))
+        data.debts=[];
+
+    if(!Array.isArray(data.investments))
+        data.investments=[];
+
+    if(!data.learning)
+        data.learning={lastDate:null,streak:0};
+
+    if(!data.settings)
+        data.settings={dailyBudget:500};
+
+    if(!data.settings.dailyBudget)
+        data.settings.dailyBudget=500;
+
+    if(!Array.isArray(data.lifeGoals))
+        data.lifeGoals=[];
+
+    if(!Array.isArray(data.habits))
+        data.habits=[];
+
+    if(!Array.isArray(data.wishlist))
+        data.wishlist=[];
+
+    if(!Array.isArray(data.bucketList))
+        data.bucketList=[];
+
+    if(!data.monthlyMissions)
+        data.monthlyMissions={};
+
+    if(!Array.isArray(data.projects))
+        data.projects=[];
+
+    if(!Array.isArray(data.tasks))
+        data.tasks=[];
+
+    if(!Array.isArray(data.notes))
+        data.notes=[];
+
+    if(!Array.isArray(data.deadlines))
+        data.deadlines=[];
+
 }
-ensure();
+
+ensureX7Data();
+
 
 function save(){
- ensure();
- localStorage.setItem(STORAGE_KEY,JSON.stringify(data));
- renderAll();
+
+    ensureX7Data();
+
+    localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(data)
+    );
+
+    renderAll();
 }
 
-function money(n){
- return "₹"+Math.round(Number(n)||0).toLocaleString("en-IN");
+
+function money(amount){
+
+    return "₹"+
+        Math.round(Number(amount)||0)
+        .toLocaleString("en-IN");
+
 }
+
 
 function monthKey(date){
- const d=new Date(date);
- return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0");
+
+    const d=new Date(date);
+
+    return d.getFullYear()+"-"+
+        String(d.getMonth()+1).padStart(2,"0");
+
 }
+
+
+function todayKey(){
+
+    const d=new Date();
+
+    return d.getFullYear()+"-"+
+        String(d.getMonth()+1).padStart(2,"0")+"-"+
+        String(d.getDate()).padStart(2,"0");
+
+}
+
 
 function monthName(key){
- const [y,m]=key.split("-").map(Number);
- return new Date(y,m-1,1).toLocaleDateString("en-IN",{month:"long",year:"numeric"});
+
+    const parts=key.split("-").map(Number);
+
+    return new Date(
+        parts[0],
+        parts[1]-1,
+        1
+    ).toLocaleDateString(
+        "en-IN",
+        {
+            month:"long",
+            year:"numeric"
+        }
+    );
+
 }
 
-function today(){
- return new Date().toISOString().slice(0,10);
+
+function daysUntil(date){
+
+    if(!date)
+        return 9999;
+
+    const target=new Date(date+"T23:59:59");
+    const now=new Date();
+
+    return Math.ceil(
+        (target-now)/86400000
+    );
+
 }
 
-function showToast(msg){
- const t=document.getElementById("toast");
- t.textContent=msg;t.classList.add("show");
- setTimeout(()=>t.classList.remove("show"),1800);
+
+function escapeHTML(value){
+
+    return String(value??"")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
 }
 
-function showView(id,btn){
- document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));
- document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));
- document.getElementById(id).classList.add("active");
- btn.classList.add("active");
- if(id==="history"){populateHistoryMonths();renderHistory();}
+
+function showToast(message){
+
+    const el=document.getElementById("toast");
+
+    el.textContent=message;
+    el.classList.add("show");
+
+    setTimeout(
+        ()=>el.classList.remove("show"),
+        1800
+    );
+
 }
 
-/* ================= TRANSACTIONS ================= */
+
+/* =========================================================
+NAV
+========================================================= */
+
+function showView(id,button){
+
+    document.querySelectorAll(".view")
+        .forEach(v=>v.classList.remove("active"));
+
+    document.querySelectorAll(".nav button")
+        .forEach(b=>b.classList.remove("active"));
+
+    document.getElementById(id)
+        .classList.add("active");
+
+    if(button)
+        button.classList.add("active");
+
+    if(id==="tasks")
+        populateProjectSelects();
+
+    if(id==="notes")
+        populateProjectSelects();
+
+    if(id==="history"){
+        populateHistoryMonths();
+        renderHistory();
+    }
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+}
+
+
+/* =========================================================
+TRANSACTIONS
+========================================================= */
 
 function addTransaction(){
- const type=document.getElementById("transactionType").value;
- const amount=Number(document.getElementById("transactionAmount").value);
- const note=document.getElementById("transactionNote").value.trim();
- const category=document.getElementById("transactionCategory").value;
 
- if(!amount||amount<=0)return showToast("Enter a valid amount");
+    const type=document.getElementById(
+        "transactionType"
+    ).value;
 
- data.transactions.push({
-  id:Date.now(),type,amount,
-  note:note||category,category,
-  date:new Date().toISOString()
- });
+    const amount=Number(
+        document.getElementById(
+            "transactionAmount"
+        ).value
+    );
 
- if(type==="income") addXP(10);
- else addXP(2);
+    const note=document.getElementById(
+        "transactionNote"
+    ).value.trim();
 
- document.getElementById("transactionAmount").value="";
- document.getElementById("transactionNote").value="";
- save();showToast("Transaction added");
-}
+    const category=document.getElementById(
+        "transactionCategory"
+    ).value;
 
-/* CSV IMPORT */
-function importIncome(e){
- const file=e.target.files[0];
- if(!file)return;
+    if(!amount || amount<=0){
+        showToast("Enter a valid amount");
+        return;
+    }
 
- const reader=new FileReader();
-
- reader.onload=()=>{
-  const lines=reader.result.split(/\r?\n/);
-  let count=0;
-
-  lines.forEach((line,i)=>{
-   if(i===0)return;
-
-   const parts=line.split(",");
-   const amount=Number((parts[1]||"").replace(/[₹,\s]/g,""));
-
-   if(amount>0){
     data.transactions.push({
-     id:Date.now()+i,
-     type:"income",
-     amount,
-     note:parts[0]||"Imported income",
-     category:"Other",
-     date:new Date().toISOString()
+
+        id:Date.now(),
+
+        type,
+
+        amount,
+
+        note:note||category,
+
+        category,
+
+        date:new Date().toISOString()
+
     });
-    count++;
-   }
-  });
 
-  if(count){
-   addXP(count*5);
-   save();
-   showToast(count+" income records imported");
-  }else showToast("No valid income rows found");
- };
+    document.getElementById(
+        "transactionAmount"
+    ).value="";
 
- reader.readAsText(file);
+    document.getElementById(
+        "transactionNote"
+    ).value="";
+
+    save();
+
+    showToast(
+        type==="income"
+        ?"Income added"
+        :"Expense added"
+    );
+
 }
 
-/* ================= TOTALS ================= */
 
 function getMonthTotals(key){
- const tx=data.transactions.filter(t=>monthKey(t.date)===key);
 
- const income=tx.filter(t=>t.type==="income").reduce((a,t)=>a+t.amount,0);
- const expenses=tx.filter(t=>t.type==="expense").reduce((a,t)=>a+t.amount,0);
+    const transactions=data.transactions.filter(
+        t=>monthKey(t.date)===key
+    );
 
- const cat=c=>tx.filter(t=>t.type==="expense"&&t.category===c)
-  .reduce((a,t)=>a+t.amount,0);
+    const income=transactions
+        .filter(t=>t.type==="income")
+        .reduce((s,t)=>s+Number(t.amount),0);
 
- return {
-  transactions:tx,income,expenses,net:income-expenses,
-  food:cat("Food"),transport:cat("Transport"),cigarettes:cat("Cigarettes"),
-  shopping:cat("Shopping"),bills:cat("Bills"),education:cat("Education"),
-  entertainment:cat("Entertainment"),investment:cat("Investment"),
-  debt:cat("Debt")
- };
+    const expenses=transactions
+        .filter(t=>t.type==="expense")
+        .reduce((s,t)=>s+Number(t.amount),0);
+
+    function categoryTotal(category){
+
+        return transactions
+            .filter(
+                t=>
+                    t.type==="expense" &&
+                    t.category===category
+            )
+            .reduce(
+                (s,t)=>s+Number(t.amount),
+                0
+            );
+
+    }
+
+    return{
+
+        transactions,
+
+        income,
+
+        expenses,
+
+        net:income-expenses,
+
+        food:categoryTotal("Food"),
+
+        transport:categoryTotal("Transport"),
+
+        cigarettes:categoryTotal("Cigarettes"),
+
+        shopping:categoryTotal("Shopping"),
+
+        bills:categoryTotal("Bills"),
+
+        education:categoryTotal("Education"),
+
+        investment:categoryTotal("Investment"),
+
+        debt:categoryTotal("Debt")
+
+    };
+
 }
 
-/* ================= HOME ================= */
 
-const quotes=[
-"Good morning, X7. Small moves become big results.",
-"You don't need to be perfect. You need to be consistent.",
-"Protect your money before trying to multiply it.",
-"Discipline beats motivation when motivation disappears.",
-"Make today's version of you useful to tomorrow's version.",
-"Learn one thing. Save one thing. Improve one thing.",
-"Your future is being built by what you repeatedly do today."
-];
-
-const lessons=[
-"Compound interest means your returns can generate returns.",
-"A budget is simply a plan for where your money should go.",
-"Track recurring expenses first. They quietly consume cash flow.",
-"Emergency savings reduce the need to borrow.",
-"Before investing, understand risk, liquidity, fees and time horizon.",
-"A good financial goal has a target, deadline and contribution plan.",
-"Income matters, but controlling spending creates wealth."
-];
-
-const wisdom=[
-"Your future is built from ordinary days.",
-"Consistency is a financial advantage.",
-"Spend intentionally, not automatically.",
-"If you cannot measure it, you cannot improve it.",
-"Knowledge compounds too.",
-"Make the boring decision future-you will thank you for."
-];
-
-function netWorth(){
- const cash=data.transactions.reduce((a,t)=>a+(t.type==="income"?t.amount:-t.amount),0);
- const invested=data.investments.reduce((a,i)=>a+i.amount,0);
- const debt=data.debts.reduce((a,d)=>a+Math.max(0,d.total-d.paid),0);
- return cash+invested-debt;
-}
-
-function totalDebt(){
- return data.debts.reduce((a,d)=>a+Math.max(0,d.total-d.paid),0);
-}
-
-function smartBudget(){
- const now=new Date();
- const days=new Date(now.getFullYear(),now.getMonth()+1,0).getDate();
- const remainingDays=Math.max(1,days-now.getDate()+1);
-
- const t=getMonthTotals(monthKey(now));
- const remainingCash=t.net;
- const goalNeed=data.goals.reduce((sum,g)=>{
-  if(!g.deadline||g.saved>=g.target)return sum;
-  const left=g.target-g.saved;
-  const daysLeft=Math.max(1,Math.ceil((new Date(g.deadline)-now)/86400000));
-  return sum+left/daysLeft;
- },0);
-
- const debtNeed=data.debts.reduce((sum,d)=>{
-  const left=Math.max(0,d.total-d.paid);
-  return sum+left/Math.max(remainingDays,30);
- },0);
-
- return Math.max(0,Math.floor((remainingCash-goalNeed-debtNeed)/remainingDays));
-}
-
-function renderHome(){
- const t=getMonthTotals(monthKey(new Date()));
- const invested=data.investments.reduce((a,i)=>a+i.amount,0);
-
- document.getElementById("homeBalance").textContent=money(t.net);
- document.getElementById("homeIncome").textContent=money(t.income);
- document.getElementById("homeExpenses").textContent=money(t.expenses);
- document.getElementById("homeInvested").textContent=money(invested);
- document.getElementById("homeDebt").textContent=money(totalDebt());
- document.getElementById("homeNetWorth").textContent=money(netWorth());
-
- const lvl=levelInfo();
- document.getElementById("homeLevel").textContent="Lv "+lvl.level;
- document.getElementById("homeLifeScore").textContent=lifeScore();
-
- const spentToday=data.transactions
-  .filter(t=>t.type==="expense"&&t.date.slice(0,10)===today())
-  .reduce((a,t)=>a+t.amount,0);
-
- const budget=smartBudget();
-
- document.getElementById("smartDailyBudget").textContent=money(budget);
- document.getElementById("todaySpent").textContent=money(spentToday);
- document.getElementById("safeRemaining").textContent=money(Math.max(0,budget-spentToday));
-
- const pct=budget?Math.min(100,spentToday/budget*100):0;
- document.getElementById("budgetProgress").style.width=pct+"%";
-
- document.getElementById("budgetExplanation").textContent=
-  "Calculated from available monthly cash, goals, debt pressure and remaining days.";
-
- const goal=data.goals.find(g=>g.main);
- document.getElementById("homeGoal").innerHTML=goal?goalHTML(goal,true):
-  '<div class="empty">No Main Goal selected.<br>Create one in Goals.</div>';
-
- const cig=data.transactions.filter(t=>t.category==="Cigarettes"&&t.date.slice(0,10)===today()).length;
- document.getElementById("cigaretteToday").textContent=
-  `Today: ${cig} cigarette${cig===1?"":"s"} • ${money(cig*14)}`;
-
- document.getElementById("dailyKnowledge").textContent=lessons[new Date().getDate()%lessons.length];
- document.getElementById("dailyWisdom").textContent=wisdom[new Date().getDate()%wisdom.length];
-
- renderAlerts();
- renderHomeInsight();
-}
-
-function renderAlerts(){
- const t=getMonthTotals(monthKey(new Date()));
- const alerts=[];
-
- if(t.income>0&&t.expenses>t.income)
-  alerts.push("⚠️ You are spending more than your income this month.");
-
- if(t.income>0&&t.expenses/t.income>.8)
-  alerts.push("⚠️ More than 80% of this month's income has been spent.");
-
- if(totalDebt()>0)
-  alerts.push("💳 Outstanding debt: "+money(totalDebt()));
-
- data.goals.forEach(g=>{
-  if(g.deadline&&g.saved<g.target){
-   const days=Math.ceil((new Date(g.deadline)-new Date())/86400000);
-   if(days>=0&&days<=14)
-    alerts.push(`🎯 ${g.name} deadline is in ${days} day${days===1?"":"s"}.`);
-  }
- });
-
- if(t.cigarettes>=14*10)
-  alerts.push("🚬 Cigarette spending is getting high this month.");
-
- document.getElementById("financialAlerts").innerHTML=alerts.length?
-  alerts.map(x=>`<div class="alert">${x}</div>`).join(""):
-  '<div class="success">✓ No major financial alerts right now.</div>';
-}
-
-function renderHomeInsight(){
- const t=getMonthTotals(monthKey(new Date()));
- let msg;
-
- if(!t.income)msg="Start recording your income and X7 will begin learning your financial patterns.";
- else if(t.net<0)msg="Your spending is currently above your income. Focus on protecting cash flow first.";
- else if(t.investment>0)msg=`You have invested ${money(t.investment)} this month. Keep contributions consistent.`;
- else msg=`You currently have ${money(t.net)} monthly surplus. Consider assigning part of it to a goal or investment.`;
-
- document.getElementById("homeInsight").textContent=msg;
-}
-
-function logCigarette(brand){
- data.transactions.push({
-  id:Date.now(),type:"expense",amount:14,
-  note:brand+" cigarette",category:"Cigarettes",
-  date:new Date().toISOString()
- });
- addXP(1);save();showToast(brand+" recorded");
-}
-
-/* ================= MONEY ================= */
+/* =========================================================
+MONEY RENDER
+========================================================= */
 
 function renderMoney(){
- const key=monthKey(new Date());
- const t=getMonthTotals(key);
 
- document.getElementById("moneyCurrentMonth").textContent=monthName(key);
- const box=document.getElementById("moneyTransactions");
+    const key=monthKey(new Date());
 
- if(!t.transactions.length){
-  box.innerHTML='<div class="empty">No transactions this month.</div>';
- }else{
-  box.innerHTML=`
-  <div class="small section">
-   Income: <strong class="good">${money(t.income)}</strong>
-   &nbsp; • &nbsp; Expenses: <strong class="bad">${money(t.expenses)}</strong>
-  </div>
-  <div class="table-wrap section"><table>
-  <thead><tr><th>Date</th><th>Type</th><th>Category</th><th>Description</th><th>Amount</th></tr></thead>
-  <tbody>
-  ${t.transactions.slice().reverse().map(x=>`
-   <tr>
-    <td>${new Date(x.date).toLocaleDateString("en-IN",{day:"2-digit",month:"short"})}</td>
-    <td>${x.type}</td><td>${x.category}</td><td>${x.note}</td>
-    <td class="${x.type==="income"?"good":"bad"}">${x.type==="income"?"+":"-"}${money(x.amount)}</td>
-   </tr>`).join("")}
-  </tbody></table></div>`;
- }
+    const totals=getMonthTotals(key);
 
- renderAnalytics();
- renderTrend();
+    document.getElementById(
+        "moneyCurrentMonth"
+    ).textContent=monthName(key);
+
+    const container=document.getElementById(
+        "moneyTransactions"
+    );
+
+    if(!totals.transactions.length){
+
+        container.innerHTML=
+            `<div class="empty">
+                No transactions this month.
+            </div>`;
+
+        return;
+
+    }
+
+    container.innerHTML=`
+
+        <div class="small section">
+            Income:
+            <strong class="good">${money(totals.income)}</strong>
+            &nbsp; • &nbsp;
+            Expenses:
+            <strong class="bad">${money(totals.expenses)}</strong>
+        </div>
+
+        <div class="table-wrap section">
+
+        <table>
+
+        <thead>
+        <tr>
+            <th>Date</th>
+            <th>Type</th>
+            <th>Category</th>
+            <th>Description</th>
+            <th>Amount</th>
+        </tr>
+        </thead>
+
+        <tbody>
+
+        ${totals.transactions
+            .slice()
+            .reverse()
+            .map(t=>`
+
+            <tr>
+
+                <td>
+                ${new Date(t.date)
+                    .toLocaleDateString(
+                        "en-IN",
+                        {
+                            day:"2-digit",
+                            month:"short"
+                        }
+                    )}
+                </td>
+
+                <td>${escapeHTML(t.type)}</td>
+
+                <td>${escapeHTML(t.category)}</td>
+
+                <td>${escapeHTML(t.note)}</td>
+
+                <td class="${
+                    t.type==="income"
+                    ?"good"
+                    :"bad"
+                }">
+
+                ${t.type==="income"?"+":"-"}
+                ${money(t.amount)}
+
+                </td>
+
+            </tr>
+
+        `).join("")}
+
+        </tbody>
+        </table>
+        </div>
+
+    `;
+
 }
 
-function renderAnalytics(){
- const t=getMonthTotals(monthKey(new Date()));
- const cats=[
-  ["Food",t.food],["Transport",t.transport],["Cigarettes",t.cigarettes],
-  ["Shopping",t.shopping],["Bills",t.bills],["Education",t.education],
-  ["Entertainment",t.entertainment],["Investment",t.investment],["Debt",t.debt]
- ].filter(x=>x[1]>0);
 
- if(!cats.length){
-  document.getElementById("analytics").innerHTML='<div class="empty">Add expenses to see analytics.</div>';
-  return;
- }
+/* =========================================================
+GPay IMPORT
+========================================================= */
 
- const total=cats.reduce((a,x)=>a+x[1],0);
+let gpayPreview=[];
 
- document.getElementById("analytics").innerHTML=cats.map(x=>{
-  const p=x[1]/total*100;
-  return `<div class="section">
-   <div class="row"><span>${x[0]}</span><strong>${money(x[1])}</strong></div>
-   <div class="progress"><span style="width:${p}%"></span></div>
-   <div class="small">${p.toFixed(1)}%</div>
-  </div>`;
- }).join("");
+
+function parseMoneyValue(text){
+
+    if(!text)
+        return 0;
+
+    let clean=String(text)
+        .replace(/₹/g,"")
+        .replace(/INR/gi,"")
+        .replace(/,/g,"")
+        .replace(/\s/g,"");
+
+    clean=clean.replace(/[^\d.-]/g,"");
+
+    return Number(clean)||0;
+
 }
 
-function renderTrend(){
- const canvas=document.getElementById("trendCanvas");
- if(!canvas)return;
- const ctx=canvas.getContext("2d");
- const w=canvas.width=canvas.clientWidth*2;
- const h=canvas.height=220*2;
- ctx.clearRect(0,0,w,h);
 
- const months=[];
- for(let i=5;i>=0;i--){
-  const d=new Date();
-  d.setMonth(d.getMonth()-i);
-  months.push(monthKey(d));
- }
+function guessCategory(description){
 
- const vals=months.map(m=>getMonthTotals(m).net);
- const max=Math.max(...vals,1);
- const min=Math.min(...vals,0);
+    const d=description.toLowerCase();
 
- ctx.strokeStyle="#555";
- ctx.lineWidth=2;
- ctx.beginPath();ctx.moveTo(20,h/2);ctx.lineTo(w-20,h/2);ctx.stroke();
+    if(/swiggy|zomato|food|restaurant|hotel|domino|pizza|blinkit|zepto|instamart/.test(d))
+        return "Food";
 
- ctx.strokeStyle="#fff";
- ctx.lineWidth=5;
- ctx.beginPath();
+    if(/uber|ola|rapido|metro|bus|fuel|petrol|parking|transport/.test(d))
+        return "Transport";
 
- vals.forEach((v,i)=>{
-  const x=30+i*(w-60)/(vals.length-1);
-  const y=h-30-((v-min)/(max-min||1))*(h-60);
-  if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
- });
+    if(/marlboro|cigarette|smoking|tobacco/.test(d))
+        return "Cigarettes";
 
- ctx.stroke();
+    if(/amazon|flipkart|myntra|ajio|shopping/.test(d))
+        return "Shopping";
+
+    if(/electricity|bill|recharge|airtel|jio|vi |vodafone/.test(d))
+        return "Bills";
+
+    if(/college|school|course|udemy|education/.test(d))
+        return "Education";
+
+    return "Other";
+
 }
 
-/* ================= GOALS ================= */
+
+function parseDateFromText(text){
+
+    const match=text.match(
+        /\b(\d{1,2})[\/\-](\d{1,2})(?:[\/\-](\d{2,4}))?\b/
+    );
+
+    if(!match)
+        return new Date().toISOString();
+
+    let day=Number(match[1]);
+    let month=Number(match[2]);
+    let year=match[3]
+        ?Number(match[3])
+        :new Date().getFullYear();
+
+    if(year<100)
+        year+=2000;
+
+    return new Date(
+        year,
+        month-1,
+        day,
+        12
+    ).toISOString();
+
+}
+
+
+function analyzeGPay(){
+
+    const raw=document.getElementById(
+        "gpayStatement"
+    ).value.trim();
+
+    const preview=document.getElementById(
+        "gpayPreview"
+    );
+
+    if(!raw){
+
+        showToast("Paste your statement first");
+
+        return;
+
+    }
+
+    const lines=raw
+        .split(/\r?\n/)
+        .map(x=>x.trim())
+        .filter(Boolean);
+
+    const parsed=[];
+
+    for(const line of lines){
+
+        const amountMatches=[
+            ...line.matchAll(
+                /(?:₹|INR)?\s*([\d,]+(?:\.\d{1,2})?)/gi
+            )
+        ];
+
+        if(!amountMatches.length)
+            continue;
+
+        const last=amountMatches[
+            amountMatches.length-1
+        ];
+
+        const amount=parseMoneyValue(
+            last[1]
+        );
+
+        if(!amount)
+            continue;
+
+        const before=line.slice(
+            0,
+            last.index
+        ).trim();
+
+        const after=line.slice(
+            last.index+
+            last[0].length
+        ).trim();
+
+        let description=(
+            before+" "+after
+        )
+        .replace(
+            /\b(debit|credited|credit|paid|sent|received|upi|transaction)\b/gi,
+            ""
+        )
+        .replace(/\s+/g," ")
+        .trim();
+
+        if(description.length<2)
+            description="GPay transaction";
+
+        const isCredit=
+            /\b(credit|credited|received|salary|refund|cashback|deposit)\b/i
+            .test(line);
+
+        const date=parseDateFromText(line);
+
+        parsed.push({
+
+            id:Date.now()+parsed.length,
+
+            type:isCredit
+                ?"income"
+                :"expense",
+
+            amount,
+
+            note:description,
+
+            category:isCredit
+                ?"Other"
+                :guessCategory(description),
+
+            date
+
+        });
+
+    }
+
+    const unique=[];
+
+    parsed.forEach(item=>{
+
+        const duplicate=unique.some(
+            x=>
+                x.amount===item.amount &&
+                x.note===item.note &&
+                x.date.slice(0,10)===item.date.slice(0,10)
+        );
+
+        if(!duplicate)
+            unique.push(item);
+
+    });
+
+    gpayPreview=unique;
+
+    if(!gpayPreview.length){
+
+        preview.innerHTML=`
+            <div class="result-box section bad">
+                X7 couldn't confidently detect transactions
+                from this pasted format.
+                <br><br>
+                Try copying the transaction rows directly
+                from your GPay statement.
+            </div>
+        `;
+
+        return;
+
+    }
+
+    preview.innerHTML=`
+
+        <div class="result-box section">
+
+        <div class="row">
+            <strong>
+                ${gpayPreview.length} transactions detected
+            </strong>
+
+            <span class="badge">
+                REVIEW BEFORE IMPORT
+            </span>
+        </div>
+
+        <div class="table-wrap section">
+
+        <table>
+
+        <thead>
+        <tr>
+            <th>Date</th>
+            <th>Description</th>
+            <th>Type</th>
+            <th>Category</th>
+            <th>Amount</th>
+        </tr>
+        </thead>
+
+        <tbody>
+
+        ${gpayPreview.map(t=>`
+
+        <tr>
+
+            <td>
+            ${new Date(t.date)
+                .toLocaleDateString(
+                    "en-IN",
+                    {
+                        day:"2-digit",
+                        month:"short"
+                    }
+                )}
+            </td>
+
+            <td>${escapeHTML(t.note)}</td>
+
+            <td>${t.type}</td>
+
+            <td>${t.category}</td>
+
+            <td class="${
+                t.type==="income"
+                ?"good"
+                :"bad"
+            }">
+                ${t.type==="income"?"+":"-"}
+                ${money(t.amount)}
+            </td>
+
+        </tr>
+
+        `).join("")}
+
+        </tbody>
+        </table>
+
+        </div>
+
+        <button class="btn primary section"
+        onclick="importGPayTransactions()">
+            Import ${gpayPreview.length} Transactions
+        </button>
+
+        </div>
+    `;
+
+}
+
+
+function importGPayTransactions(){
+
+    if(!gpayPreview.length)
+        return;
+
+    data.transactions.push(
+        ...gpayPreview
+    );
+
+    const count=gpayPreview.length;
+
+    gpayPreview=[];
+
+    document.getElementById(
+        "gpayPreview"
+    ).innerHTML="";
+
+    document.getElementById(
+        "gpayStatement"
+    ).value="";
+
+    save();
+
+    showToast(
+        `${count} transactions imported`
+    );
+
+}
+
+
+/* =========================================================
+HOME
+========================================================= */
+
+const quotes=[
+
+"Good morning, X7. Small moves become big results.",
+
+"You don't need to be perfect. You need to be consistent.",
+
+"Protect your money before trying to multiply it.",
+
+"Discipline beats motivation when motivation disappears.",
+
+"Make today's version of you useful to tomorrow's version.",
+
+"Learn one thing. Save one thing. Improve one thing.",
+
+"Your future is being built by what you repeatedly do today."
+
+];
+
+
+const lessons=[
+
+"Compound interest means your returns can themselves generate returns.",
+
+"A budget is simply a plan for where your money should go.",
+
+"Track recurring expenses first. They quietly consume cash flow.",
+
+"Emergency savings reduce the need to borrow when something unexpected happens.",
+
+"Before investing, understand risk, liquidity, fees and time horizon.",
+
+"A good financial goal has a target, deadline and contribution plan.",
+
+"Income matters, but controlling the gap between income and spending creates wealth."
+
+];
+
+
+const wisdom=[
+
+"Your future is built from ordinary days.",
+
+"Consistency is a financial advantage.",
+
+"Spend intentionally, not automatically.",
+
+"If you cannot measure it, you cannot improve it.",
+
+"Knowledge compounds too.",
+
+"Make the boring decision that future-you will thank you for."
+
+];
+
+
+function renderHome(){
+
+    const now=new Date();
+
+    let greeting;
+
+    if(now.getHours()<12)
+        greeting="GOOD MORNING, X7";
+    else if(now.getHours()<18)
+        greeting="GOOD AFTERNOON, X7";
+    else
+        greeting="GOOD EVENING, X7";
+
+    document.getElementById(
+        "greeting"
+    ).textContent=greeting;
+
+    document.getElementById(
+        "quote"
+    ).textContent=
+        quotes[
+            now.getDate()%quotes.length
+        ];
+
+    document.getElementById(
+        "currentDate"
+    ).textContent=
+        now.toLocaleDateString(
+            "en-IN",
+            {
+                weekday:"long",
+                day:"numeric",
+                month:"long",
+                year:"numeric"
+            }
+        );
+
+    const totals=getMonthTotals(
+        monthKey(now)
+    );
+
+    document.getElementById(
+        "homeBalance"
+    ).textContent=
+        money(
+            totals.income-
+            totals.expenses
+        );
+
+    const todayExpenses=
+        data.transactions
+        .filter(
+            t=>
+                t.type==="expense" &&
+                t.date.slice(0,10)===todayKey()
+        )
+        .reduce(
+            (s,t)=>s+Number(t.amount),
+            0
+        );
+
+    document.getElementById(
+        "todayExpense"
+    ).textContent=
+        money(todayExpenses);
+
+    const remainingToday=Math.max(
+        0,
+        Number(data.settings.dailyBudget)-
+        todayExpenses
+    );
+
+    document.getElementById(
+        "availableToday"
+    ).textContent=
+        money(remainingToday);
+
+    renderTodayPriority();
+    renderHomeSuggestions();
+    renderHomeGoals();
+    renderHomeDeadlines();
+    renderHomeNotes();
+    renderHomeProjects();
+
+    const cigarettesToday=
+        data.transactions
+        .filter(
+            t=>
+                t.category==="Cigarettes" &&
+                t.date.slice(0,10)===todayKey()
+        ).length;
+
+    document.getElementById(
+        "cigaretteToday"
+    ).textContent=
+        `Today: ${cigarettesToday} cigarette${
+            cigarettesToday===1?"":"s"
+        } • ${money(cigarettesToday*14)}`;
+
+    document.getElementById(
+        "dailyKnowledge"
+    ).textContent=
+        lessons[
+            now.getDate()%lessons.length
+        ];
+
+    document.getElementById(
+        "dailyWisdom"
+    ).textContent=
+        wisdom[
+            now.getDate()%wisdom.length
+        ];
+
+}
+
+
+function getPriorityItem(){
+
+    const now=new Date();
+
+    const urgentTasks=
+        data.tasks
+        .filter(t=>!t.completed)
+        .map(t=>({
+            ...t,
+            score:
+                (t.priority==="high"?50:
+                 t.priority==="medium"?25:10)+
+                (
+                    t.deadline
+                    ?Math.max(
+                        0,
+                        30-daysUntil(t.deadline)
+                    )
+                    :0
+                )
+        }))
+        .sort((a,b)=>b.score-a.score);
+
+    if(urgentTasks.length)
+        return {
+            kind:"task",
+            item:urgentTasks[0]
+        };
+
+    const deadlines=
+        data.deadlines
+        .filter(d=>daysUntil(d.date)>=0)
+        .sort(
+            (a,b)=>
+                daysUntil(a.date)-
+                daysUntil(b.date)
+        );
+
+    if(deadlines.length)
+        return {
+            kind:"deadline",
+            item:deadlines[0]
+        };
+
+    const goals=
+        data.goals
+        .filter(g=>g.saved<g.target);
+
+    if(goals.length)
+        return {
+            kind:"goal",
+            item:goals.find(g=>g.main)||goals[0]
+        };
+
+    const lifeGoal=
+        data.lifeGoals.find(
+            g=>!g.completed
+        );
+
+    if(lifeGoal)
+        return {
+            kind:"life",
+            item:lifeGoal
+        };
+
+    return null;
+
+}
+
+
+function renderTodayPriority(){
+
+    const box=document.getElementById(
+        "todayPriority"
+    );
+
+    const priority=getPriorityItem();
+
+    if(!priority){
+
+        box.innerHTML=`
+            <div class="priority">
+                <strong>You're clear.</strong>
+                <div class="small section">
+                    Add a task, goal, project or deadline
+                    and X7 will start prioritizing your day.
+                </div>
+            </div>
+        `;
+
+        return;
+
+    }
+
+    let title="";
+    let description="";
+    let button="";
+
+    if(priority.kind==="task"){
+
+        const t=priority.item;
+
+        title=t.name;
+
+        description=
+            `${t.priority.toUpperCase()} priority`+
+            (
+                t.deadline
+                ?` • ${daysUntil(t.deadline)} days remaining`
+                :""
+            );
+
+        button=`
+            <button class="btn primary"
+            onclick="completeTask(${t.id})">
+                Complete Task
+            </button>
+        `;
+
+    }
+
+    if(priority.kind==="deadline"){
+
+        const d=priority.item;
+
+        title=d.name;
+
+        description=
+            `${daysUntil(d.date)} days remaining`;
+
+        button=`
+            <button class="btn primary"
+            onclick="showViewById('deadlines')">
+                Review Deadline
+            </button>
+        `;
+
+    }
+
+    if(priority.kind==="goal"){
+
+        const g=priority.item;
+
+        const remaining=
+            Math.max(
+                0,
+                g.target-g.saved
+            );
+
+        title=
+            `Put ${money(
+                recommendedGoalDaily(g)
+            )} toward ${g.name}`;
+
+        description=
+            `${money(remaining)} remaining`;
+
+        button=`
+            <button class="btn primary"
+            onclick="showViewById('goals')">
+                Open Goal
+            </button>
+        `;
+
+    }
+
+    if(priority.kind==="life"){
+
+        title=priority.item.name;
+
+        description="Personal goal waiting for action.";
+
+        button=`
+            <button class="btn primary"
+            onclick="showViewById('life')">
+                Open Life Goals
+            </button>
+        `;
+
+    }
+
+    box.innerHTML=`
+
+        <div class="priority hot">
+
+            <div class="label">DO THIS FIRST</div>
+
+            <h3>${escapeHTML(title)}</h3>
+
+            <div class="small">
+                ${escapeHTML(description)}
+            </div>
+
+            <div class="actions section">
+                ${button}
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+function generateSuggestions(){
+
+    const suggestions=[];
+
+    const totals=getMonthTotals(
+        monthKey(new Date())
+    );
+
+    const todayExpenses=
+        data.transactions
+        .filter(
+            t=>
+                t.type==="expense" &&
+                t.date.slice(0,10)===todayKey()
+        )
+        .reduce(
+            (s,t)=>s+Number(t.amount),
+            0
+        );
+
+    const dailyRemaining=
+        Math.max(
+            0,
+            data.settings.dailyBudget-
+            todayExpenses
+        );
+
+    const urgentTask=data.tasks
+        .filter(t=>!t.completed)
+        .sort(
+            (a,b)=>
+                priorityValue(b.priority)-
+                priorityValue(a.priority)
+        )[0];
+
+    if(urgentTask){
+
+        suggestions.push(
+            `🔥 Finish "${urgentTask.name}".`
+        );
+
+    }
+
+    const goal=data.goals.find(
+        g=>g.main && g.saved<g.target
+    ) || data.goals.find(
+        g=>g.saved<g.target
+    );
+
+    if(goal){
+
+        suggestions.push(
+            `🎯 Put ${money(
+                recommendedGoalDaily(goal)
+            )} toward ${goal.name} today.`
+        );
+
+    }
+
+    if(totals.income>0 &&
+       totals.expenses>totals.income){
+
+        suggestions.push(
+            `⚠️ Your spending is above your income this month. Protect your remaining cash.`
+        );
+
+    }else{
+
+        suggestions.push(
+            `💰 You have ${money(dailyRemaining)} left in today's spending budget.`
+        );
+
+    }
+
+    const deadline=data.deadlines
+        .filter(d=>daysUntil(d.date)>=0)
+        .sort(
+            (a,b)=>
+                daysUntil(a.date)-
+                daysUntil(b.date)
+        )[0];
+
+    if(deadline){
+
+        const days=daysUntil(deadline.date);
+
+        if(days<=7){
+
+            suggestions.push(
+                `📅 ${deadline.name} is due in ${days} day${days===1?"":"s"}.`
+            );
+
+        }
+
+    }
+
+    const project=data.projects
+        .find(
+            p=>
+                !p.completed &&
+                p.deadline &&
+                daysUntil(p.deadline)<=14
+        );
+
+    if(project){
+
+        suggestions.push(
+            `📂 Spend 30 minutes on ${project.name}.`
+        );
+
+    }
+
+    if(data.habits.length){
+
+        const habit=data.habits
+            .slice()
+            .sort(
+                (a,b)=>
+                    habitStreak(b)-
+                    habitStreak(a)
+            )[0];
+
+        if(habit){
+
+            suggestions.push(
+                `🔥 Keep your ${habit.name} streak alive today.`
+            );
+
+        }
+
+    }
+
+    return suggestions.slice(0,5);
+
+}
+
+
+function renderHomeSuggestions(){
+
+    const suggestions=
+        generateSuggestions();
+
+    document.getElementById(
+        "homeSuggestions"
+    ).innerHTML=
+        suggestions.length
+        ?suggestions
+            .map(
+                s=>
+                `<div class="suggestion">
+                    ${escapeHTML(s)}
+                 </div>`
+            )
+            .join("")
+        :`<div class="empty">
+            X7 has no suggestions yet.
+          </div>`;
+
+}
+
+
+function renderHomeGoals(){
+
+    const box=document.getElementById(
+        "homeGoals"
+    );
+
+    const goals=data.goals
+        .filter(g=>g.saved<g.target)
+        .slice(0,4);
+
+    if(!goals.length){
+
+        box.innerHTML=
+            `<div class="empty">
+                No active money goals.
+             </div>`;
+
+        return;
+
+    }
+
+    box.innerHTML=
+        goals.map(g=>{
+
+            const pct=Math.min(
+                100,
+                g.saved/g.target*100
+            );
+
+            return`
+
+            <div class="mini-stat section">
+
+                <div class="row">
+                    <strong>
+                        ${escapeHTML(g.name)}
+                    </strong>
+
+                    <span class="small">
+                        ${money(g.saved)}
+                        /
+                        ${money(g.target)}
+                    </span>
+                </div>
+
+                <div class="progress">
+                    <span style="width:${pct}%"></span>
+                </div>
+
+                <div class="small">
+                    ${pct.toFixed(0)}% •
+                    ${money(
+                        recommendedGoalDaily(g)
+                    )}/day recommended
+                </div>
+
+            </div>
+
+            `;
+
+        }).join("");
+
+}
+
+
+function renderHomeDeadlines(){
+
+    const box=document.getElementById(
+        "homeDeadlines"
+    );
+
+    const deadlines=data.deadlines
+        .filter(d=>daysUntil(d.date)>=0)
+        .sort(
+            (a,b)=>
+                daysUntil(a.date)-
+                daysUntil(b.date)
+        )
+        .slice(0,4);
+
+    if(!deadlines.length){
+
+        box.innerHTML=
+            `<div class="empty">
+                No upcoming deadlines.
+             </div>`;
+
+        return;
+
+    }
+
+    box.innerHTML=
+        deadlines.map(d=>{
+
+            const days=daysUntil(d.date);
+
+            return`
+
+            <div class="deadline ${
+                days<=7?"urgent":""
+            } section">
+
+                <div class="row">
+
+                    <strong>
+                        ${escapeHTML(d.name)}
+                    </strong>
+
+                    <span class="${
+                        days<=7?"bad":"small"
+                    }">
+                        ${days} day${days===1?"":"s"}
+                    </span>
+
+                </div>
+
+                <div class="small">
+                    ${new Date(d.date)
+                        .toLocaleDateString("en-IN")}
+                </div>
+
+            </div>
+
+            `;
+
+        }).join("");
+
+}
+
+
+function renderHomeNotes(){
+
+    const box=document.getElementById(
+        "homeNotes"
+    );
+
+    const notes=data.notes
+        .slice()
+        .reverse()
+        .slice(0,3);
+
+    if(!notes.length){
+
+        box.innerHTML=
+            `<div class="empty">
+                No notes yet.
+             </div>`;
+
+        return;
+
+    }
+
+    box.innerHTML=
+        notes.map(n=>`
+
+        <div class="quick-note section">
+
+            <div class="row">
+
+                <strong>
+                    ${escapeHTML(
+                        n.text.slice(0,80)
+                    )}
+                </strong>
+
+                <span class="badge">
+                    ${n.priority}
+                </span>
+
+            </div>
+
+            ${
+                n.project
+                ?`<div class="small">
+                    ${escapeHTML(n.project)}
+                  </div>`
+                :""
+            }
+
+        </div>
+
+    `).join("");
+
+}
+
+
+function renderHomeProjects(){
+
+    const box=document.getElementById(
+        "homeProjects"
+    );
+
+    const projects=data.projects
+        .filter(p=>!p.completed)
+        .slice(0,4);
+
+    if(!projects.length){
+
+        box.innerHTML=
+            `<div class="empty">
+                No active projects.
+             </div>`;
+
+        return;
+
+    }
+
+    box.innerHTML=
+        projects.map(p=>{
+
+            const tasks=data.tasks.filter(
+                t=>
+                    t.projectId===p.id
+            );
+
+            const done=tasks.filter(
+                t=>t.completed
+            ).length;
+
+            const pct=tasks.length
+                ?done/tasks.length*100
+                :0;
+
+            return`
+
+            <div class="mini-stat section">
+
+                <div class="row">
+
+                    <strong>
+                        ${escapeHTML(p.name)}
+                    </strong>
+
+                    <span class="small">
+                        ${done}/${tasks.length}
+                    </span>
+
+                </div>
+
+                <div class="progress">
+                    <span style="width:${pct}%"></span>
+                </div>
+
+            </div>
+
+            `;
+
+        }).join("");
+
+}
+
+
+/* =========================================================
+GOAL PLANNER
+========================================================= */
 
 function createGoal(){
- const name=document.getElementById("goalName").value.trim();
- const target=Number(document.getElementById("goalTarget").value);
- const deadline=document.getElementById("goalDeadline").value;
- const main=document.getElementById("goalMain").checked;
 
- if(!name||!target)return showToast("Enter goal and target");
+    const name=document.getElementById(
+        "goalName"
+    ).value.trim();
 
- if(main)data.goals.forEach(g=>g.main=false);
+    const target=Number(
+        document.getElementById(
+            "goalTarget"
+        ).value
+    );
 
- data.goals.push({id:Date.now(),name,target,saved:0,deadline,main});
- addXP(20);
+    const deadline=document.getElementById(
+        "goalDeadline"
+    ).value;
 
- document.getElementById("goalName").value="";
- document.getElementById("goalTarget").value="";
- document.getElementById("goalDeadline").value="";
- document.getElementById("goalMain").checked=false;
+    const initial=Number(
+        document.getElementById(
+            "goalInitial"
+        ).value
+    )||0;
 
- save();showToast("Goal created");
+    const main=document.getElementById(
+        "goalMain"
+    ).checked;
+
+    if(!name || !target){
+
+        showToast("Enter goal and target");
+
+        return;
+
+    }
+
+    if(main){
+
+        data.goals.forEach(
+            g=>g.main=false
+        );
+
+    }
+
+    data.goals.push({
+
+        id:Date.now(),
+
+        name,
+
+        target,
+
+        saved:Math.min(
+            initial,
+            target
+        ),
+
+        deadline,
+
+        main
+
+    });
+
+    document.getElementById(
+        "goalName"
+    ).value="";
+
+    document.getElementById(
+        "goalTarget"
+    ).value="";
+
+    document.getElementById(
+        "goalDeadline"
+    ).value="";
+
+    document.getElementById(
+        "goalInitial"
+    ).value="";
+
+    document.getElementById(
+        "goalMain"
+    ).checked=false;
+
+    save();
+
+    showToast("Goal created 🎯");
+
 }
 
-function goalHTML(g,home=false){
- const left=Math.max(0,g.target-g.saved);
- let days=30;
 
- if(g.deadline)
-  days=Math.max(1,Math.ceil((new Date(g.deadline)-new Date())/86400000));
+function recommendedGoalDaily(goal){
 
- const daily=Math.ceil(left/days);
- const weekly=Math.ceil(daily*7);
- const monthly=Math.ceil(left/(days/30));
- const pct=Math.min(100,g.saved/g.target*100);
+    const remaining=Math.max(
+        0,
+        goal.target-goal.saved
+    );
 
- return `
- <div class="row"><strong>${g.name}</strong><span class="small">${money(g.saved)} / ${money(g.target)}</span></div>
- <div class="progress"><span style="width:${pct}%"></span></div>
- <div class="row small"><span>${pct.toFixed(1)}% saved</span><span>${money(left)} remaining</span></div>
- <div class="grid3 section">
-  <div><div class="label">Daily</div><strong>${money(daily)}</strong></div>
-  <div><div class="label">Weekly</div><strong>${money(weekly)}</strong></div>
-  <div><div class="label">Monthly</div><strong>${money(monthly)}</strong></div>
- </div>
- ${g.deadline?`<div class="small section">Deadline: ${new Date(g.deadline).toLocaleDateString("en-IN")}</div>`:""}
- ${!home?`<div class="actions section">
-  <button class="btn primary" onclick="addGoalMoney(${g.id})">+ Add Saved</button>
-  <button class="btn" onclick="makeMainGoal(${g.id})">${g.main?"★ Main":"Make Main"}</button>
-  <button class="btn danger" onclick="deleteGoal(${g.id})">Delete</button>
- </div>`:""}`;
+    if(remaining<=0)
+        return 0;
+
+    if(goal.deadline){
+
+        const days=Math.max(
+            1,
+            daysUntil(goal.deadline)
+        );
+
+        return Math.ceil(
+            remaining/days
+        );
+
+    }
+
+    const dailyBudget=
+        Number(data.settings.dailyBudget)||500;
+
+    return Math.max(
+        50,
+        Math.min(
+            250,
+            Math.ceil(remaining/180)
+        )
+    );
+
 }
+
+
+function goalPlannerHTML(goal){
+
+    const remaining=Math.max(
+        0,
+        goal.target-goal.saved
+    );
+
+    const pct=Math.min(
+        100,
+        goal.saved/goal.target*100
+    );
+
+    const options=[100,150,200,250];
+
+    return`
+
+        <div class="card section">
+
+        <div class="row">
+
+            <div>
+                <h3>
+                    ${escapeHTML(goal.name)}
+                </h3>
+
+                ${
+                    goal.main
+                    ?`<span class="badge">
+                        ★ Main Goal
+                      </span>`
+                    :""
+                }
+
+            </div>
+
+            <strong>
+                ${money(goal.saved)}
+                /
+                ${money(goal.target)}
+            </strong>
+
+        </div>
+
+        <div class="progress">
+            <span style="width:${pct}%"></span>
+        </div>
+
+        <div class="small">
+            ${money(remaining)} remaining
+        </div>
+
+        <div class="grid2 section">
+
+            ${options.map(amount=>`
+
+            <div class="mini-stat">
+
+                <div class="label">
+                    Save ${money(amount)}/day
+                </div>
+
+                <strong>
+                    ${
+                        remaining>0
+                        ?Math.ceil(remaining/amount)
+                        :"0"
+                    }
+                    days
+                </strong>
+
+            </div>
+
+            `).join("")}
+
+        </div>
+
+        <div class="insight section">
+
+            <strong>
+                Recommended:
+                ${money(
+                    recommendedGoalDaily(goal)
+                )}/day
+            </strong>
+
+            <div class="small">
+                X7 chooses this based on your
+                target, deadline and current plan.
+            </div>
+
+        </div>
+
+        ${
+            goal.deadline
+            ?`
+            <div class="small section">
+                Target:
+                ${new Date(goal.deadline)
+                    .toLocaleDateString("en-IN")}
+                •
+                ${daysUntil(goal.deadline)} days remaining
+            </div>
+            `
+            :""
+        }
+
+        <div class="actions section">
+
+            <button class="btn primary"
+            onclick="addGoalMoney(${goal.id})">
+                + Add Saved
+            </button>
+
+            <button class="btn"
+            onclick="makeMainGoal(${goal.id})">
+                ${goal.main?"★ Main":"Make Main"}
+            </button>
+
+            <button class="btn danger"
+            onclick="deleteGoal(${goal.id})">
+                Delete
+            </button>
+
+        </div>
+
+        </div>
+
+    `;
+
+}
+
 
 function renderGoals(){
- const c=document.getElementById("goalContainer");
- c.innerHTML=data.goals.length?
- data.goals.map(g=>`<div class="card section">${goalHTML(g)}</div>`).join(""):
- '<div class="card section empty">No goals yet.</div>';
+
+    const container=document.getElementById(
+        "goalContainer"
+    );
+
+    if(!data.goals.length){
+
+        container.innerHTML=
+            `<div class="card section empty">
+                No goals yet.
+             </div>`;
+
+        return;
+
+    }
+
+    container.innerHTML=data.goals
+        .map(goal=>goalPlannerHTML(goal))
+        .join("");
+
 }
+
 
 function addGoalMoney(id){
- const g=data.goals.find(x=>x.id===id);
- const amount=Number(prompt(`How much did you save for ${g.name}?`));
- if(!amount||amount<=0)return;
- g.saved=Math.min(g.target,g.saved+amount);
- addXP(15);save();showToast("Goal savings updated");
+
+    const goal=data.goals.find(
+        g=>g.id===id
+    );
+
+    if(!goal)
+        return;
+
+    const amount=Number(
+        prompt(
+            `How much did you save for ${goal.name}?`
+        )
+    );
+
+    if(!amount || amount<=0)
+        return;
+
+    goal.saved=Math.min(
+        goal.target,
+        goal.saved+amount
+    );
+
+    save();
+
+    showToast(
+        `${money(amount)} added`
+    );
+
 }
+
 
 function makeMainGoal(id){
- data.goals.forEach(g=>g.main=false);
- const g=data.goals.find(g=>g.id===id);
- if(g)g.main=true;
- save();
+
+    data.goals.forEach(
+        g=>g.main=false
+    );
+
+    const goal=data.goals.find(
+        g=>g.id===id
+    );
+
+    if(goal)
+        goal.main=true;
+
+    save();
+
 }
+
 
 function deleteGoal(id){
- if(confirm("Delete this goal?")){
-  data.goals=data.goals.filter(g=>g.id!==id);
-  save();
- }
+
+    if(!confirm("Delete this goal?"))
+        return;
+
+    data.goals=data.goals.filter(
+        g=>g.id!==id
+    );
+
+    save();
+
 }
 
-/* ================= DEBT ================= */
+
+/* =========================================================
+AFFORDABILITY
+========================================================= */
+
+function calculateAffordability(){
+
+    const item=document.getElementById(
+        "affordItem"
+    ).value.trim();
+
+    const amount=Number(
+        document.getElementById(
+            "affordAmount"
+        ).value
+    );
+
+    let paydayDays=Number(
+        document.getElementById(
+            "affordDays"
+        ).value
+    );
+
+    if(!item || !amount){
+
+        showToast("Enter item and price");
+
+        return;
+
+    }
+
+    if(!paydayDays)
+        paydayDays=15;
+
+    const month=monthKey(new Date());
+    const totals=getMonthTotals(month);
+
+    const balance=
+        totals.income-
+        totals.expenses;
+
+    const todaySpent=
+        data.transactions
+        .filter(
+            t=>
+                t.type==="expense" &&
+                t.date.slice(0,10)===todayKey()
+        )
+        .reduce(
+            (s,t)=>s+t.amount,
+            0
+        );
+
+    const dailyBudget=
+        Number(data.settings.dailyBudget)||500;
+
+    const dailyRemaining=Math.max(
+        0,
+        dailyBudget-todaySpent
+    );
+
+    const upcomingDebt=data.debts
+        .reduce(
+            (s,d)=>
+                s+Math.max(
+                    0,
+                    (d.monthlyPayment||0)
+                ),
+            0
+        );
+
+    const goalCommitment=data.goals
+        .filter(g=>g.saved<g.target)
+        .reduce(
+            (s,g)=>
+                s+recommendedGoalDaily(g)*paydayDays,
+            0
+        );
+
+    const buffer=
+        balance-
+        upcomingDebt-
+        goalCommitment;
+
+    const afterPurchase=
+        buffer-amount;
+
+    let status;
+    let title;
+    let explanation;
+    let recommendation;
+
+    if(afterPurchase>=
+       Math.max(500,dailyBudget*3)){
+
+        status="green";
+
+        title="🟢 Comfortable";
+
+        explanation=
+            `You can buy ${item} and still keep a reasonable buffer.`;
+
+        recommendation=
+            `Buying it should not seriously damage your current plan.`;
+
+    }else if(afterPurchase>=0){
+
+        status="yellow";
+
+        title="🟡 Possible, but wait";
+
+        explanation=
+            `You can technically afford ${item}, but the purchase would reduce your buffer and may slow your goals.`;
+
+        recommendation=
+            `Consider saving ${money(
+                Math.ceil(amount/paydayDays)
+            )}/day for ${paydayDays} days instead.`;
+
+    }else{
+
+        status="red";
+
+        title="🔴 Not recommended";
+
+        explanation=
+            `Buying ${item} now would put your planned cash buffer under pressure.`;
+
+        recommendation=
+            `Wait until your next income or save ${money(
+                Math.ceil(amount/paydayDays)
+            )}/day before buying it.`;
+
+    }
+
+    document.getElementById(
+        "affordResult"
+    ).innerHTML=`
+
+        <div class="afford ${status}">
+
+            <h2>${title}</h2>
+
+            <p>
+                ${escapeHTML(explanation)}
+            </p>
+
+            <div class="grid2">
+
+                <div class="mini-stat">
+                    <div class="label">
+                        Current Balance
+                    </div>
+                    <strong>
+                        ${money(balance)}
+                    </strong>
+                </div>
+
+                <div class="mini-stat">
+                    <div class="label">
+                        Purchase
+                    </div>
+                    <strong>
+                        ${money(amount)}
+                    </strong>
+                </div>
+
+                <div class="mini-stat">
+                    <div class="label">
+                        Goal Commitments
+                    </div>
+                    <strong>
+                        ${money(goalCommitment)}
+                    </strong>
+                </div>
+
+                <div class="mini-stat">
+                    <div class="label">
+                        After Purchase
+                    </div>
+                    <strong>
+                        ${money(afterPurchase)}
+                    </strong>
+                </div>
+
+            </div>
+
+            <div class="insight section">
+
+                <strong>
+                    X7's opinion
+                </strong>
+
+                <div class="small section">
+                    ${escapeHTML(recommendation)}
+                </div>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+DEBTS
+========================================================= */
 
 function createDebt(){
- const name=document.getElementById("debtName").value.trim();
- const amount=Number(document.getElementById("debtAmount").value);
- if(!name||!amount)return showToast("Enter debt details");
 
- data.debts.push({id:Date.now(),name,total:amount,paid:0,payments:[]});
- document.getElementById("debtName").value="";
- document.getElementById("debtAmount").value="";
- save();showToast("Debt added");
+    const name=document.getElementById(
+        "debtName"
+    ).value.trim();
+
+    const amount=Number(
+        document.getElementById(
+            "debtAmount"
+        ).value
+    );
+
+    const monthly=Number(
+        document.getElementById(
+            "debtMonthly"
+        ).value
+    )||0;
+
+    if(!name || !amount){
+
+        showToast("Enter debt details");
+
+        return;
+
+    }
+
+    data.debts.push({
+
+        id:Date.now(),
+
+        name,
+
+        total:amount,
+
+        paid:0,
+
+        monthlyPayment:monthly,
+
+        payments:[]
+
+    });
+
+    document.getElementById(
+        "debtName"
+    ).value="";
+
+    document.getElementById(
+        "debtAmount"
+    ).value="";
+
+    document.getElementById(
+        "debtMonthly"
+    ).value="";
+
+    save();
+
+    showToast("Debt added");
+
 }
+
 
 function payDebt(id){
- const d=data.debts.find(x=>x.id===id);
- const left=d.total-d.paid;
- const amount=Number(prompt(`Remaining: ${money(left)}\nEnter payment amount:`));
- if(!amount||amount<=0)return;
 
- const payment=Math.min(amount,left);
- d.paid+=payment;
- d.payments.push({amount:payment,date:new Date().toISOString()});
+    const debt=data.debts.find(
+        d=>d.id===id
+    );
 
- data.transactions.push({
-  id:Date.now(),type:"expense",amount:payment,
-  note:"Debt payment: "+d.name,category:"Debt",
-  date:new Date().toISOString()
- });
+    if(!debt)
+        return;
 
- addXP(10);save();
- showToast(d.paid>=d.total?"Debt cleared 🎉":"Debt payment added");
+    const remaining=Math.max(
+        0,
+        debt.total-debt.paid
+    );
+
+    const amount=Number(
+        prompt(
+            `Remaining: ${money(remaining)}\n\nEnter payment amount:`
+        )
+    );
+
+    if(!amount || amount<=0)
+        return;
+
+    const payment=Math.min(
+        amount,
+        remaining
+    );
+
+    debt.paid+=payment;
+
+    debt.payments.push({
+
+        amount:payment,
+
+        date:new Date().toISOString()
+
+    });
+
+    data.transactions.push({
+
+        id:Date.now(),
+
+        type:"expense",
+
+        amount:payment,
+
+        note:"Debt payment: "+debt.name,
+
+        category:"Debt",
+
+        date:new Date().toISOString()
+
+    });
+
+    save();
+
+    showToast(
+        debt.paid>=debt.total
+        ?"Debt cleared 🎉"
+        :"Debt payment added"
+    );
+
 }
+
 
 function renderDebts(){
- const c=document.getElementById("debtContainer");
 
- if(!data.debts.length){
-  c.innerHTML='<div class="card section empty">No debts.</div>';return;
- }
+    const container=document.getElementById(
+        "debtContainer"
+    );
 
- c.innerHTML=data.debts.map(d=>{
-  const left=Math.max(0,d.total-d.paid);
-  const p=Math.min(100,d.paid/d.total*100);
+    if(!data.debts.length){
 
-  return `<div class="card section">
-   <div class="row"><h3>${d.name}</h3><strong class="${left?"bad":"good"}">${left?money(left)+" remaining":"✓ Cleared"}</strong></div>
-   <div class="progress"><span style="width:${p}%"></span></div>
-   <div class="small">Paid ${money(d.paid)} of ${money(d.total)}</div>
-   ${left?`<button class="btn primary section" onclick="payDebt(${d.id})">Make Payment</button>`:""}
-  </div>`;
- }).join("");
+        container.innerHTML=
+            `<div class="card section empty">
+                No debts.
+             </div>`;
+
+        return;
+
+    }
+
+    container.innerHTML=data.debts
+        .map(debt=>{
+
+            const remaining=Math.max(
+                0,
+                debt.total-debt.paid
+            );
+
+            const pct=Math.min(
+                100,
+                debt.paid/debt.total*100
+            );
+
+            return`
+
+            <div class="card section">
+
+                <div class="row">
+
+                    <h3>
+                        ${escapeHTML(debt.name)}
+                    </h3>
+
+                    <strong class="${
+                        remaining===0
+                        ?"good"
+                        :"bad"
+                    }">
+                        ${
+                            remaining===0
+                            ?"✓ Cleared"
+                            :money(remaining)+" remaining"
+                        }
+                    </strong>
+
+                </div>
+
+                <div class="progress">
+                    <span style="width:${pct}%"></span>
+                </div>
+
+                <div class="small">
+                    Paid ${money(debt.paid)}
+                    of ${money(debt.total)}
+                    ${
+                        debt.monthlyPayment
+                        ?` • Monthly:
+                           ${money(debt.monthlyPayment)}`
+                        :""
+                    }
+                </div>
+
+                ${
+                    remaining>0
+                    ?`
+                    <button
+                    class="btn primary section"
+                    onclick="payDebt(${debt.id})">
+                        Make Payment
+                    </button>
+                    `
+                    :""
+                }
+
+            </div>
+
+            `;
+
+        }).join("");
+
 }
 
-/* ================= INVESTMENTS ================= */
+
+/* =========================================================
+INVESTMENTS
+========================================================= */
 
 function addInvestment(){
- const amount=Number(document.getElementById("investmentAmount").value);
- const type=document.getElementById("investmentType").value;
- const note=document.getElementById("investmentNote").value;
 
- if(!amount||amount<=0)return showToast("Enter investment amount");
+    const amount=Number(
+        document.getElementById(
+            "investmentAmount"
+        ).value
+    );
 
- data.investments.push({id:Date.now(),amount,type,note,date:new Date().toISOString()});
+    const type=document.getElementById(
+        "investmentType"
+    ).value;
 
- data.transactions.push({
-  id:Date.now()+1,type:"expense",amount,
-  note:"Investment: "+(note||type),category:"Investment",
-  date:new Date().toISOString()
- });
+    const note=document.getElementById(
+        "investmentNote"
+    ).value.trim();
 
- document.getElementById("investmentAmount").value="";
- document.getElementById("investmentNote").value="";
+    if(!amount || amount<=0){
 
- addXP(20);save();showToast(money(amount)+" invested");
+        showToast("Enter investment amount");
+
+        return;
+
+    }
+
+    data.investments.push({
+
+        id:Date.now(),
+
+        amount,
+
+        type,
+
+        note,
+
+        date:new Date().toISOString()
+
+    });
+
+    data.transactions.push({
+
+        id:Date.now()+1,
+
+        type:"expense",
+
+        amount,
+
+        note:"Investment: "+(note||type),
+
+        category:"Investment",
+
+        date:new Date().toISOString()
+
+    });
+
+    document.getElementById(
+        "investmentAmount"
+    ).value="";
+
+    document.getElementById(
+        "investmentNote"
+    ).value="";
+
+    save();
+
+    showToast(
+        money(amount)+" invested"
+    );
+
 }
+
 
 function renderInvestments(){
- const total=data.investments.reduce((a,i)=>a+i.amount,0);
- document.getElementById("investedMoney").textContent=money(total);
- document.getElementById("investmentCount").textContent=data.investments.length;
+
+    const total=data.investments
+        .reduce(
+            (s,i)=>s+Number(i.amount),
+            0
+        );
+
+    document.getElementById(
+        "investedMoney"
+    ).textContent=money(total);
+
+    document.getElementById(
+        "investmentCount"
+    ).textContent=
+        data.investments.length;
+
 }
 
-/* ================= GROW ================= */
 
-function completeLearning(){
- const t=today();
- if(data.learning.lastDate===t)return showToast("Already completed today 🔥");
+/* =========================================================
+PROJECTS
+========================================================= */
 
- const y=new Date();y.setDate(y.getDate()-1);
- const yesterday=y.toISOString().slice(0,10);
+function createProject(){
 
- data.learning.streak=data.learning.lastDate===yesterday?data.learning.streak+1:1;
- data.learning.lastDate=t;
+    const name=document.getElementById(
+        "projectName"
+    ).value.trim();
 
- addXP(20);save();showToast("Learning streak updated 🔥");
+    const type=document.getElementById(
+        "projectType"
+    ).value;
+
+    const deadline=document.getElementById(
+        "projectDeadline"
+    ).value;
+
+    const description=document.getElementById(
+        "projectDescription"
+    ).value.trim();
+
+    if(!name){
+
+        showToast("Enter project name");
+
+        return;
+
+    }
+
+    data.projects.push({
+
+        id:Date.now(),
+
+        name,
+
+        type,
+
+        deadline,
+
+        description,
+
+        completed:false,
+
+        createdAt:new Date().toISOString()
+
+    });
+
+    document.getElementById(
+        "projectName"
+    ).value="";
+
+    document.getElementById(
+        "projectDeadline"
+    ).value="";
+
+    document.getElementById(
+        "projectDescription"
+    ).value="";
+
+    save();
+
+    showToast("Project created 📂");
+
 }
 
-function renderGrow(){
- const i=new Date().getDate()%lessons.length;
- document.getElementById("growLesson").textContent=lessons[i];
- document.getElementById("learningStreak").textContent=data.learning.streak+" day"+(data.learning.streak===1?"":"s");
 
- const t=getMonthTotals(monthKey(new Date()));
- let score=50;
+function completeProject(id){
 
- if(t.net>0)score+=20;
- if(data.investments.length)score+=10;
- if(t.income>0&&t.expenses<t.income)score+=10;
- if(t.cigarettes>500)score-=10;
+    const p=data.projects.find(
+        x=>x.id===id
+    );
 
- score=Math.max(0,Math.min(100,score));
+    if(!p)
+        return;
 
- document.getElementById("moneyHealth").textContent=score+" / 100";
- document.getElementById("healthProgress").style.width=score+"%";
- document.getElementById("healthExplanation").textContent=
- "Based on cash flow, spending, debt pressure and investing behaviour.";
+    p.completed=!p.completed;
 
- renderXP();
+    save();
+
 }
 
-/* ================= XP ================= */
 
-function addXP(amount){
- data.xp=(Number(data.xp)||0)+amount;
+function deleteProject(id){
+
+    data.projects=data.projects.filter(
+        p=>p.id!==id
+    );
+
+    data.tasks.forEach(
+        t=>{
+            if(t.projectId===id)
+                t.projectId=null;
+        }
+    );
+
+    save();
+
 }
 
-function levelInfo(){
- const xp=Number(data.xp)||0;
- const level=Math.floor(xp/100)+1;
- const current=xp%100;
- return {level,current,xp};
+
+function renderProjects(){
+
+    const container=document.getElementById(
+        "projectContainer"
+    );
+
+    if(!data.projects.length){
+
+        container.innerHTML=
+            `<div class="card section empty">
+                No projects yet.
+             </div>`;
+
+        return;
+
+    }
+
+    container.innerHTML=data.projects
+        .map(p=>{
+
+            const tasks=data.tasks.filter(
+                t=>t.projectId===p.id
+            );
+
+            const done=tasks.filter(
+                t=>t.completed
+            ).length;
+
+            const pct=tasks.length
+                ?done/tasks.length*100
+                :0;
+
+            return`
+
+            <div class="project-card section ${
+                p.completed?"completed":""
+            }">
+
+                <div class="row">
+
+                    <div>
+
+                        <h3 class="strike">
+                            ${escapeHTML(p.name)}
+                        </h3>
+
+                        <span class="badge">
+                            ${escapeHTML(p.type)}
+                        </span>
+
+                    </div>
+
+                    ${
+                        p.deadline
+                        ?`
+                        <span class="${
+                            daysUntil(p.deadline)<=7
+                            ?"bad"
+                            :"small"
+                        }">
+                            ${
+                                daysUntil(p.deadline)
+                            } days
+                        </span>
+                        `
+                        :""
+                    }
+
+                </div>
+
+                ${
+                    p.description
+                    ?`
+                    <div class="small section">
+                        ${escapeHTML(p.description)}
+                    </div>
+                    `
+                    :""
+                }
+
+                <div class="small section">
+                    Tasks:
+                    ${done}/${tasks.length}
+                </div>
+
+                <div class="progress">
+                    <span style="width:${pct}%"></span>
+                </div>
+
+                <div class="actions">
+
+                    <button class="btn primary"
+                    onclick="completeProject(${p.id})">
+                        ${p.completed?"Reopen":"Complete"}
+                    </button>
+
+                    <button class="btn danger"
+                    onclick="deleteProject(${p.id})">
+                        Delete
+                    </button>
+
+                </div>
+
+            </div>
+
+            `;
+
+        }).join("");
+
 }
 
-function renderXP(){
- const l=levelInfo();
- document.getElementById("levelDisplay").textContent="Level "+l.level;
- document.getElementById("xpText").textContent=`${l.current} / 100 XP to Level ${l.level+1}`;
- document.getElementById("xpProgress").style.width=l.current+"%";
- document.getElementById("xpRing").textContent=l.current+"%";
+
+function populateProjectSelects(){
+
+    const selects=[
+        document.getElementById("taskProject"),
+        document.getElementById("noteProject")
+    ];
+
+    selects.forEach(select=>{
+
+        if(!select)
+            return;
+
+        const current=select.value;
+
+        select.innerHTML=
+            `<option value="">
+                No project
+             </option>`+
+            data.projects
+            .filter(p=>!p.completed)
+            .map(
+                p=>
+                `<option value="${p.id}">
+                    ${escapeHTML(p.name)}
+                 </option>`
+            ).join("");
+
+        select.value=current;
+
+    });
+
 }
 
-/* ================= LIFE ================= */
+
+/* =========================================================
+TASKS
+========================================================= */
+
+function priorityValue(p){
+
+    if(p==="high") return 3;
+    if(p==="medium") return 2;
+    return 1;
+
+}
+
+
+function createTask(){
+
+    const name=document.getElementById(
+        "taskName"
+    ).value.trim();
+
+    const projectId=Number(
+        document.getElementById(
+            "taskProject"
+        ).value
+    )||null;
+
+    const priority=document.getElementById(
+        "taskPriority"
+    ).value;
+
+    const deadline=document.getElementById(
+        "taskDeadline"
+    ).value;
+
+    const minutes=Number(
+        document.getElementById(
+            "taskMinutes"
+        ).value
+    )||0;
+
+    if(!name){
+
+        showToast("Enter task");
+
+        return;
+
+    }
+
+    data.tasks.push({
+
+        id:Date.now(),
+
+        name,
+
+        projectId,
+
+        priority,
+
+        deadline,
+
+        minutes,
+
+        completed:false,
+
+        completedDate:null
+
+    });
+
+    document.getElementById(
+        "taskName"
+    ).value="";
+
+    document.getElementById(
+        "taskDeadline"
+    ).value="";
+
+    document.getElementById(
+        "taskMinutes"
+    ).value="";
+
+    save();
+
+    showToast("Task added ✅");
+
+}
+
+
+function completeTask(id){
+
+    const task=data.tasks.find(
+        t=>t.id===id
+    );
+
+    if(!task)
+        return;
+
+    task.completed=!task.completed;
+
+    task.completedDate=
+        task.completed
+        ?new Date().toISOString()
+        :null;
+
+    save();
+
+    showToast(
+        task.completed
+        ?"Task completed 🎉"
+        :"Task reopened"
+    );
+
+}
+
+
+function deleteTask(id){
+
+    data.tasks=data.tasks.filter(
+        t=>t.id!==id
+    );
+
+    save();
+
+}
+
+
+function renderTasks(){
+
+    const container=document.getElementById(
+        "taskContainer"
+    );
+
+    const tasks=data.tasks
+        .slice()
+        .sort(
+            (a,b)=>
+                (b.completed?0:1)-
+                (a.completed?0:1) ||
+                priorityValue(b.priority)-
+                priorityValue(a.priority)
+        );
+
+    if(!tasks.length){
+
+        container.innerHTML=
+            `<div class="empty">
+                No tasks yet.
+             </div>`;
+
+        return;
+
+    }
+
+    container.innerHTML=
+        tasks.map(t=>{
+
+            const project=data.projects.find(
+                p=>p.id===t.projectId
+            );
+
+            return`
+
+            <div class="item ${
+                t.completed?"completed":""
+            }">
+
+                <div class="row">
+
+                    <div>
+
+                        <strong class="strike">
+                            ${escapeHTML(t.name)}
+                        </strong>
+
+                        <div class="small">
+
+                            ${
+                                project
+                                ?escapeHTML(project.name)
+                                :"No project"
+                            }
+
+                            •
+                            ${t.priority}
+
+                            ${
+                                t.minutes
+                                ?` • ${t.minutes} min`
+                                :""
+                            }
+
+                        </div>
+
+                    </div>
+
+                    ${
+                        t.deadline
+                        ?`
+                        <span class="${
+                            daysUntil(t.deadline)<=3
+                            ?"bad"
+                            :"small"
+                        }">
+                            ${daysUntil(t.deadline)}
+                            d
+                        </span>
+                        `
+                        :""
+                    }
+
+                </div>
+
+                <div class="actions section">
+
+                    <button
+                    class="btn primary"
+                    onclick="completeTask(${t.id})">
+                        ${t.completed?"Reopen":"Complete"}
+                    </button>
+
+                    <button
+                    class="btn danger"
+                    onclick="deleteTask(${t.id})">
+                        Delete
+                    </button>
+
+                </div>
+
+            </div>
+
+            `;
+
+        }).join("");
+
+}
+
+
+/* =========================================================
+NOTES
+========================================================= */
+
+function createNote(){
+
+    const text=document.getElementById(
+        "noteText"
+    ).value.trim();
+
+    const projectId=Number(
+        document.getElementById(
+            "noteProject"
+        ).value
+    )||null;
+
+    const priority=document.getElementById(
+        "notePriority"
+    ).value;
+
+    if(!text){
+
+        showToast("Write something first");
+
+        return;
+
+    }
+
+    const project=data.projects.find(
+        p=>p.id===projectId
+    );
+
+    data.notes.push({
+
+        id:Date.now(),
+
+        text,
+
+        projectId,
+
+        project:project
+            ?project.name
+            :"",
+
+        priority,
+
+        createdAt:new Date().toISOString()
+
+    });
+
+    document.getElementById(
+        "noteText"
+    ).value="";
+
+    save();
+
+    showToast("Note saved 📝");
+
+}
+
+
+function deleteNote(id){
+
+    data.notes=data.notes.filter(
+        n=>n.id!==id
+    );
+
+    save();
+
+}
+
+
+function renderNotes(){
+
+    const container=document.getElementById(
+        "noteContainer"
+    );
+
+    const notes=data.notes
+        .slice()
+        .reverse();
+
+    if(!notes.length){
+
+        container.innerHTML=
+            `<div class="empty">
+                Your brain dump is empty.
+             </div>`;
+
+        return;
+
+    }
+
+    container.innerHTML=
+        notes.map(n=>`
+
+        <div class="item">
+
+            <div class="row">
+
+                <span class="badge">
+                    ${escapeHTML(n.priority)}
+                </span>
+
+                ${
+                    n.project
+                    ?`
+                    <span class="small">
+                        📂 ${escapeHTML(n.project)}
+                    </span>
+                    `
+                    :""
+                }
+
+            </div>
+
+            <div class="section">
+                ${escapeHTML(n.text)}
+            </div>
+
+            <div class="actions section">
+
+                <button
+                class="btn danger"
+                onclick="deleteNote(${n.id})">
+                    Delete
+                </button>
+
+            </div>
+
+        </div>
+
+        `).join("");
+
+}
+
+
+/* =========================================================
+DEADLINES
+========================================================= */
+
+function createDeadline(){
+
+    const name=document.getElementById(
+        "deadlineName"
+    ).value.trim();
+
+    const date=document.getElementById(
+        "deadlineDate"
+    ).value;
+
+    const project=document.getElementById(
+        "deadlineProject"
+    ).value.trim();
+
+    const steps=document.getElementById(
+        "deadlineSteps"
+    ).value
+    .split(/\r?\n/)
+    .map(x=>x.trim())
+    .filter(Boolean);
+
+    if(!name || !date){
+
+        showToast("Enter deadline and date");
+
+        return;
+
+    }
+
+    data.deadlines.push({
+
+        id:Date.now(),
+
+        name,
+
+        date,
+
+        project,
+
+        steps,
+
+        completed:false
+
+    });
+
+    document.getElementById(
+        "deadlineName"
+    ).value="";
+
+    document.getElementById(
+        "deadlineDate"
+    ).value="";
+
+    document.getElementById(
+        "deadlineProject"
+    ).value="";
+
+    document.getElementById(
+        "deadlineSteps"
+    ).value="";
+
+    save();
+
+    showToast("Deadline added 📅");
+
+}
+
+
+function completeDeadline(id){
+
+    const d=data.deadlines.find(
+        x=>x.id===id
+    );
+
+    if(!d)
+        return;
+
+    d.completed=!d.completed;
+
+    save();
+
+}
+
+
+function deleteDeadline(id){
+
+    data.deadlines=data.deadlines.filter(
+        d=>d.id!==id
+    );
+
+    save();
+
+}
+
+
+function renderDeadlines(){
+
+    const container=document.getElementById(
+        "deadlineContainer"
+    );
+
+    const deadlines=data.deadlines
+        .slice()
+        .sort(
+            (a,b)=>
+                new Date(a.date)-
+                new Date(b.date)
+        );
+
+    if(!deadlines.length){
+
+        container.innerHTML=
+            `<div class="card section empty">
+                No deadlines.
+             </div>`;
+
+        return;
+
+    }
+
+    container.innerHTML=
+        deadlines.map(d=>{
+
+            const days=daysUntil(d.date);
+
+            return`
+
+            <div class="deadline section ${
+                days<=7 && !d.completed
+                ?"urgent":""
+            } ${
+                d.completed
+                ?"completed":""
+            }">
+
+                <div class="row">
+
+                    <div>
+
+                        <h3 class="strike">
+                            ${escapeHTML(d.name)}
+                        </h3>
+
+                        <div class="small">
+                            ${escapeHTML(d.project||"Personal")}
+                        </div>
+
+                    </div>
+
+                    <strong class="${
+                        days<=7
+                        ?"bad":""
+                    }">
+                        ${
+                            d.completed
+                            ?"✓ Done"
+                            :days>=0
+                            ?days+" days"
+                            :"Overdue"
+                        }
+                    </strong>
+
+                </div>
+
+                <div class="small section">
+                    ${new Date(d.date)
+                        .toLocaleDateString("en-IN")}
+                </div>
+
+                ${
+                    d.steps.length
+                    ?`
+                    <div class="section">
+
+                        <div class="label">
+                            Suggested Steps
+                        </div>
+
+                        ${d.steps.map(
+                            (s,i)=>
+                            `<div class="check-row">
+                                <span>${i+1}.</span>
+                                <span>
+                                    ${escapeHTML(s)}
+                                </span>
+                             </div>`
+                        ).join("")}
+
+                    </div>
+                    `
+                    :""
+                }
+
+                <div class="actions section">
+
+                    <button class="btn primary"
+                    onclick="completeDeadline(${d.id})">
+                        ${d.completed?"Reopen":"Complete"}
+                    </button>
+
+                    <button class="btn danger"
+                    onclick="deleteDeadline(${d.id})">
+                        Delete
+                    </button>
+
+                </div>
+
+            </div>
+
+            `;
+
+        }).join("");
+
+}
+
+
+/* =========================================================
+LIFE / HABITS
+========================================================= */
 
 function createLifeGoal(){
- const name=document.getElementById("lifeGoalName").value.trim();
- const type=document.getElementById("lifeGoalType").value;
- const deadline=document.getElementById("lifeGoalDeadline").value;
 
- if(!name)return showToast("Enter a life goal");
+    const name=document.getElementById(
+        "lifeGoalName"
+    ).value.trim();
 
- data.lifeGoals.push({
-  id:Date.now(),name,type,deadline,
-  completed:false,completedDate:null
- });
+    const type=document.getElementById(
+        "lifeGoalType"
+    ).value;
 
- document.getElementById("lifeGoalName").value="";
- document.getElementById("lifeGoalDeadline").value="";
+    const deadline=document.getElementById(
+        "lifeGoalDeadline"
+    ).value;
 
- addXP(20);save();showToast("Life goal added 🎯");
+    if(!name){
+
+        showToast("Enter a life goal");
+
+        return;
+
+    }
+
+    data.lifeGoals.push({
+
+        id:Date.now(),
+
+        name,
+
+        type,
+
+        deadline,
+
+        completed:false,
+
+        completedDate:null
+
+    });
+
+    document.getElementById(
+        "lifeGoalName"
+    ).value="";
+
+    document.getElementById(
+        "lifeGoalDeadline"
+    ).value="";
+
+    save();
+
+    showToast("Life goal added 🎯");
+
 }
+
 
 function completeLifeGoal(id){
- const g=data.lifeGoals.find(x=>x.id===id);
- if(!g)return;
- g.completed=!g.completed;
- g.completedDate=g.completed?new Date().toISOString():null;
- if(g.completed)addXP(50);
- save();
+
+    const goal=data.lifeGoals.find(
+        g=>g.id===id
+    );
+
+    if(!goal)
+        return;
+
+    goal.completed=!goal.completed;
+
+    goal.completedDate=
+        goal.completed
+        ?new Date().toISOString()
+        :null;
+
+    save();
+
 }
+
 
 function deleteLifeGoal(id){
- data.lifeGoals=data.lifeGoals.filter(g=>g.id!==id);save();
+
+    data.lifeGoals=data.lifeGoals.filter(
+        g=>g.id!==id
+    );
+
+    save();
+
 }
+
 
 function createHabit(){
- const name=document.getElementById("habitName").value.trim();
- const target=Number(document.getElementById("habitTarget").value);
 
- if(!name||target<1)return showToast("Enter habit and target");
+    const name=document.getElementById(
+        "habitName"
+    ).value.trim();
 
- data.habits.push({id:Date.now(),name,target,completedDates:[]});
+    const target=Number(
+        document.getElementById(
+            "habitTarget"
+        ).value
+    );
 
- document.getElementById("habitName").value="";
- document.getElementById("habitTarget").value="";
+    if(!name || !target){
 
- save();showToast("Habit added 🔥");
+        showToast("Enter habit and target");
+
+        return;
+
+    }
+
+    data.habits.push({
+
+        id:Date.now(),
+
+        name,
+
+        target,
+
+        completedDates:[]
+
+    });
+
+    document.getElementById(
+        "habitName"
+    ).value="";
+
+    document.getElementById(
+        "habitTarget"
+    ).value="";
+
+    save();
+
+    showToast("Habit added 🔥");
+
 }
 
-function habitDateKey(){return today()}
+
+function habitDateKey(){
+
+    return todayKey();
+
+}
+
 
 function toggleHabit(id){
- const h=data.habits.find(x=>x.id===id);
- if(!h)return;
 
- const t=today();
- const i=h.completedDates.indexOf(t);
+    const habit=data.habits.find(
+        h=>h.id===id
+    );
 
- if(i>=0)h.completedDates.splice(i,1);
- else{h.completedDates.push(t);addXP(10)}
+    if(!habit)
+        return;
 
- save();
+    const today=habitDateKey();
+
+    const index=habit.completedDates.indexOf(
+        today
+    );
+
+    if(index>=0)
+        habit.completedDates.splice(index,1);
+    else
+        habit.completedDates.push(today);
+
+    save();
+
 }
 
-function habitMonthCount(h){
- const m=monthKey(new Date());
- return h.completedDates.filter(d=>monthKey(d)===m).length;
+
+function habitMonthCount(habit){
+
+    const current=monthKey(new Date());
+
+    return habit.completedDates.filter(
+        d=>monthKey(d)===current
+    ).length;
+
 }
 
-function habitStreak(h){
- const set=new Set(h.completedDates);
- let d=new Date();
- let s=0;
 
- if(!set.has(d.toISOString().slice(0,10)))d.setDate(d.getDate()-1);
+function habitStreak(habit){
 
- while(set.has(d.toISOString().slice(0,10))){
-  s++;d.setDate(d.getDate()-1);
- }
+    const dates=new Set(
+        habit.completedDates
+    );
 
- return s;
+    let cursor=new Date();
+
+    if(!dates.has(
+        cursor.toISOString().slice(0,10)
+    )){
+
+        cursor.setDate(
+            cursor.getDate()-1
+        );
+
+    }
+
+    let streak=0;
+
+    while(
+        dates.has(
+            cursor.toISOString().slice(0,10)
+        )
+    ){
+
+        streak++;
+
+        cursor.setDate(
+            cursor.getDate()-1
+        );
+
+    }
+
+    return streak;
+
 }
 
-function lifeScore(){
- const t=getMonthTotals(monthKey(new Date()));
-
- let finance=50;
- if(t.income>0&&t.net>=0)finance+=20;
- if(t.investment>0)finance+=10;
- if(t.income>0&&t.expenses/t.income<.7)finance+=10;
-
- const goals=data.lifeGoals.length?
-  data.lifeGoals.filter(g=>g.completed).length/data.lifeGoals.length*100:50;
-
- const habits=data.habits.length?
-  data.habits.reduce((a,h)=>a+Math.min(1,habitMonthCount(h)/h.target),0)/data.habits.length*100:50;
-
- const bucket=data.bucketList.length?
-  data.bucketList.filter(b=>b.completed).length/data.bucketList.length*100:50;
-
- return Math.round(finance*.4+goals*.2+habits*.25+bucket*.15);
-}
 
 function renderLife(){
- const goals=document.getElementById("lifeGoalsContainer");
 
- goals.innerHTML=data.lifeGoals.length?
- data.lifeGoals.map(g=>`
- <div class="mini-stat section ${g.completed?"completed":""}">
-  <div class="row">
-   <div><strong>${g.name}</strong><div class="small">${g.type}${g.deadline?" • "+new Date(g.deadline).toLocaleDateString("en-IN"):""}</div></div>
-   <span class="badge">${g.completed?"✓ Complete":"In progress"}</span>
-  </div>
-  <div class="actions section">
-   <button class="btn primary" onclick="completeLifeGoal(${g.id})">${g.completed?"Reopen":"Complete"}</button>
-   <button class="btn danger" onclick="deleteLifeGoal(${g.id})">Delete</button>
-  </div>
- </div>`).join(""):
- '<div class="empty">No life goals yet.</div>';
+    const goals=document.getElementById(
+        "lifeGoalsContainer"
+    );
 
- const habits=document.getElementById("habitsContainer");
+    if(!data.lifeGoals.length){
 
- habits.innerHTML=data.habits.length?
- data.habits.map(h=>{
-  const count=habitMonthCount(h);
-  const pct=Math.min(100,count/h.target*100);
-  const done=h.completedDates.includes(today());
+        goals.innerHTML=
+            `<div class="empty">
+                No life goals yet.
+             </div>`;
 
-  return `<div class="mini-stat section">
-   <div class="row">
-    <div><strong>${h.name}</strong><div class="small">${count}/${h.target} this month • ${habitStreak(h)} day streak</div></div>
-    <button class="btn ${done?"primary":""}" onclick="toggleHabit(${h.id})">${done?"✓ Done Today":"Complete Today"}</button>
-   </div>
-   <div class="progress"><span style="width:${pct}%"></span></div>
-  </div>`;
- }).join(""):
- '<div class="empty">No habits yet. Add Gym or another habit above.</div>';
+    }else{
 
- document.getElementById("lifeScore").textContent=lifeScore();
+        goals.innerHTML=
+            data.lifeGoals.map(g=>`
 
- document.getElementById("lifeScoreText").textContent=
- `Finance + goals + habits + experiences`;
+            <div class="item ${
+                g.completed?"completed":""
+            }">
 
- renderMissions();
- renderInsights();
+                <div class="row">
+
+                    <div>
+
+                        <strong class="strike">
+                            ${escapeHTML(g.name)}
+                        </strong>
+
+                        <div class="small">
+                            ${escapeHTML(g.type)}
+
+                            ${
+                                g.deadline
+                                ?` • Due ${
+                                    new Date(
+                                        g.deadline
+                                    ).toLocaleDateString(
+                                        "en-IN"
+                                    )
+                                }`
+                                :""
+                            }
+
+                        </div>
+
+                    </div>
+
+                    <span class="badge">
+                        ${
+                            g.completed
+                            ?"✓ Complete"
+                            :"In progress"
+                        }
+                    </span>
+
+                </div>
+
+                <div class="actions section">
+
+                    <button
+                    class="btn primary"
+                    onclick="completeLifeGoal(${g.id})">
+                        ${g.completed?"Reopen":"Complete"}
+                    </button>
+
+                    <button
+                    class="btn danger"
+                    onclick="deleteLifeGoal(${g.id})">
+                        Delete
+                    </button>
+
+                </div>
+
+            </div>
+
+            `).join("");
+
+    }
+
+
+    const habits=document.getElementById(
+        "habitsContainer"
+    );
+
+    if(!data.habits.length){
+
+        habits.innerHTML=
+            `<div class="empty">
+                No habits yet.
+             </div>`;
+
+    }else{
+
+        const today=habitDateKey();
+
+        habits.innerHTML=
+            data.habits.map(h=>{
+
+                const count=habitMonthCount(h);
+
+                const pct=Math.min(
+                    100,
+                    count/h.target*100
+                );
+
+                const done=
+                    h.completedDates.includes(today);
+
+                return`
+
+                <div class="mini-stat section">
+
+                    <div class="row">
+
+                        <div>
+
+                            <strong>
+                                ${escapeHTML(h.name)}
+                            </strong>
+
+                            <div class="small">
+                                ${count}/${h.target}
+                                this month
+                                •
+                                ${habitStreak(h)}
+                                day streak
+                            </div>
+
+                        </div>
+
+                        <button
+                        class="btn ${
+                            done?"primary":""
+                        }"
+                        onclick="toggleHabit(${h.id})">
+                            ${
+                                done
+                                ?"✓ Done"
+                                :"Complete"
+                            }
+                        </button>
+
+                    </div>
+
+                    <div class="progress">
+                        <span style="width:${pct}%"></span>
+                    </div>
+
+                </div>
+
+                `;
+
+            }).join("");
+
+    }
+
+    renderLifeScore();
+
 }
 
-/* ================= MISSIONS ================= */
 
-function renderMissions(){
- const t=getMonthTotals(monthKey(new Date()));
+function renderLifeScore(){
 
- const missions=[
-  ["Save more than you spend",t.net>0?1:0,1],
-  ["Complete a life goal",data.lifeGoals.some(g=>g.completed)?1:0,1],
-  ["Invest this month",t.investment>0?1:0,1],
-  ["Learn 5 days",Math.min(data.learning.streak,5),5]
- ];
+    const totals=getMonthTotals(
+        monthKey(new Date())
+    );
 
- const gym=data.habits.find(h=>/gym|workout|work out/i.test(h.name));
+    let finance=50;
 
- if(gym)missions.push([gym.name+" sessions",Math.min(habitMonthCount(gym),gym.target),gym.target]);
+    if(
+        totals.income>0 &&
+        totals.net>=0
+    )
+        finance+=20;
 
- document.getElementById("monthlyMissions").innerHTML=missions.map(m=>{
-  const p=Math.min(100,m[1]/m[2]*100);
-  return `<div class="mission section">
-   <div class="row"><strong>${m[0]}</strong><span class="small">${m[1]}/${m[2]}</span></div>
-   <div class="progress"><span style="width:${p}%"></span></div>
-  </div>`;
- }).join("");
+    if(data.investments.length)
+        finance+=10;
+
+    if(
+        totals.income>0 &&
+        totals.expenses/totals.income<.7
+    )
+        finance+=10;
+
+    finance=Math.max(
+        0,
+        Math.min(100,finance)
+    );
+
+    const goalScore=data.lifeGoals.length
+        ?data.lifeGoals.filter(
+            g=>g.completed
+        ).length/
+        data.lifeGoals.length*100
+        :50;
+
+    const habitScore=data.habits.length
+        ?data.habits.reduce(
+            (s,h)=>
+                s+
+                Math.min(
+                    1,
+                    habitMonthCount(h)/h.target
+                ),
+            0
+        )/
+        data.habits.length*
+        100
+        :50;
+
+    const bucketScore=data.bucketList.length
+        ?data.bucketList.filter(
+            b=>b.completed
+        ).length/
+        data.bucketList.length*
+        100
+        :50;
+
+    const score=Math.round(
+        finance*.4+
+        goalScore*.2+
+        habitScore*.25+
+        bucketScore*.15
+    );
+
+    document.getElementById(
+        "lifeScore"
+    ).textContent=score;
+
+    document.getElementById(
+        "lifeScoreText"
+    ).textContent=
+        `Finance ${Math.round(finance)}
+        • Goals ${Math.round(goalScore)}
+        • Habits ${Math.round(habitScore)}
+        • Experiences ${Math.round(bucketScore)}`;
+
 }
 
-function renderInsights(){
- const t=getMonthTotals(monthKey(new Date()));
- const arr=[];
 
- if(t.income&&t.expenses>t.income)
-  arr.push("⚠️ Spending is above income.");
-
- if(t.cigarettes)
-  arr.push(`🚬 Cigarettes cost ${money(t.cigarettes)} this month.`);
-
- if(t.investment)
-  arr.push(`📈 You invested ${money(t.investment)} this month.`);
-
- if(t.net>0)
-  arr.push(`💰 Your current surplus is ${money(t.net)}.`);
-
- if(data.habits.length){
-  const h=data.habits.slice().sort((a,b)=>habitStreak(b)-habitStreak(a))[0];
-  arr.push(`🔥 Strongest streak: ${h.name} — ${habitStreak(h)} days.`);
- }
-
- document.getElementById("x7Insights").innerHTML=
-  arr.length?arr.map(x=>`<div class="insight">${x}</div>`).join(""):
-  '<div class="empty">X7 is waiting for more data.</div>';
-}
-
-/* ================= WISHLIST ================= */
+/* =========================================================
+WISHLIST
+========================================================= */
 
 function createWishlistItem(){
- const name=document.getElementById("wishName").value.trim();
- const price=Number(document.getElementById("wishPrice").value)||0;
- const deadline=document.getElementById("wishDeadline").value;
 
- if(!name)return showToast("Enter what you want");
+    const name=document.getElementById(
+        "wishName"
+    ).value.trim();
 
- data.wishlist.push({id:Date.now(),name,price,saved:0,deadline,purchased:false});
+    const price=Number(
+        document.getElementById(
+            "wishPrice"
+        ).value
+    )||0;
 
- document.getElementById("wishName").value="";
- document.getElementById("wishPrice").value="";
- document.getElementById("wishDeadline").value="";
+    const deadline=document.getElementById(
+        "wishDeadline"
+    ).value;
 
- addXP(10);save();showToast("Added to purchase planner");
+    if(!name){
+
+        showToast("Enter something you want");
+
+        return;
+
+    }
+
+    data.wishlist.push({
+
+        id:Date.now(),
+
+        name,
+
+        price,
+
+        saved:0,
+
+        deadline,
+
+        purchased:false
+
+    });
+
+    document.getElementById(
+        "wishName"
+    ).value="";
+
+    document.getElementById(
+        "wishPrice"
+    ).value="";
+
+    document.getElementById(
+        "wishDeadline"
+    ).value="";
+
+    save();
+
+    showToast("Added to wishlist 🛒");
+
 }
+
 
 function addWishlistSavings(id){
- const w=data.wishlist.find(x=>x.id===id);
- const amount=Number(prompt(`How much saved toward ${w.name}?`));
- if(!amount||amount<=0)return;
 
- w.saved=Math.min(w.price,w.saved+amount);
- addXP(15);save();
+    const item=data.wishlist.find(
+        w=>w.id===id
+    );
+
+    if(!item)
+        return;
+
+    const amount=Number(
+        prompt(
+            `How much have you saved toward ${item.name}?`
+        )
+    );
+
+    if(!amount || amount<=0)
+        return;
+
+    item.saved=Math.min(
+        item.price,
+        item.saved+amount
+    );
+
+    save();
+
 }
+
 
 function completeWishlist(id){
- const w=data.wishlist.find(x=>x.id===id);
- w.purchased=!w.purchased;
- if(w.purchased)addXP(50);
- save();
+
+    const item=data.wishlist.find(
+        w=>w.id===id
+    );
+
+    if(!item)
+        return;
+
+    item.purchased=!item.purchased;
+
+    save();
+
 }
+
 
 function deleteWishlist(id){
- data.wishlist=data.wishlist.filter(x=>x.id!==id);save();
+
+    data.wishlist=data.wishlist.filter(
+        w=>w.id!==id
+    );
+
+    save();
+
 }
+
 
 function renderWishlist(){
- const c=document.getElementById("wishlistContainer");
 
- if(!data.wishlist.length){
-  c.innerHTML='<div class="empty">Your wishlist is empty.</div>';return;
- }
+    const container=document.getElementById(
+        "wishlistContainer"
+    );
 
- c.innerHTML=data.wishlist.map(w=>{
-  const left=Math.max(0,w.price-w.saved);
-  const p=w.price?Math.min(100,w.saved/w.price*100):0;
+    if(!data.wishlist.length){
 
-  let daily=0;
+        container.innerHTML=
+            `<div class="empty">
+                Your wishlist is empty.
+             </div>`;
 
-  if(w.deadline&&left){
-   const days=Math.max(1,Math.ceil((new Date(w.deadline)-new Date())/86400000));
-   daily=Math.ceil(left/days);
-  }
+        return;
 
-  return `<div class="wish section ${w.purchased?"completed":""}">
-   <div class="row">
-    <div><strong>${w.name}</strong>
-     <div class="small">${w.price?money(w.saved)+" / "+money(w.price):"No price set"}</div>
-    </div>
-    <span class="badge">${w.purchased?"✓ Bought":"Wanted"}</span>
-   </div>
+    }
 
-   ${w.price?`
-   <div class="progress"><span style="width:${p}%"></span></div>
-   <div class="row small"><span>${p.toFixed(0)}% funded</span><span>${left?money(left)+" remaining":"Fully funded"}</span></div>
-   ${daily?`<div class="small section">Save about ${money(daily)}/day to reach it.</div>`:""}
-   `:""}
+    container.innerHTML=
+        data.wishlist.map(w=>{
 
-   <div class="actions section">
-    ${w.price&&!w.purchased?`<button class="btn primary" onclick="addWishlistSavings(${w.id})">+ Add Saved</button>`:""}
-    <button class="btn" onclick="completeWishlist(${w.id})">${w.purchased?"Mark Wanted":"Mark Bought"}</button>
-    <button class="btn danger" onclick="deleteWishlist(${w.id})">Delete</button>
-   </div>
-  </div>`;
- }).join("");
+            const remaining=Math.max(
+                0,
+                w.price-w.saved
+            );
+
+            const pct=w.price
+                ?Math.min(
+                    100,
+                    w.saved/w.price*100
+                )
+                :0;
+
+            return`
+
+            <div class="item ${
+                w.purchased?"completed":""
+            }">
+
+                <div class="row">
+
+                    <div>
+                        <strong class="strike">
+                            ${escapeHTML(w.name)}
+                        </strong>
+
+                        <div class="small">
+                            ${
+                                w.price
+                                ?`${money(w.saved)}
+                                   / ${money(w.price)}`
+                                :"No price"
+                            }
+
+                            ${
+                                w.deadline
+                                ?` • ${
+                                    new Date(
+                                        w.deadline
+                                    ).toLocaleDateString(
+                                        "en-IN"
+                                    )
+                                }`
+                                :""
+                            }
+                        </div>
+
+                    </div>
+
+                    <span class="badge">
+                        ${w.purchased?"✓ Bought":"Wanted"}
+                    </span>
+
+                </div>
+
+                ${
+                    w.price
+                    ?`
+                    <div class="progress">
+                        <span style="width:${pct}%"></span>
+                    </div>
+
+                    <div class="small">
+                        ${pct.toFixed(0)}% funded
+                        •
+                        ${money(remaining)} remaining
+                    </div>
+                    `
+                    :""
+                }
+
+                <div class="actions section">
+
+                    ${
+                        w.price && !w.purchased
+                        ?`
+                        <button
+                        class="btn primary"
+                        onclick="addWishlistSavings(${w.id})">
+                            + Saved
+                        </button>
+                        `
+                        :""
+                    }
+
+                    <button
+                    class="btn"
+                    onclick="completeWishlist(${w.id})">
+                        ${w.purchased
+                            ?"Mark Wanted"
+                            :"Mark Bought"}
+                    </button>
+
+                    <button
+                    class="btn danger"
+                    onclick="deleteWishlist(${w.id})">
+                        Delete
+                    </button>
+
+                </div>
+
+            </div>
+
+            `;
+
+        }).join("");
+
 }
 
-/* ================= BUCKET ================= */
+
+/* =========================================================
+BUCKET LIST
+========================================================= */
 
 function createBucketItem(){
- const name=document.getElementById("bucketName").value.trim();
- if(!name)return showToast("Enter a bucket item");
 
- data.bucketList.push({id:Date.now(),name,completed:false,completedDate:null});
- document.getElementById("bucketName").value="";
- addXP(10);save();
+    const name=document.getElementById(
+        "bucketName"
+    ).value.trim();
+
+    const type=document.getElementById(
+        "bucketType"
+    ).value;
+
+    const target=Number(
+        document.getElementById(
+            "bucketTarget"
+        ).value
+    )||0;
+
+    const deadline=document.getElementById(
+        "bucketDeadline"
+    ).value;
+
+    const steps=document.getElementById(
+        "bucketSteps"
+    ).value
+    .split(/\r?\n/)
+    .map(x=>x.trim())
+    .filter(Boolean);
+
+    if(!name){
+
+        showToast("Enter bucket item");
+
+        return;
+
+    }
+
+    data.bucketList.push({
+
+        id:Date.now(),
+
+        name,
+
+        type,
+
+        target,
+
+        saved:0,
+
+        deadline,
+
+        steps,
+
+        completed:false,
+
+        completedDate:null
+
+    });
+
+    document.getElementById(
+        "bucketName"
+    ).value="";
+
+    document.getElementById(
+        "bucketTarget"
+    ).value="";
+
+    document.getElementById(
+        "bucketDeadline"
+    ).value="";
+
+    document.getElementById(
+        "bucketSteps"
+    ).value="";
+
+    save();
+
+    showToast("Bucket item added 🪣");
+
 }
+
+
+function addBucketSavings(id){
+
+    const item=data.bucketList.find(
+        b=>b.id===id
+    );
+
+    if(!item || !item.target)
+        return;
+
+    const amount=Number(
+        prompt(
+            `How much have you saved for ${item.name}?`
+        )
+    );
+
+    if(!amount || amount<=0)
+        return;
+
+    item.saved=Math.min(
+        item.target,
+        item.saved+amount
+    );
+
+    save();
+
+}
+
 
 function toggleBucket(id){
- const b=data.bucketList.find(x=>x.id===id);
- b.completed=!b.completed;
- b.completedDate=b.completed?new Date().toISOString():null;
- if(b.completed)addXP(50);
- save();
+
+    const item=data.bucketList.find(
+        b=>b.id===id
+    );
+
+    if(!item)
+        return;
+
+    item.completed=!item.completed;
+
+    item.completedDate=
+        item.completed
+        ?new Date().toISOString()
+        :null;
+
+    save();
+
 }
+
 
 function deleteBucket(id){
- data.bucketList=data.bucketList.filter(x=>x.id!==id);save();
+
+    data.bucketList=data.bucketList.filter(
+        b=>b.id!==id
+    );
+
+    save();
+
 }
+
 
 function renderBucket(){
- const c=document.getElementById("bucketContainer");
- const done=data.bucketList.filter(x=>x.completed).length;
 
- document.getElementById("bucketProgress").textContent=
-  `${done} / ${data.bucketList.length}`;
+    const container=document.getElementById(
+        "bucketContainer"
+    );
 
- if(!data.bucketList.length){
-  c.innerHTML='<div class="empty">Your bucket list is empty.</div>';return;
- }
+    const total=data.bucketList.length;
 
- c.innerHTML=data.bucketList.map(b=>`
-  <div class="row section ${b.completed?"completed":""}">
-   <div style="flex:1">
-    <input type="checkbox" ${b.completed?"checked":""} onchange="toggleBucket(${b.id})" style="width:auto">
-    <strong>${b.name}</strong>
-    ${b.completedDate?`<div class="small">Completed ${new Date(b.completedDate).toLocaleDateString("en-IN")}</div>`:""}
-   </div>
-   <button class="btn danger" onclick="deleteBucket(${b.id})">Delete</button>
-  </div>`).join("");
+    const completed=data.bucketList.filter(
+        b=>b.completed
+    ).length;
+
+    document.getElementById(
+        "bucketProgress"
+    ).textContent=
+        `${completed} / ${total}`;
+
+    if(!total){
+
+        container.innerHTML=
+            `<div class="empty">
+                Your bucket list is empty.
+             </div>`;
+
+        return;
+
+    }
+
+    container.innerHTML=
+        data.bucketList.map(b=>{
+
+            const pct=b.target
+                ?Math.min(
+                    100,
+                    b.saved/b.target*100
+                )
+                :0;
+
+            return`
+
+            <div class="item ${
+                b.completed?"completed":""
+            }">
+
+                <div class="row">
+
+                    <div>
+
+                        <strong class="strike">
+                            ${escapeHTML(b.name)}
+                        </strong>
+
+                        <div class="small">
+                            ${escapeHTML(b.type)}
+
+                            ${
+                                b.deadline
+                                ?` • ${
+                                    daysUntil(
+                                        b.deadline
+                                    )
+                                } days`
+                                :""
+                            }
+                        </div>
+
+                    </div>
+
+                    <span class="badge">
+                        ${b.completed?"✓ Done":"Open"}
+                    </span>
+
+                </div>
+
+                ${
+                    b.target
+                    ?`
+                    <div class="section">
+
+                        <div class="row small">
+                            <span>
+                                ${money(b.saved)}
+                                /
+                                ${money(b.target)}
+                            </span>
+
+                            <span>
+                                ${pct.toFixed(0)}%
+                            </span>
+                        </div>
+
+                        <div class="progress">
+                            <span style="width:${pct}%"></span>
+                        </div>
+
+                        <div class="small">
+                            Recommended:
+                            ${money(
+                                recommendedBucketDaily(b)
+                            )}/day
+                        </div>
+
+                    </div>
+                    `
+                    :""
+                }
+
+                ${
+                    b.steps.length
+                    ?`
+                    <div class="section">
+
+                        <div class="label">
+                            Steps
+                        </div>
+
+                        ${b.steps.map(
+                            (s,i)=>
+                            `<div class="check-row">
+                                ${i+1}. ${escapeHTML(s)}
+                             </div>`
+                        ).join("")}
+
+                    </div>
+                    `
+                    :""
+                }
+
+                <div class="actions section">
+
+                    ${
+                        b.target && !b.completed
+                        ?`
+                        <button
+                        class="btn primary"
+                        onclick="addBucketSavings(${b.id})">
+                            + Save
+                        </button>
+                        `
+                        :""
+                    }
+
+                    <button
+                    class="btn"
+                    onclick="toggleBucket(${b.id})">
+                        ${b.completed?"Reopen":"Complete"}
+                    </button>
+
+                    <button
+                    class="btn danger"
+                    onclick="deleteBucket(${b.id})">
+                        Delete
+                    </button>
+
+                </div>
+
+            </div>
+
+            `;
+
+        }).join("");
+
 }
 
-/* ================= HISTORY ================= */
+
+function recommendedBucketDaily(item){
+
+    const remaining=Math.max(
+        0,
+        item.target-item.saved
+    );
+
+    if(!remaining)
+        return 0;
+
+    if(item.deadline){
+
+        return Math.ceil(
+            remaining/
+            Math.max(
+                1,
+                daysUntil(item.deadline)
+            )
+        );
+
+    }
+
+    return Math.ceil(
+        remaining/90
+    );
+
+}
+
+
+/* =========================================================
+GROW
+========================================================= */
+
+function renderGrow(){
+
+    const index=
+        new Date().getDate()%
+        lessons.length;
+
+    document.getElementById(
+        "growLesson"
+    ).textContent=
+        lessons[index];
+
+    document.getElementById(
+        "learningStreak"
+    ).textContent=
+        `${data.learning.streak}
+        day${data.learning.streak===1?"":"s"}`;
+
+    const totals=getMonthTotals(
+        monthKey(new Date())
+    );
+
+    let score=50;
+
+    if(totals.net>0)
+        score+=20;
+
+    if(data.investments.length)
+        score+=10;
+
+    if(
+        totals.income>0 &&
+        totals.expenses<totals.income
+    )
+        score+=10;
+
+    if(totals.cigarettes>500)
+        score-=10;
+
+    score=Math.max(
+        0,
+        Math.min(100,score)
+    );
+
+    document.getElementById(
+        "moneyHealth"
+    ).textContent=
+        `${score} / 100`;
+
+    document.getElementById(
+        "healthProgress"
+    ).style.width=
+        score+"%";
+
+    document.getElementById(
+        "healthExplanation"
+    ).textContent=
+        "X7 score based on cash flow, spending behaviour and investing activity.";
+
+}
+
+
+function completeLearning(){
+
+    const today=todayKey();
+
+    if(data.learning.lastDate===today){
+
+        showToast("Already completed today 🔥");
+
+        return;
+
+    }
+
+    const yesterday=new Date();
+
+    yesterday.setDate(
+        yesterday.getDate()-1
+    );
+
+    const yesterdayKey=
+        yesterday
+        .toISOString()
+        .slice(0,10);
+
+    if(
+        data.learning.lastDate===
+        yesterdayKey
+    )
+        data.learning.streak++;
+    else
+        data.learning.streak=1;
+
+    data.learning.lastDate=today;
+
+    save();
+
+    showToast("Learning streak updated 🔥");
+
+}
+
+
+/* =========================================================
+HISTORY
+========================================================= */
 
 function allMonths(){
- const s=new Set(data.transactions.map(t=>monthKey(t.date)));
- s.add(monthKey(new Date()));
- return [...s].sort().reverse();
+
+    const months=new Set();
+
+    data.transactions.forEach(
+        t=>months.add(
+            monthKey(t.date)
+        )
+    );
+
+    months.add(
+        monthKey(new Date())
+    );
+
+    return[
+        ...months
+    ].sort()
+    .reverse();
+
 }
+
 
 function populateHistoryMonths(){
- const s=document.getElementById("historyMonth");
- const old=s.value||monthKey(new Date());
- const ms=allMonths();
 
- s.innerHTML=ms.map(m=>`<option value="${m}">${monthName(m)}</option>`).join("");
- if(ms.includes(old))s.value=old;
+    const select=document.getElementById(
+        "historyMonth"
+    );
+
+    const months=allMonths();
+
+    const current=
+        select.value||
+        monthKey(new Date());
+
+    select.innerHTML=
+        months.map(
+            m=>
+            `<option value="${m}">
+                ${monthName(m)}
+             </option>`
+        ).join("");
+
+    if(months.includes(current))
+        select.value=current;
+
 }
+
 
 function renderHistory(){
- populateHistoryMonths();
 
- const selected=document.getElementById("historyMonth").value;
- const t=getMonthTotals(selected);
- const months=allMonths();
- const idx=months.indexOf(selected);
- const prev=months[idx+1];
+    populateHistoryMonths();
 
- document.getElementById("historyStats").innerHTML=`
- <div class="grid section">
-  <div class="card"><div class="label">Income</div><div class="big good">${money(t.income)}</div></div>
-  <div class="card"><div class="label">Expenses</div><div class="big bad">${money(t.expenses)}</div></div>
-  <div class="card"><div class="label">Net Growth</div><div class="big">${money(t.net)}</div></div>
-  <div class="card"><div class="label">Invested</div><div class="big">${money(t.investment)}</div></div>
- </div>`;
+    const selected=
+        document.getElementById(
+            "historyMonth"
+        ).value||
+        monthKey(new Date());
 
- document.getElementById("historyCategories").innerHTML=`
- <div class="card">
-  <h3>Where did the money go?</h3>
-  <div class="grid3">
-   ${[
-    ["Food",t.food],["Transport",t.transport],["Cigarettes",t.cigarettes],
-    ["Shopping",t.shopping],["Bills",t.bills],["Debt",t.debt]
-   ].map(x=>`<div><div>${x[0]}</div><strong>${money(x[1])}</strong></div>`).join("")}
-  </div>
- </div>`;
+    const totals=getMonthTotals(
+        selected
+    );
 
- if(prev){
-  const p=getMonthTotals(prev);
-  document.getElementById("historyComparison").innerHTML=`
-  <div class="card">
-   <h3>${monthName(selected)} vs ${monthName(prev)}</h3>
-   <div class="grid2">
-    <div>Income change<br><strong class="${t.income>=p.income?"good":"bad"}">${t.income>=p.income?"+":""}${money(t.income-p.income)}</strong></div>
-    <div>Expense change<br><strong class="${t.expenses<=p.expenses?"good":"bad"}">${t.expenses>=p.expenses?"+":""}${money(t.expenses-p.expenses)}</strong></div>
-    <div>Net change<br><strong>${money(t.net-p.net)}</strong></div>
-    <div>Investment change<br><strong>${money(t.investment-p.investment)}</strong></div>
-   </div>
-  </div>`;
- }else{
-  document.getElementById("historyComparison").innerHTML="";
- }
+    document.getElementById(
+        "historyStats"
+    ).innerHTML=`
 
- document.getElementById("historyTransactions").innerHTML=t.transactions.length?`
- <div class="card">
- <h3>${monthName(selected)} Transactions</h3>
- <div class="table-wrap"><table>
- <thead><tr><th>Date</th><th>Type</th><th>Category</th><th>Description</th><th>Amount</th></tr></thead>
- <tbody>
- ${t.transactions.slice().reverse().map(x=>`
- <tr><td>${new Date(x.date).toLocaleDateString("en-IN",{day:"2-digit",month:"short"})}</td>
- <td>${x.type}</td><td>${x.category}</td><td>${x.note}</td>
- <td class="${x.type==="income"?"good":"bad"}">${x.type==="income"?"+":"-"}${money(x.amount)}</td></tr>
- `).join("")}
- </tbody></table></div></div>`:
- `<div class="card empty">No transactions in ${monthName(selected)}.</div>`;
+    <div class="grid section">
 
- renderNetWorthHistory();
+        <div class="card">
+            <div class="label">Income</div>
+            <div class="big good">
+                ${money(totals.income)}
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="label">Expenses</div>
+            <div class="big bad">
+                ${money(totals.expenses)}
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="label">Net Growth</div>
+            <div class="big ${
+                totals.net>=0
+                ?"good"
+                :"bad"
+            }">
+                ${money(totals.net)}
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="label">Invested</div>
+            <div class="big">
+                ${money(totals.investment)}
+            </div>
+        </div>
+
+    </div>
+
+    `;
+
+    document.getElementById(
+        "historyCategories"
+    ).innerHTML=`
+
+    <div class="card">
+
+        <h3>
+            Where did the money go?
+        </h3>
+
+        <div class="grid3">
+
+            <div>
+                Food<br>
+                <strong>${money(totals.food)}</strong>
+            </div>
+
+            <div>
+                Transport<br>
+                <strong>${money(totals.transport)}</strong>
+            </div>
+
+            <div>
+                Cigarettes<br>
+                <strong>${money(totals.cigarettes)}</strong>
+            </div>
+
+            <div>
+                Shopping<br>
+                <strong>${money(totals.shopping)}</strong>
+            </div>
+
+            <div>
+                Bills<br>
+                <strong>${money(totals.bills)}</strong>
+            </div>
+
+            <div>
+                Debt<br>
+                <strong>${money(totals.debt)}</strong>
+            </div>
+
+        </div>
+
+    </div>
+
+    `;
+
+    const months=allMonths();
+
+    const index=months.indexOf(
+        selected
+    );
+
+    const previous=months[index+1];
+
+    if(previous){
+
+        const p=getMonthTotals(previous);
+
+        document.getElementById(
+            "historyComparison"
+        ).innerHTML=`
+
+        <div class="card">
+
+            <h3>
+                ${monthName(selected)}
+                vs
+                ${monthName(previous)}
+            </h3>
+
+            <div class="grid2">
+
+                <div>
+                    <div class="label">
+                        Expense Change
+                    </div>
+                    <strong class="${
+                        totals.expenses<=p.expenses
+                        ?"good":"bad"
+                    }">
+                        ${money(
+                            totals.expenses-p.expenses
+                        )}
+                    </strong>
+                </div>
+
+                <div>
+                    <div class="label">
+                        Income Change
+                    </div>
+                    <strong class="${
+                        totals.income>=p.income
+                        ?"good":"bad"
+                    }">
+                        ${money(
+                            totals.income-p.income
+                        )}
+                    </strong>
+                </div>
+
+            </div>
+
+        </div>
+
+        `;
+
+    }
+
+    if(!totals.transactions.length){
+
+        document.getElementById(
+            "historyTransactions"
+        ).innerHTML=
+            `<div class="card empty">
+                No transactions in
+                ${monthName(selected)}.
+             </div>`;
+
+        return;
+
+    }
+
+    document.getElementById(
+        "historyTransactions"
+    ).innerHTML=`
+
+    <div class="card">
+
+        <h3>
+            ${monthName(selected)}
+            Transactions
+        </h3>
+
+        <div class="table-wrap">
+
+        <table>
+
+        <thead>
+
+        <tr>
+            <th>Date</th>
+            <th>Type</th>
+            <th>Category</th>
+            <th>Description</th>
+            <th>Amount</th>
+        </tr>
+
+        </thead>
+
+        <tbody>
+
+        ${totals.transactions
+            .slice()
+            .reverse()
+            .map(t=>`
+
+            <tr>
+
+                <td>
+                ${new Date(t.date)
+                    .toLocaleDateString(
+                        "en-IN",
+                        {
+                            day:"2-digit",
+                            month:"short"
+                        }
+                    )}
+                </td>
+
+                <td>${t.type}</td>
+
+                <td>${escapeHTML(t.category)}</td>
+
+                <td>${escapeHTML(t.note)}</td>
+
+                <td class="${
+                    t.type==="income"
+                    ?"good"
+                    :"bad"
+                }">
+                    ${t.type==="income"?"+":"-"}
+                    ${money(t.amount)}
+                </td>
+
+            </tr>
+
+        `).join("")}
+
+        </tbody>
+
+        </table>
+
+        </div>
+
+    </div>
+
+    `;
+
 }
 
-function renderNetWorthHistory(){
- const c=document.getElementById("netWorthHistory");
- const months=allMonths();
 
- c.innerHTML=months.map(m=>{
-  const t=getMonthTotals(m);
-  const cash=t.net;
-  const invested=data.investments.filter(i=>monthKey(i.date)===m).reduce((a,i)=>a+i.amount,0);
-  const debt=data.debts.reduce((a,d)=>a+Math.max(0,d.total-d.paid),0);
-  return `<div class="row section">
-   <span>${monthName(m)}</span>
-   <strong>${money(cash+invested-debt)}</strong>
-  </div>`;
- }).join("");
+/* =========================================================
+CIGARETTES
+========================================================= */
+
+function logCigarette(brand){
+
+    data.transactions.push({
+
+        id:Date.now(),
+
+        type:"expense",
+
+        amount:14,
+
+        note:brand+" cigarette",
+
+        category:"Cigarettes",
+
+        date:new Date().toISOString()
+
+    });
+
+    save();
+
+    showToast(
+        brand+" recorded 🚬"
+    );
+
 }
 
-/* ================= RESET ================= */
+
+/* =========================================================
+WHAT NOW
+========================================================= */
+
+function openWhatNow(){
+
+    const content=document.getElementById(
+        "whatNowContent"
+    );
+
+    const priority=getPriorityItem();
+
+    if(!priority){
+
+        content.innerHTML=`
+
+        <div class="priority">
+
+            <h2>
+                You're clear. 🎉
+            </h2>
+
+            <p class="small">
+                There is no obvious urgent item.
+                This is a good time to work on a
+                longer-term goal or add something
+                meaningful to X7.
+            </p>
+
+            <div class="actions section">
+
+                <button class="btn primary"
+                onclick="closeModal('whatNowModal');showViewById('projects')">
+                    Work on a Project
+                </button>
+
+                <button class="btn"
+                onclick="closeModal('whatNowModal');showViewById('goals')">
+                    Review Goals
+                </button>
+
+            </div>
+
+        </div>
+
+        `;
+
+    }else{
+
+        let title="";
+        let reason="";
+        let action="";
+
+        if(priority.kind==="task"){
+
+            const t=priority.item;
+
+            title=t.name;
+
+            reason=
+                `This is your highest-priority unfinished task${
+                    t.deadline
+                    ?" and its deadline is approaching."
+                    :""
+                }`;
+
+            action=`
+                <button class="btn primary"
+                onclick="completeTask(${t.id});closeModal('whatNowModal')">
+                    Mark Complete
+                </button>
+            `;
+
+        }
+
+        if(priority.kind==="deadline"){
+
+            const d=priority.item;
+
+            title=d.name;
+
+            reason=
+                `You have ${daysUntil(d.date)} days remaining.`;
+
+            action=`
+                <button class="btn primary"
+                onclick="closeModal('whatNowModal');showViewById('deadlines')">
+                    Open Deadline
+                </button>
+            `;
+
+        }
+
+        if(priority.kind==="goal"){
+
+            const g=priority.item;
+
+            title=
+                `Save ${money(
+                    recommendedGoalDaily(g)
+                )} for ${g.name}`;
+
+            reason=
+                `${money(
+                    g.target-g.saved
+                )} remains on this goal.`;
+
+            action=`
+                <button class="btn primary"
+                onclick="closeModal('whatNowModal');showViewById('goals')">
+                    Open Goal
+                </button>
+            `;
+
+        }
+
+        if(priority.kind==="life"){
+
+            title=priority.item.name;
+
+            reason=
+                "This personal goal is still unfinished.";
+
+            action=`
+                <button class="btn primary"
+                onclick="closeModal('whatNowModal');showViewById('life')">
+                    Open Life
+                </button>
+            `;
+
+        }
+
+        content.innerHTML=`
+
+        <div class="priority hot">
+
+            <div class="label">
+                RIGHT NOW
+            </div>
+
+            <h2>
+                🔥 ${escapeHTML(title)}
+            </h2>
+
+            <p class="small">
+                ${escapeHTML(reason)}
+            </p>
+
+            <div class="insight">
+
+                <strong>
+                    X7's recommendation
+                </strong>
+
+                <div class="small section">
+                    Give this your attention before
+                    starting something else.
+                </div>
+
+            </div>
+
+            <div class="actions section">
+                ${action}
+            </div>
+
+        </div>
+
+        `;
+
+    }
+
+    document.getElementById(
+        "whatNowModal"
+    ).classList.add("show");
+
+}
+
+
+/* =========================================================
+QUICK ADD
+========================================================= */
+
+function openQuickAdd(type){
+
+    if(type){
+
+        closeModal("quickModal");
+
+        if(type==="expense" || type==="income"){
+
+            showViewById("money");
+
+            document.getElementById(
+                "transactionType"
+            ).value=type;
+
+            return;
+
+        }
+
+        if(type==="goal"){
+
+            showViewById("goals");
+            return;
+
+        }
+
+        if(type==="task"){
+
+            showViewById("tasks");
+            return;
+
+        }
+
+        if(type==="note"){
+
+            showViewById("notes");
+            return;
+
+        }
+
+        if(type==="bucket"){
+
+            showViewById("bucket");
+            return;
+
+        }
+
+        if(type==="project"){
+
+            showViewById("projects");
+            return;
+
+        }
+
+        if(type==="deadline"){
+
+            showViewById("deadlines");
+            return;
+
+        }
+
+    }
+
+    document.getElementById(
+        "quickModal"
+    ).classList.add("show");
+
+}
+
+
+function closeModal(id){
+
+    document.getElementById(id)
+        .classList.remove("show");
+
+}
+
+
+function showViewById(id){
+
+    const button=[
+        ...document.querySelectorAll(
+            ".nav button"
+        )
+    ].find(
+        b=>
+            b.getAttribute("onclick") &&
+            b.getAttribute("onclick")
+            .includes("'"+id+"'")
+    );
+
+    showView(id,button);
+
+}
+
+
+/* =========================================================
+RESET
+========================================================= */
 
 function resetX7(){
- if(confirm("Delete ALL X7 data? This cannot be undone.")){
-  localStorage.removeItem(STORAGE_KEY);
-  location.reload();
- }
+
+    if(!confirm(
+        "This will delete ALL X7 money, goals, debts, projects, notes, tasks, deadlines and Life OS data. Continue?"
+    ))
+        return;
+
+    localStorage.removeItem(
+        STORAGE_KEY
+    );
+
+    location.reload();
+
 }
 
-/* ================= STARTUP ================= */
 
-function setGreeting(){
- const h=new Date().getHours();
- document.getElementById("greeting").textContent=
-  h<12?"GOOD MORNING, X7":h<18?"GOOD AFTERNOON, X7":"GOOD EVENING, X7";
-
- document.getElementById("quote").textContent=
-  quotes[new Date().getDate()%quotes.length];
-
- document.getElementById("currentDate").textContent=
-  new Date().toLocaleDateString("en-IN",{
-   weekday:"long",day:"numeric",month:"long",year:"numeric"
-  });
-}
+/* =========================================================
+RENDER ALL
+========================================================= */
 
 function renderAll(){
- ensure();
- setGreeting();
- renderHome();
- renderMoney();
- renderGoals();
- renderDebts();
- renderInvestments();
- renderGrow();
- renderLife();
- renderWishlist();
- renderBucket();
- populateHistoryMonths();
+
+    ensureX7Data();
+
+    renderHome();
+
+    renderMoney();
+
+    renderGoals();
+
+    renderDebts();
+
+    renderInvestments();
+
+    renderProjects();
+
+    renderTasks();
+
+    renderNotes();
+
+    renderDeadlines();
+
+    renderLife();
+
+    renderWishlist();
+
+    renderBucket();
+
+    renderGrow();
+
+    populateProjectSelects();
+
+    populateHistoryMonths();
+
 }
 
+
+/* =========================================================
+START
+========================================================= */
+
 renderAll();
+
 </script>
+
 </body>
 </html>
