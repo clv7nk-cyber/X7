@@ -157,7 +157,7 @@ h3{
 }
 
 .big{
-    font-size:30px;
+    font-size:28px;
     font-weight:900;
     margin-top:7px;
 }
@@ -259,7 +259,7 @@ input,select{
 }
 
 .hero{
-    min-height:330px;
+    min-height:auto;
     position:relative;
     overflow:hidden;
     display:flex;
@@ -312,15 +312,15 @@ input,select{
 .command-money{
     margin-top:22px;
     display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:10px;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
 }
 
 .command-stat{
     background:#0c0c0c;
     border:1px solid #242424;
     border-radius:16px;
-    padding:14px;
+    padding:16px 14px;
 }
 
 .priority{
@@ -573,7 +573,7 @@ textarea.statement{
     .grid{grid-template-columns:repeat(2,1fr)}
     .grid3{grid-template-columns:1fr 1fr}
     .grid2{grid-template-columns:1fr}
-    .command-money{grid-template-columns:1fr}
+    .command-money{grid-template-columns:repeat(2,1fr)}
     .market-grid{grid-template-columns:1fr 1fr}
 }
 
@@ -581,8 +581,9 @@ textarea.statement{
     .app{padding:12px}
     .grid{grid-template-columns:1fr 1fr}
     .grid3{grid-template-columns:1fr}
+    .command-money{grid-template-columns:1fr 1fr}
     .quote{font-size:23px}
-    .big{font-size:25px}
+    .big{font-size:22px}
     .what-now{
         left:12px;
         bottom:12px;
@@ -644,21 +645,47 @@ HOME / DAILY COMMAND CENTER
 
 <div class="date" id="currentDate"></div>
 
+<!-- 8 DASHBOARD FINANCIAL METRICS -->
 <div class="command-money">
 
 <div class="command-stat">
-<div class="label">Available Today</div>
-<div class="big good" id="availableToday">₹0</div>
+<div class="label">💸 MONEY TODAY</div>
+<div class="big bad" id="dashMoneyToday">₹0</div>
 </div>
 
 <div class="command-stat">
-<div class="label">Month Balance</div>
-<div class="big" id="homeBalance">₹0</div>
+<div class="label">📊 MONTHLY SPEND</div>
+<div class="big bad" id="dashMonthlySpend">₹0</div>
 </div>
 
 <div class="command-stat">
-<div class="label">Today's Spending</div>
-<div class="big bad" id="todayExpense">₹0</div>
+<div class="label">💰 MONEY INCOME</div>
+<div class="big good" id="dashMoneyIncome">₹0</div>
+</div>
+
+<div class="command-stat">
+<div class="label">📈 MONTHLY INCOME</div>
+<div class="big good" id="dashMonthlyIncome">₹0</div>
+</div>
+
+<div class="command-stat">
+<div class="label">📈 INVESTED</div>
+<div class="big purple" id="dashInvested">₹0</div>
+</div>
+
+<div class="command-stat">
+<div class="label">💎 NET WORTH</div>
+<div class="big blue" id="dashNetWorth">₹0</div>
+</div>
+
+<div class="command-stat">
+<div class="label">💵 CASH</div>
+<div class="big good" id="dashCash">₹0</div>
+</div>
+
+<div class="command-stat">
+<div class="label">💳 DEBT</div>
+<div class="big bad" id="dashDebt">₹0</div>
 </div>
 
 </div>
@@ -801,8 +828,8 @@ MONEY
 <div class="form">
 
 <select id="transactionType">
-<option value="income">Income</option>
 <option value="expense">Expense</option>
+<option value="income">Income</option>
 </select>
 
 <input id="transactionAmount"
@@ -939,7 +966,7 @@ AFFORDABILITY
 
 <p class="small">
 Tell X7 what you want to buy. X7 will consider your
-current money, daily budget, goals, debts and upcoming
+current money, goals, debts and upcoming
 deadlines and give you an opinion.
 </p>
 
@@ -1051,7 +1078,7 @@ Invest Money
 
 <div class="card">
 <div class="label">Money Invested</div>
-<div class="big" id="investedMoney">₹0</div>
+<div class="big purple" id="investedMoney">₹0</div>
 </div>
 
 <div class="card">
@@ -1712,9 +1739,6 @@ if(!data){
             lastDate:null,
             streak:0
         },
-        settings:{
-            dailyBudget:500
-        },
         lifeGoals:[],
         habits:[],
         wishlist:[],
@@ -1743,12 +1767,6 @@ function ensureX7Data(){
 
     if(!data.learning)
         data.learning={lastDate:null,streak:0};
-
-    if(!data.settings)
-        data.settings={dailyBudget:500};
-
-    if(!data.settings.dailyBudget)
-        data.settings.dailyBudget=500;
 
     if(!Array.isArray(data.lifeGoals))
         data.lifeGoals=[];
@@ -2568,45 +2586,61 @@ function renderHome(){
             }
         );
 
-    const totals=getMonthTotals(
-        monthKey(now)
-    );
+    // Calculations
+    const today = todayKey();
+    const currentMonthKey = monthKey(now);
 
-    document.getElementById(
-        "homeBalance"
-    ).textContent=
-        money(
-            totals.income-
-            totals.expenses
-        );
+    // 1. Money Today (Actual Spending)
+    const moneyToday = data.transactions
+        .filter(t => t.type === "expense" && t.date.slice(0,10) === today)
+        .reduce((sum, t) => sum + Number(t.amount), 0);
 
-    const todayExpenses=
-        data.transactions
-        .filter(
-            t=>
-                t.type==="expense" &&
-                t.date.slice(0,10)===todayKey()
-        )
-        .reduce(
-            (s,t)=>s+Number(t.amount),
-            0
-        );
+    // 2. Monthly Spend (Total Spending this month)
+    const monthlySpend = data.transactions
+        .filter(t => t.type === "expense" && monthKey(t.date) === currentMonthKey)
+        .reduce((sum, t) => sum + Number(t.amount), 0);
 
-    document.getElementById(
-        "todayExpense"
-    ).textContent=
-        money(todayExpenses);
+    // 3. Money Income (Today's actual income)
+    const moneyIncome = data.transactions
+        .filter(t => t.type === "income" && t.date.slice(0,10) === today)
+        .reduce((sum, t) => sum + Number(t.amount), 0);
 
-    const remainingToday=Math.max(
-        0,
-        Number(data.settings.dailyBudget)-
-        todayExpenses
-    );
+    // 4. Monthly Income (Total income this month)
+    const monthlyIncome = data.transactions
+        .filter(t => t.type === "income" && monthKey(t.date) === currentMonthKey)
+        .reduce((sum, t) => sum + Number(t.amount), 0);
 
-    document.getElementById(
-        "availableToday"
-    ).textContent=
-        money(remainingToday);
+    // 5. Invested (Total investments)
+    const invested = data.investments
+        .reduce((sum, i) => sum + Number(i.amount), 0);
+
+    // 7. Cash (Actual Available Cash = All Incomes - All Expenses)
+    const allIncomes = data.transactions
+        .filter(t => t.type === "income")
+        .reduce((sum, t) => sum + Number(t.amount), 0);
+
+    const allExpenses = data.transactions
+        .filter(t => t.type === "expense")
+        .reduce((sum, t) => sum + Number(t.amount), 0);
+
+    const cash = allIncomes - allExpenses;
+
+    // 8. Debt (Total Outstanding Debt = Total Debt - Paid)
+    const debt = data.debts
+        .reduce((sum, d) => sum + Math.max(0, Number(d.total) - Number(d.paid)), 0);
+
+    // 6. Net Worth = Cash + Investments - Debt
+    const netWorth = cash + invested - debt;
+
+    // Populate Dashboard Cards
+    document.getElementById("dashMoneyToday").textContent = money(moneyToday);
+    document.getElementById("dashMonthlySpend").textContent = money(monthlySpend);
+    document.getElementById("dashMoneyIncome").textContent = money(moneyIncome);
+    document.getElementById("dashMonthlyIncome").textContent = money(monthlyIncome);
+    document.getElementById("dashInvested").textContent = money(invested);
+    document.getElementById("dashNetWorth").textContent = money(netWorth);
+    document.getElementById("dashCash").textContent = money(cash);
+    document.getElementById("dashDebt").textContent = money(debt);
 
     renderTodayPriority();
     renderHomeSuggestions();
@@ -2648,8 +2682,6 @@ function renderHome(){
 
 
 function getPriorityItem(){
-
-    const now=new Date();
 
     const urgentTasks=
         data.tasks
@@ -2859,25 +2891,6 @@ function generateSuggestions(){
         monthKey(new Date())
     );
 
-    const todayExpenses=
-        data.transactions
-        .filter(
-            t=>
-                t.type==="expense" &&
-                t.date.slice(0,10)===todayKey()
-        )
-        .reduce(
-            (s,t)=>s+Number(t.amount),
-            0
-        );
-
-    const dailyRemaining=
-        Math.max(
-            0,
-            data.settings.dailyBudget-
-            todayExpenses
-        );
-
     const urgentTask=data.tasks
         .filter(t=>!t.completed)
         .sort(
@@ -2915,12 +2928,6 @@ function generateSuggestions(){
 
         suggestions.push(
             `⚠️ Your spending is above your income this month. Protect your remaining cash.`
-        );
-
-    }else{
-
-        suggestions.push(
-            `💰 You have ${money(dailyRemaining)} left in today's spending budget.`
         );
 
     }
@@ -3379,9 +3386,6 @@ function recommendedGoalDaily(goal){
 
     }
 
-    const dailyBudget=
-        Number(data.settings.dailyBudget)||500;
-
     return Math.max(
         50,
         Math.min(
@@ -3646,32 +3650,15 @@ function calculateAffordability(){
     if(!paydayDays)
         paydayDays=15;
 
-    const month=monthKey(new Date());
-    const totals=getMonthTotals(month);
+    const allIncomes = data.transactions
+        .filter(t => t.type === "income")
+        .reduce((sum, t) => sum + Number(t.amount), 0);
 
-    const balance=
-        totals.income-
-        totals.expenses;
+    const allExpenses = data.transactions
+        .filter(t => t.type === "expense")
+        .reduce((sum, t) => sum + Number(t.amount), 0);
 
-    const todaySpent=
-        data.transactions
-        .filter(
-            t=>
-                t.type==="expense" &&
-                t.date.slice(0,10)===todayKey()
-        )
-        .reduce(
-            (s,t)=>s+t.amount,
-            0
-        );
-
-    const dailyBudget=
-        Number(data.settings.dailyBudget)||500;
-
-    const dailyRemaining=Math.max(
-        0,
-        dailyBudget-todaySpent
-    );
+    const balance = allIncomes - allExpenses;
 
     const upcomingDebt=data.debts
         .reduce(
@@ -3704,8 +3691,7 @@ function calculateAffordability(){
     let explanation;
     let recommendation;
 
-    if(afterPurchase>=
-       Math.max(500,dailyBudget*3)){
+    if(afterPurchase>=1000){
 
         status="green";
 
@@ -3763,7 +3749,7 @@ function calculateAffordability(){
 
                 <div class="mini-stat">
                     <div class="label">
-                        Current Balance
+                        Available Cash
                     </div>
                     <strong>
                         ${money(balance)}
