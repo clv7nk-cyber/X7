@@ -9,7 +9,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="X7">
 
-<title>X7 — Personal Command Center</title>
+<title>X7 — Cloud Command Center</title>
 
 <style>
 :root{
@@ -569,6 +569,104 @@ textarea.statement{
     border-radius:0 12px 12px 0;
 }
 
+/* =========================================================
+X7 V10 EMAIL-ONLY CLOUD SYNC
+========================================================= */
+body:not(.x7-authenticated) .app,
+body:not(.x7-authenticated) .what-now,
+body:not(.x7-authenticated) .fab{display:none!important}
+
+.auth-gate{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:24px;
+}
+
+body.x7-authenticated .auth-gate{display:none}
+
+.auth-shell{
+    width:min(440px,100%);
+    background:linear-gradient(145deg,#151515,#090909);
+    border:1px solid #2d2d2d;
+    border-radius:28px;
+    padding:26px;
+    box-shadow:0 30px 80px #000a;
+}
+
+.auth-logo{
+    font-size:64px;
+    font-weight:950;
+    letter-spacing:-7px;
+    line-height:.9;
+}
+
+.auth-title{
+    margin-top:18px;
+    font-size:25px;
+    font-weight:900;
+}
+
+.auth-message{
+    margin-top:12px;
+    min-height:18px;
+    font-size:12px;
+    color:#999;
+}
+
+.auth-message.error{color:var(--red)}
+.auth-message.success{color:var(--green)}
+
+.header-actions{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    flex-wrap:wrap;
+    justify-content:flex-end;
+}
+
+.sync-pill{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    border:1px solid #303030;
+    background:#0d0d0d;
+    border-radius:99px;
+    padding:8px 11px;
+    color:#aaa;
+    font-size:11px;
+}
+
+.sync-dot{
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:#777;
+    box-shadow:0 0 12px #7776;
+}
+
+.sync-pill.syncing .sync-dot{background:var(--yellow);box-shadow:0 0 12px #ffd86b88}
+.sync-pill.synced .sync-dot{background:var(--green);box-shadow:0 0 12px #65f3a288}
+.sync-pill.offline .sync-dot,
+.sync-pill.error .sync-dot{background:var(--red);box-shadow:0 0 12px #ff686888}
+
+.user-chip{
+    max-width:230px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    color:#888;
+    font-size:11px;
+}
+
+@media(max-width:650px){
+    .header{align-items:flex-start}
+    .header-actions{max-width:62%}
+    .user-chip{max-width:145px}
+    .sync-pill{padding:7px 9px}
+}
+
 @media(max-width:850px){
     .grid{grid-template-columns:repeat(2,1fr)}
     .grid3{grid-template-columns:1fr 1fr}
@@ -599,6 +697,24 @@ textarea.statement{
 
 <body>
 
+
+<div class="auth-gate" id="authGate">
+    <div class="auth-shell">
+        <div class="auth-logo">X7</div>
+        <div class="logo-sub" style="margin-top:8px">MONEY • LIFE • DISCIPLINE • GROWTH</div>
+        <div class="auth-title">Your life. Synced.</div>
+        <p class="small">Enter your approved X7 email once on this device. No password, OTP or signup.</p>
+
+        <div class="form section">
+            <input id="authEmail" type="email" autocomplete="email" placeholder="Email" onkeydown="if(event.key==='Enter') loginX7()">
+            <button class="btn primary" id="loginBtn" onclick="loginX7()">Enter X7</button>
+        </div>
+
+        <div class="auth-message" id="authMessage">Checking this device…</div>
+        <div class="small section">Only emails added to the X7 allowlist in Supabase can open a profile on this app.</div>
+    </div>
+</div>
+
 <div class="app">
 
 <div class="header">
@@ -607,7 +723,15 @@ textarea.statement{
         <div class="logo-sub">MONEY • LIFE • DISCIPLINE • GROWTH</div>
     </div>
 
-    <button class="btn danger" onclick="resetX7()">Reset</button>
+    <div class="header-actions">
+        <div class="sync-pill" id="syncPill">
+            <span class="sync-dot"></span>
+            <span id="syncText">Connecting…</span>
+        </div>
+        <div class="user-chip" id="userEmail"></div>
+        <button class="btn" onclick="logoutX7()">Log out</button>
+        <button class="btn danger" onclick="resetX7()">Reset</button>
+    </div>
 </div>
 
 <div class="nav">
@@ -1723,34 +1847,44 @@ TOAST
 
 <div class="toast" id="toast"></div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
 
 /* =========================================================
-X7 DATA
+X7 V10 EMAIL-ONLY CLOUD + DATA
 ========================================================= */
 
-const STORAGE_KEY="X7_MONEY_APP_V7";
+const SUPABASE_URL="https://uqswuhudtcclezzmpkgp.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY="sb_publishable_6NuIPAsC4OsYhZq7T15cxA_AmnDNxQO";
 
-let data;
+const LEGACY_STORAGE_KEY="X7_MONEY_APP_V7";
+const ACTIVE_EMAIL_KEY="X7_ACTIVE_EMAIL";
+const CLOUD_STORAGE_PREFIX="X7_EMAIL_STATE_";
+const CLOUD_TIME_PREFIX="X7_EMAIL_LOCAL_UPDATED_";
+const CLOUD_POLL_MS=5000;
 
-try{
-    data=JSON.parse(localStorage.getItem(STORAGE_KEY));
-}catch(e){
-    data=null;
-}
+const supabaseClient=window.supabase
+    ?window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+    )
+    :null;
 
-if(!data){
+let currentUser=null;
+let cloudSaveTimer=null;
+let cloudSaving=false;
+let cloudLoaded=false;
+let cloudPollTimer=null;
+let data=createEmptyData();
 
-    data={
+function createEmptyData(){
+    return{
         transactions:[],
         goals:[],
         debts:[],
         investments:[],
-        learning:{
-            lastDate:null,
-            streak:0
-        },
+        learning:{lastDate:null,streak:0},
         lifeGoals:[],
         habits:[],
         wishlist:[],
@@ -1764,71 +1898,369 @@ if(!data){
 }
 
 function ensureX7Data(){
-
-    if(!Array.isArray(data.transactions))
-        data.transactions=[];
-
-    if(!Array.isArray(data.goals))
-        data.goals=[];
-
-    if(!Array.isArray(data.debts))
-        data.debts=[];
-
-    if(!Array.isArray(data.investments))
-        data.investments=[];
-
-    if(!data.learning)
-        data.learning={lastDate:null,streak:0};
-
-    if(!Array.isArray(data.lifeGoals))
-        data.lifeGoals=[];
-
-    if(!Array.isArray(data.habits))
-        data.habits=[];
-
-    if(!Array.isArray(data.wishlist))
-        data.wishlist=[];
-
-    if(!Array.isArray(data.bucketList))
-        data.bucketList=[];
-
-    if(!data.monthlyMissions)
-        data.monthlyMissions={};
-
-    if(!Array.isArray(data.projects))
-        data.projects=[];
-
-    if(!Array.isArray(data.tasks))
-        data.tasks=[];
-
-    if(!Array.isArray(data.notes))
-        data.notes=[];
-
-    if(!Array.isArray(data.deadlines))
-        data.deadlines=[];
+    if(!data || typeof data!=="object") data=createEmptyData();
+    if(!Array.isArray(data.transactions)) data.transactions=[];
+    if(!Array.isArray(data.goals)) data.goals=[];
+    if(!Array.isArray(data.debts)) data.debts=[];
+    if(!Array.isArray(data.investments)) data.investments=[];
+    if(!data.learning) data.learning={lastDate:null,streak:0};
+    if(!Array.isArray(data.lifeGoals)) data.lifeGoals=[];
+    if(!Array.isArray(data.habits)) data.habits=[];
+    if(!Array.isArray(data.wishlist)) data.wishlist=[];
+    if(!Array.isArray(data.bucketList)) data.bucketList=[];
+    if(!data.monthlyMissions) data.monthlyMissions={};
+    if(!Array.isArray(data.projects)) data.projects=[];
+    if(!Array.isArray(data.tasks)) data.tasks=[];
+    if(!Array.isArray(data.notes)) data.notes=[];
+    if(!Array.isArray(data.deadlines)) data.deadlines=[];
 
     // V8 migration: investments are assets/cash outflows, not normal spending.
     data.transactions.forEach(t=>{
         if(t && t.type==="expense" && t.category==="Investment")
             t.type="investment";
     });
-
 }
 
-ensureX7Data();
+function normalizeEmail(value){
+    return String(value||"").trim().toLowerCase();
+}
 
+function userStorageKey(){
+    return currentUser ? CLOUD_STORAGE_PREFIX+currentUser.id : null;
+}
+
+function userTimeKey(){
+    return currentUser ? CLOUD_TIME_PREFIX+currentUser.id : null;
+}
+
+function parseStoredJSON(key){
+    if(!key) return null;
+    try{ return JSON.parse(localStorage.getItem(key)); }
+    catch(e){ return null; }
+}
+
+function hasMeaningfulData(value){
+    if(!value || typeof value!=="object") return false;
+    const arrayKeys=["transactions","goals","debts","investments","lifeGoals","habits","wishlist","bucketList","projects","tasks","notes","deadlines"];
+    return arrayKeys.some(k=>Array.isArray(value[k]) && value[k].length>0) ||
+           (value.monthlyMissions && Object.keys(value.monthlyMissions).length>0) ||
+           (value.learning && (value.learning.streak||value.learning.lastDate));
+}
+
+function persistLocal(markChanged=true,serverTime=null){
+    if(!currentUser) return;
+    ensureX7Data();
+    localStorage.setItem(userStorageKey(),JSON.stringify(data));
+    if(markChanged)
+        localStorage.setItem(userTimeKey(),new Date().toISOString());
+    else if(serverTime)
+        localStorage.setItem(userTimeKey(),serverTime);
+}
+
+function setSyncStatus(status,text){
+    const pill=document.getElementById("syncPill");
+    const label=document.getElementById("syncText");
+    if(!pill || !label) return;
+    pill.classList.remove("syncing","synced","offline","error");
+    if(status) pill.classList.add(status);
+    label.textContent=text;
+}
+
+function setAuthMessage(message,type=""){
+    const el=document.getElementById("authMessage");
+    if(!el) return;
+    el.textContent=message;
+    el.className="auth-message"+(type?" "+type:"");
+}
+
+function setAuthBusy(busy){
+    const el=document.getElementById("loginBtn");
+    if(el) el.disabled=busy;
+}
+
+function snapshotData(){
+    return JSON.parse(JSON.stringify(data));
+}
 
 function save(){
-
     ensureX7Data();
+    persistLocal(true);
+    renderAll();
+    queueCloudSave();
+}
 
-    localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify(data)
+function queueCloudSave(){
+    if(!currentUser || !cloudLoaded) return;
+    clearTimeout(cloudSaveTimer);
+    setSyncStatus("syncing","Saving…");
+    cloudSaveTimer=setTimeout(()=>pushCloudState(),280);
+}
+
+async function isEmailAllowed(email){
+    if(!supabaseClient) return false;
+    const normalized=normalizeEmail(email);
+    const {data:allowed,error}=await supabaseClient.rpc(
+        "x7_email_allowed",
+        {p_email:normalized}
+    );
+    if(error){
+        console.error("X7 allowlist check failed",error);
+        throw error;
+    }
+    return allowed===true;
+}
+
+async function pushCloudState(){
+    if(!currentUser || cloudSaving || !navigator.onLine) return;
+    cloudSaving=true;
+    clearTimeout(cloudSaveTimer);
+    cloudSaveTimer=null;
+    setSyncStatus("syncing","Saving…");
+
+    const payload=snapshotData();
+    const {data:rows,error}=await supabaseClient.rpc(
+        "x7_save_state",
+        {
+            p_email:currentUser.email,
+            p_data:payload
+        }
     );
 
-    renderAll();
+    cloudSaving=false;
+
+    if(error){
+        console.error("X7 cloud save failed",error);
+        setSyncStatus(navigator.onLine?"error":"offline",navigator.onLine?"Sync error":"Offline");
+        return;
+    }
+
+    const row=Array.isArray(rows)?rows[0]:rows;
+    if(row?.updated_at)
+        localStorage.setItem(userTimeKey(),row.updated_at);
+
+    setSyncStatus("synced","Synced");
 }
+
+async function fetchCloudRow(){
+    const {data:rows,error}=await supabaseClient.rpc(
+        "x7_load_state",
+        {p_email:currentUser.email}
+    );
+    if(error) return {row:null,error};
+    const row=Array.isArray(rows)?rows[0]:rows;
+    return {row:row||null,error:null};
+}
+
+async function loadUserState(){
+    if(!currentUser) return;
+
+    cloudLoaded=false;
+    setSyncStatus("syncing","Loading…");
+
+    const perUserLocal=parseStoredJSON(userStorageKey());
+    const legacyLocal=parseStoredJSON(LEGACY_STORAGE_KEY);
+    const localCandidate=perUserLocal || legacyLocal;
+    const localIsLegacy=!perUserLocal && !!legacyLocal;
+    const localUpdatedAt=localStorage.getItem(userTimeKey());
+
+    if(localCandidate){
+        data=localCandidate;
+        ensureX7Data();
+        renderAll();
+    }else{
+        data=createEmptyData();
+        renderAll();
+    }
+
+    const {row:cloudRow,error}=await fetchCloudRow();
+
+    if(error){
+        console.error("X7 cloud load failed",error);
+        cloudLoaded=true;
+        setSyncStatus(navigator.onLine?"error":"offline",navigator.onLine?"Cloud unavailable":"Offline • local data");
+        startCloudPolling();
+        return;
+    }
+
+    const cloudHasData=cloudRow?.data && typeof cloudRow.data==="object";
+    const localTime=localUpdatedAt ? new Date(localUpdatedAt).getTime() : 0;
+    const cloudTime=cloudRow?.updated_at ? new Date(cloudRow.updated_at).getTime() : 0;
+
+    if(cloudHasData){
+        if(perUserLocal && localTime>cloudTime){
+            data=perUserLocal;
+            ensureX7Data();
+            cloudLoaded=true;
+            persistLocal(true);
+            renderAll();
+            await pushCloudState();
+        }else{
+            data=cloudRow.data;
+            ensureX7Data();
+            persistLocal(false,cloudRow.updated_at);
+            renderAll();
+            cloudLoaded=true;
+            setSyncStatus("synced","Synced");
+        }
+    }else if(localCandidate && hasMeaningfulData(localCandidate)){
+        data=localCandidate;
+        ensureX7Data();
+        cloudLoaded=true;
+        persistLocal(true);
+        renderAll();
+        await pushCloudState();
+        if(localIsLegacy) localStorage.removeItem(LEGACY_STORAGE_KEY);
+        showToast("Existing X7 data moved to cloud");
+    }else{
+        data=createEmptyData();
+        cloudLoaded=true;
+        persistLocal(true);
+        renderAll();
+        await pushCloudState();
+    }
+
+    startCloudPolling();
+}
+
+async function pullCloudIfNewer(){
+    if(!currentUser || !navigator.onLine || !cloudLoaded || cloudSaving) return;
+
+    const {row:cloudRow,error}=await fetchCloudRow();
+    if(error || !cloudRow?.data) return;
+
+    const localTimeRaw=localStorage.getItem(userTimeKey());
+    const localTime=localTimeRaw ? new Date(localTimeRaw).getTime() : 0;
+    const cloudTime=cloudRow.updated_at ? new Date(cloudRow.updated_at).getTime() : 0;
+
+    if(cloudTime>localTime){
+        data=cloudRow.data;
+        ensureX7Data();
+        persistLocal(false,cloudRow.updated_at);
+        renderAll();
+        setSyncStatus("synced","Updated from another device");
+        setTimeout(()=>{
+            if(currentUser) setSyncStatus("synced","Synced");
+        },1200);
+    }
+}
+
+function startCloudPolling(){
+    stopCloudPolling();
+    if(!currentUser) return;
+    cloudPollTimer=setInterval(()=>pullCloudIfNewer(),CLOUD_POLL_MS);
+}
+
+function stopCloudPolling(){
+    if(cloudPollTimer){
+        clearInterval(cloudPollTimer);
+        cloudPollTimer=null;
+    }
+}
+
+async function activateSession(email){
+    const normalized=normalizeEmail(email);
+    if(!normalized) return;
+    if(currentUser?.email===normalized && cloudLoaded) return;
+
+    currentUser={id:normalized,email:normalized};
+    localStorage.setItem(ACTIVE_EMAIL_KEY,normalized);
+    document.body.classList.add("x7-authenticated");
+    document.getElementById("userEmail").textContent=normalized;
+    setAuthMessage("");
+    await loadUserState();
+}
+
+function deactivateSession(message="Enter an approved X7 email."){
+    stopCloudPolling();
+    clearTimeout(cloudSaveTimer);
+    currentUser=null;
+    cloudLoaded=false;
+    data=createEmptyData();
+    document.body.classList.remove("x7-authenticated");
+    document.getElementById("userEmail").textContent="";
+    setAuthMessage(message);
+}
+
+async function loginX7(){
+    const email=normalizeEmail(document.getElementById("authEmail").value);
+    if(!email){
+        setAuthMessage("Enter your email.","error");
+        return;
+    }
+
+    setAuthBusy(true);
+    setAuthMessage("Checking access…");
+    try{
+        const allowed=await isEmailAllowed(email);
+        if(!allowed){
+            localStorage.removeItem(ACTIVE_EMAIL_KEY);
+            setAuthMessage("This email is not approved for X7.","error");
+            return;
+        }
+        setAuthMessage("Access approved.","success");
+        await activateSession(email);
+    }catch(error){
+        setAuthMessage("Could not check X7 access. Check Supabase setup or internet.","error");
+    }finally{
+        setAuthBusy(false);
+    }
+}
+
+async function logoutX7(){
+    if(cloudSaveTimer) await pushCloudState();
+    localStorage.removeItem(ACTIVE_EMAIL_KEY);
+    deactivateSession("Enter an approved X7 email.");
+    const input=document.getElementById("authEmail");
+    if(input) input.value="";
+}
+
+async function initX7Cloud(){
+    if(!supabaseClient){
+        setAuthMessage("Supabase could not load. Check your internet connection.","error");
+        return;
+    }
+
+    const savedEmail=normalizeEmail(localStorage.getItem(ACTIVE_EMAIL_KEY));
+    if(!savedEmail){
+        deactivateSession("Enter an approved X7 email.");
+        return;
+    }
+
+    document.getElementById("authEmail").value=savedEmail;
+    setAuthMessage("Opening X7…");
+
+    try{
+        const allowed=await isEmailAllowed(savedEmail);
+        if(allowed){
+            await activateSession(savedEmail);
+        }else{
+            localStorage.removeItem(ACTIVE_EMAIL_KEY);
+            deactivateSession("This device's saved email is no longer approved.");
+        }
+    }catch(error){
+        deactivateSession("Could not connect to X7 cloud. Check your internet connection.");
+    }
+}
+
+window.addEventListener("online",()=>{
+    if(currentUser){
+        setSyncStatus("syncing","Reconnecting…");
+        pushCloudState().then(()=>pullCloudIfNewer());
+    }
+});
+
+window.addEventListener("offline",()=>{
+    if(currentUser) setSyncStatus("offline","Offline • saved locally");
+});
+
+document.addEventListener("visibilitychange",()=>{
+    if(document.visibilityState==="visible" && currentUser)
+        pullCloudIfNewer();
+});
+
+window.addEventListener("focus",()=>{
+    if(currentUser) pullCloudIfNewer();
+});
 
 
 function money(amount){
@@ -6462,18 +6894,19 @@ function showViewById(id){
 RESET
 ========================================================= */
 
-function resetX7(){
+async function resetX7(){
 
     if(!confirm(
-        "This will delete ALL X7 money, goals, debts, projects, notes, tasks, deadlines and Life OS data. Continue?"
+        "This will erase ALL X7 data for this account on every synced device. Continue?"
     ))
         return;
 
-    localStorage.removeItem(
-        STORAGE_KEY
-    );
-
-    location.reload();
+    data=createEmptyData();
+    ensureX7Data();
+    persistLocal(true);
+    renderAll();
+    await pushCloudState();
+    showToast("X7 reset on all devices");
 
 }
 
@@ -6524,6 +6957,7 @@ START
 ========================================================= */
 
 renderAll();
+initX7Cloud();
 
 </script>
 
