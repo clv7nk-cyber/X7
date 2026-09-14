@@ -783,7 +783,7 @@ HOME / DAILY COMMAND CENTER
 </div>
 
 <div class="command-stat">
-<div class="label">🏦 TODAY SAVINGS</div>
+<div class="label">🏦 TODAY SAVINGS ADDED</div>
 <div class="big yellow" id="dashTodaySavings">₹0</div>
 </div>
 
@@ -803,7 +803,7 @@ HOME / DAILY COMMAND CENTER
 </div>
 
 <div class="command-stat">
-<div class="label">🏦 MONTHLY SAVINGS</div>
+<div class="label">🏦 MONTHLY SAVINGS ADDED</div>
 <div class="big yellow" id="dashMonthlySavings">₹0</div>
 </div>
 
@@ -979,7 +979,8 @@ MONEY
 <select id="transactionType" onchange="updateTransactionCategories()">
 <option value="expense">Expense</option>
 <option value="income">Income</option>
-<option value="savings">Savings</option>
+<option value="savings_in">Savings In — received directly for savings</option>
+<option value="savings_transfer">Transfer to Savings — from my cash</option>
 </select>
 
 <input id="transactionAmount"
@@ -1036,7 +1037,7 @@ Add Transaction
 </div>
 
 <div class="card">
-<div class="label">TODAY SAVINGS</div>
+<div class="label">TODAY SAVINGS ADDED</div>
 <div class="big yellow" id="moneyTodaySavings">₹0</div>
 </div>
 
@@ -1056,7 +1057,7 @@ Add Transaction
 </div>
 
 <div class="card">
-<div class="label">MONTHLY SAVINGS</div>
+<div class="label">MONTHLY SAVINGS ADDED</div>
 <div class="big yellow" id="moneyMonthSavings">₹0</div>
 </div>
 
@@ -1068,7 +1069,7 @@ Add Transaction
 </div>
 
 <div class="card section">
-<div class="small">Income, expenses and savings are tracked separately. Savings reduce spendable cash but remain part of your net worth. Investments stay separate.</div>
+<div class="small"><strong>Savings In</strong> is money received directly for savings (for example, money from parents) and does not count as Income or reduce Cash. <strong>Transfer to Savings</strong> moves your own available Cash into Savings. Neither counts as an Expense.</div>
 </div>
 
 <div class="card section">
@@ -1821,8 +1822,13 @@ onclick="openQuickAdd('income')">
 </div>
 
 <div class="type-option"
-onclick="openQuickAdd('savings')">
-🏦 Savings
+onclick="openQuickAdd('savings_in')">
+🎁 Savings In
+</div>
+
+<div class="type-option"
+onclick="openQuickAdd('savings_transfer')">
+🏦 Save My Money
 </div>
 
 <div class="type-option"
@@ -2485,7 +2491,13 @@ const TRANSACTION_CATEGORIES={
         "Gift",
         "Other"
     ],
-    savings:[
+    savings_in:[
+        "Parents / Family",
+        "Gift for Savings",
+        "Refund to Savings",
+        "Other Savings In"
+    ],
+    savings_transfer:[
         "General Savings",
         "Emergency Fund",
         "Goal Savings",
@@ -2494,6 +2506,28 @@ const TRANSACTION_CATEGORIES={
         "Other"
     ]
 };
+
+function isSavingsInType(type){
+    return type==="savings_in";
+}
+
+function isSavingsTransferType(type){
+    // Legacy V11/V12 `savings` entries were transfers from spendable cash.
+    return type==="savings_transfer" || type==="savings";
+}
+
+function isSavingsType(type){
+    return isSavingsInType(type) || isSavingsTransferType(type);
+}
+
+function transactionTypeLabel(type){
+    if(type==="income") return "Income";
+    if(type==="expense") return "Expense";
+    if(isSavingsInType(type)) return "Savings In";
+    if(isSavingsTransferType(type)) return "Transfer to Savings";
+    if(type==="investment") return "Investment";
+    return String(type||"");
+}
 
 function updateTransactionCategories(){
     const typeEl=document.getElementById("transactionType");
@@ -2565,8 +2599,10 @@ function addTransaction(){
     showToast(
         type==="income"
         ?"Income added"
-        :type==="savings"
-        ?"Savings added"
+        :type==="savings_in"
+        ?"Savings received"
+        :type==="savings_transfer"
+        ?"Moved to savings"
         :"Expense added"
     );
 
@@ -2587,9 +2623,15 @@ function getMonthTotals(key){
         .filter(t=>t.type==="expense")
         .reduce((s,t)=>s+Number(t.amount),0);
 
-    const savings=transactions
-        .filter(t=>t.type==="savings")
+    const savingsIn=transactions
+        .filter(t=>isSavingsInType(t.type))
         .reduce((s,t)=>s+Number(t.amount),0);
+
+    const savingsTransferred=transactions
+        .filter(t=>isSavingsTransferType(t.type))
+        .reduce((s,t)=>s+Number(t.amount),0);
+
+    const savings=savingsIn+savingsTransferred;
 
     function categoryTotal(category){
 
@@ -2615,6 +2657,8 @@ function getMonthTotals(key){
         expenses,
 
         savings,
+        savingsIn,
+        savingsTransferred,
 
         net:income-expenses,
 
@@ -2668,15 +2712,23 @@ function getDayTotals(key=todayKey()){
         .filter(t=>t.type==="expense")
         .reduce((s,t)=>s+Number(t.amount),0);
 
-    const savings=transactions
-        .filter(t=>t.type==="savings")
+    const savingsIn=transactions
+        .filter(t=>isSavingsInType(t.type))
         .reduce((s,t)=>s+Number(t.amount),0);
+
+    const savingsTransferred=transactions
+        .filter(t=>isSavingsTransferType(t.type))
+        .reduce((s,t)=>s+Number(t.amount),0);
+
+    const savings=savingsIn+savingsTransferred;
 
     return{
         transactions,
         income,
         expenses,
         savings,
+        savingsIn,
+        savingsTransferred,
         net:income-expenses
     };
 
@@ -2745,8 +2797,9 @@ function renderMoney(){
             Expenses:
             <strong class="bad">${money(totals.expenses)}</strong>
             &nbsp; • &nbsp;
-            Savings:
+            Savings added:
             <strong class="yellow">${money(totals.savings)}</strong>
+            <span class="muted">(${money(totals.savingsIn)} received + ${money(totals.savingsTransferred)} transferred)</span>
             &nbsp; • &nbsp;
             Net:
             <strong class="${totals.net>=0?"good":"bad"}">${money(totals.net)}</strong>
@@ -2774,10 +2827,11 @@ function renderMoney(){
             .map(t=>{
 
                 const isIncome=t.type==="income";
-                const isSavings=t.type==="savings";
+                const isSavings=isSavingsType(t.type);
+                const isSavingsIn=isSavingsInType(t.type);
                 const isInvestment=t.type==="investment";
                 const valueClass=isIncome?"good":isSavings?"yellow":isInvestment?"purple":"bad";
-                const sign=isIncome?"+":isSavings?"→":isInvestment?"↗":"-";
+                const sign=isIncome?"+":isSavingsIn?"+":isSavings?"→":isInvestment?"↗":"-";
 
                 return `
                 <tr>
@@ -2788,7 +2842,7 @@ function renderMoney(){
                             {day:"2-digit",month:"short"}
                         )}
                     </td>
-                    <td>${escapeHTML(t.type)}</td>
+                    <td>${escapeHTML(transactionTypeLabel(t.type))}</td>
                     <td>${escapeHTML(t.category)}</td>
                     <td>${escapeHTML(t.note)}</td>
                     <td class="${valueClass}">
@@ -2920,15 +2974,23 @@ function renderHome(){
         .filter(t=>t.type==="expense")
         .reduce((sum,t)=>sum+Number(t.amount),0);
 
-    const allSavings=data.transactions
-        .filter(t=>t.type==="savings")
+    const allSavingsIn=data.transactions
+        .filter(t=>isSavingsInType(t.type))
         .reduce((sum,t)=>sum+Number(t.amount),0);
+
+    const allSavingsTransferred=data.transactions
+        .filter(t=>isSavingsTransferType(t.type))
+        .reduce((sum,t)=>sum+Number(t.amount),0);
+
+    const allSavings=allSavingsIn+allSavingsTransferred;
 
     const allInvestmentOutflows=data.transactions
         .filter(t=>t.type==="investment")
         .reduce((sum,t)=>sum+Number(t.amount),0);
 
-    const cash=allIncomes-allExpenses-allSavings-allInvestmentOutflows;
+    // Savings received directly (e.g. from parents) goes straight into Savings,
+    // so it does NOT reduce Cash. Only transfers from your own Cash do.
+    const cash=allIncomes-allExpenses-allSavingsTransferred-allInvestmentOutflows;
 
     const debt=data.debts
         .reduce((sum,d)=>sum+Math.max(0,Number(d.total)-Number(d.paid)),0);
@@ -6610,7 +6672,7 @@ function renderHistory(){
                     )}
                 </td>
 
-                <td>${t.type}</td>
+                <td>${escapeHTML(transactionTypeLabel(t.type))}</td>
 
                 <td>${escapeHTML(t.category)}</td>
 
@@ -6619,13 +6681,13 @@ function renderHistory(){
                 <td class="${
                     t.type==="income"
                     ?"good"
-                    :t.type==="savings"
+                    :isSavingsType(t.type)
                     ?"yellow"
                     :t.type==="investment"
                     ?"purple"
                     :"bad"
                 }">
-                    ${t.type==="income"?"+":t.type==="savings"?"→":t.type==="investment"?"↗":"-"}
+                    ${t.type==="income"?"+":isSavingsInType(t.type)?"+":isSavingsType(t.type)?"→":t.type==="investment"?"↗":"-"}
                     ${money(t.amount)}
                 </td>
 
@@ -6865,13 +6927,14 @@ function openQuickAdd(type){
 
         closeModal("quickModal");
 
-        if(type==="expense" || type==="income" || type==="savings"){
+        if(type==="expense" || type==="income" || type==="savings_in" || type==="savings_transfer"){
 
             showViewById("money");
 
             document.getElementById(
                 "transactionType"
             ).value=type;
+            updateTransactionCategories();
 
             return;
 
